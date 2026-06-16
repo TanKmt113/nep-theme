@@ -343,6 +343,20 @@ function nep_seed_admin_page(): void
             $log = array_merge($log, nep_seed_structure());
         }
 
+        if ($did === 'sync' || $did === 'all') {
+            // Bơm dữ liệu mẫu vào các ô ACF của tất cả trang (kèm tải ảnh demo).
+            if (function_exists(__NAMESPACE__ . '\\nep_sync_content')) {
+                $log[] = '— Đang đồng bộ dữ liệu mẫu vào ACF…';
+                try {
+                    nep_sync_content(function (string $line) use (&$log) {
+                        $log[] = $line;
+                    });
+                } catch (\Throwable $e) {
+                    $log[] = '⚠ ' . $e->getMessage();
+                }
+            }
+        }
+
         if ($did === 'all') {
             // Nội dung (sản phẩm/dự án/loại rèm) — chỉ khi có WooCommerce.
             if (function_exists(__NAMESPACE__ . '\\nep_seed_content')) {
@@ -384,6 +398,17 @@ function nep_seed_admin_page(): void
                         <input type="hidden" name="nep_seed_action" value="structure">
                         <?php submit_button('Tạo Trang + Menu + Tuỳ chọn', 'secondary', 'submit', false); ?>
                         <p class="description">Trang (Giới thiệu, Xưởng thêu, Liên hệ, Bộ sưu tập, Trang chủ, Tin tức), 4 menu và thông tin liên hệ.</p>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Đồng bộ nội dung mẫu</th>
+                <td>
+                    <form method="post">
+                        <?php wp_nonce_field('nep_seed'); ?>
+                        <input type="hidden" name="nep_seed_action" value="sync">
+                        <?php submit_button('Đồng bộ dữ liệu mẫu vào ô soạn thảo (ACF)', 'secondary', 'submit', false); ?>
+                        <p class="description">Bơm sẵn nội dung mẫu (tiêu đề, đoạn văn, số liệu, đội ngũ, dịch vụ…) + ảnh demo vào các ô ACF của Trang chủ và 4 trang, để bạn sửa trực tiếp trong admin. Có thể mất 1–2 phút vì tải ảnh.</p>
                     </form>
                 </td>
             </tr>

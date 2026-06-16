@@ -13,9 +13,27 @@
 
   <section style="padding-top:var(--space-7);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
-      @php $projects = $GLOBALS['wp_query']->posts ?? []; @endphp
-      @if($projects)
-        @include('sections.project-slider', ['projects' => $projects, 'showType' => true])
+      @if(have_posts())
+        <div class="nep-proj-archive-grid">
+          @while(have_posts())
+            @php the_post(); $id = get_the_ID(); @endphp
+            <a href="{{ get_permalink($id) }}" class="nep-proj-card nep-proj-archive-card">
+              <img src="{{ get_the_post_thumbnail_url($id, 'nep_wide') ?: '' }}" alt="{{ get_the_title() }}" loading="lazy">
+              <div class="nep-proj-card__overlay"></div>
+              <div class="nep-proj-archive-card__cap">
+                @if($type = nep_field('type', $id))
+                  <div class="nep-proj-archive-card__type">{{ $type }}</div>
+                @endif
+                <div class="nep-proj-archive-card__title">{{ get_the_title() }}</div>
+                @if($place = nep_field('place', $id))
+                  <div class="nep-proj-archive-card__place"><x-icon name="map-pin" :size="14" color="#fff" /> {{ $place }}</div>
+                @endif
+              </div>
+            </a>
+          @endwhile
+        </div>
+
+        <div class="nep-pagination" style="margin-top:var(--space-8)">@php(the_posts_pagination(['mid_size' => 1, 'prev_text' => '←', 'next_text' => '→']))</div>
       @else
         <p style="text-align:center;color:var(--text-muted)">Chưa có dự án nào.</p>
       @endif

@@ -120,3 +120,12 @@ add_action('after_setup_theme', function () {
  * Drop the default "Lưu trữ:" / "Archive:" prefix from archive titles.
  */
 add_filter('get_the_archive_title_prefix', '__return_empty_string');
+
+/**
+ * Project archive: 12 per page (grid + pagination scales when projects grow).
+ */
+add_action('pre_get_posts', function ($q) {
+    if (! is_admin() && $q->is_main_query() && $q->is_post_type_archive('du_an')) {
+        $q->set('posts_per_page', 12);
+    }
+});

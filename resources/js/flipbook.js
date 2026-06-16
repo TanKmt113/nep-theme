@@ -9,10 +9,25 @@ import * as pdfjsLib from 'pdfjs-dist'
 import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 import { PageFlip } from 'page-flip/dist/js/page-flip.module.js'
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl
+/**
+ * Một số server (vd: nginx chưa khai báo MIME cho .mjs) trả file worker là
+ * application/octet-stream → trình duyệt từ chối nạp module worker và PDF.js
+ * không chạy được. Ta tự fetch worker rồi đưa cho PDF.js một Blob URL cùng
+ * origin với MIME do mình kiểm soát, nên nạp được bất kể cấu hình server.
+ */
+let workerSrcPromise
+function resolveWorkerSrc() {
+  workerSrcPromise ||= fetch(workerUrl)
+    .then((res) => res.text())
+    .then((code) => URL.createObjectURL(new Blob([code], { type: 'text/javascript' })))
+    .catch(() => workerUrl) // không fetch được → dùng URL trực tiếp
+  return workerSrcPromise
+}
 
 export async function initFlipbook() {
   const books = document.querySelectorAll('.nep-flipbook')
+  if (!books.length) return
+  pdfjsLib.GlobalWorkerOptions.workerSrc = await resolveWorkerSrc()
   for (const el of books) {
     try {
       await buildBook(el)
@@ -32,7 +47,7 @@ async function buildBook(el) {
   const loading = wrap?.querySelector('.nep-flipbook-loading')
 
   // 1. Tải PDF + render từng trang ra ảnh JPEG.
-  const pdf = await pdfjsLib.getDocument(url).promise
+  const pdf = await pdfjsLib.getDocument({ url }).promise
   const total = pdf.numPages
   const images = []
   let ratio = 1.414 // A4 mặc định (cao/rộng)

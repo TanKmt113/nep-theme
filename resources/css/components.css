@@ -180,6 +180,13 @@
    ============================================================ */
 .nep-proj-swiper { --swiper-theme-color: var(--brand); overflow: hidden; }
 .nep-proj-swiper .swiper-slide { height: 460px; }
+/* Giữ ảnh sắc nét khi Swiper trượt bằng translate3d (tránh mờ do GPU layer). */
+.nep-proj-swiper .swiper-slide,
+.nep-proj-swiper .nep-proj-card,
+.nep-proj-swiper .nep-proj-card img {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
 .nep-proj-swiper .nep-proj-card { width: 100%; }
 .nep-proj-swiper__controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: var(--space-7); }
 .nep-proj-swiper__btn {
@@ -197,3 +204,28 @@
 @media (max-width: 860px) {
   .nep-proj-swiper .swiper-slide { height: 360px; }
 }
+
+/* ---- Archive Dự án: lưới responsive tự co + phân trang ------ */
+.nep-proj-archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: var(--space-5);
+}
+.nep-proj-archive-card { position: relative; display: block; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); overflow: hidden; }
+.nep-proj-archive-card img { width: 100%; height: 100%; object-fit: cover; }
+.nep-proj-archive-card__cap { position: absolute; left: 22px; right: 22px; bottom: 20px; color: #fff; }
+.nep-proj-archive-card__type { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; opacity: .85; margin-bottom: 2px; }
+.nep-proj-archive-card__title { font-family: var(--font-display); font-size: var(--text-h2); font-weight: 600; }
+.nep-proj-archive-card__place { font-size: var(--text-sm); opacity: .85; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+
+.nep-pagination .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.nep-pagination .page-numbers {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; height: 44px; padding: 0 12px; border-radius: 999px;
+  border: 1px solid var(--border-soft); background: var(--paper);
+  color: var(--text-body); font-size: var(--text-sm); font-weight: 600;
+  text-decoration: none; transition: var(--t-card);
+}
+.nep-pagination .page-numbers:hover { border-color: var(--brand); color: var(--text-brand); }
+.nep-pagination .page-numbers.current { background: var(--brand); border-color: var(--brand); color: #fff; }
+.nep-pagination .page-numbers.dots { border: none; background: transparent; }

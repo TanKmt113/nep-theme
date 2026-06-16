@@ -37,7 +37,7 @@ if (! function_exists('\Roots\bootloader')) {
 | Load theme files (setup, post types, fields, helpers, seeder)
 |--------------------------------------------------------------------------
 */
-collect(['setup', 'helpers', 'post-types', 'fields', 'woocommerce', 'seed', 'seed-pages', 'contact'])
+collect(['setup', 'helpers', 'post-types', 'fields', 'woocommerce', 'seed', 'seed-pages', 'sync-content', 'contact'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true, [])) {
             wp_die(

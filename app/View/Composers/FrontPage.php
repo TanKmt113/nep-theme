@@ -98,12 +98,12 @@ class FrontPage extends Composer
         return is_wp_error($terms) ? [] : $terms;
     }
 
-    /** All projects. */
+    /** Latest projects for the home showcase slider (full list lives on the archive). */
     protected function projects(): array
     {
         return get_posts([
             'post_type'   => 'du_an',
-            'numberposts' => -1,
+            'numberposts' => 8,
         ]);
     }
 }

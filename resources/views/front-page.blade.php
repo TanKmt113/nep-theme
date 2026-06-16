@@ -134,8 +134,11 @@
   {{-- ===== Projects / Dự án ===== --}}
   <section id="projects" style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--space-8)">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-5);margin-bottom:var(--space-8);flex-wrap:wrap">
         <div><x-eyebrow rule>{{ $home['projects_eyebrow'] }}</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">{{ $home['projects_heading'] }}</h2></div>
+        @if($link = get_post_type_archive_link('du_an'))
+          <x-button href="{{ $link }}" variant="ghost">Xem tất cả dự án <x-icon name="arrow-right" :size="16" /></x-button>
+        @endif
       </div>
       @include('sections.project-slider', ['projects' => $projects, 'showType' => false])
     </x-container>
