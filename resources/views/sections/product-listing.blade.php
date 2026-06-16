@@ -40,8 +40,11 @@
 
 @if($query && $query->have_posts())
   <div class="nep-grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5)">
-    @while($query->have_posts()) @php($query->the_post())
-      @php $cat = get_the_terms(get_the_ID(), 'product_cat'); @endphp
+    @while($query->have_posts())
+      @php
+        $query->the_post();
+        $cat = get_the_terms(get_the_ID(), 'product_cat');
+      @endphp
       <x-product-card
         :image="get_the_post_thumbnail_url(get_the_ID(), 'nep_card') ?: wc_placeholder_img_src('nep_card')"
         :meta="(!is_wp_error($cat) && $cat ? $cat[0]->name : '')"

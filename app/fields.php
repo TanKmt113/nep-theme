@@ -66,6 +66,228 @@ add_action('acf/init', function () {
         'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'nep-settings']]],
     ]);
 
+    // ---- Trang chủ (gắn trực tiếp vào trang đặt làm Trang chủ) ----------
+    // Mở: Trang → Trang chủ → các ô bên dưới khung soạn thảo.
+    acf_add_local_field_group([
+        'key'    => 'group_home',
+        'title'  => 'Nội dung Trang chủ',
+        'fields' => [
+            // ===== Tab: Hero =====
+            ['key' => 'f_home_tab_hero', 'label' => 'Hero', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_hero_eyebrow', 'label' => 'Eyebrow (dòng nhỏ phía trên)', 'name' => 'hero_eyebrow', 'type' => 'text', 'default_value' => 'Rèm cửa cao cấp · Từ 2014'],
+            ['key' => 'f_home_hero_title', 'label' => 'Tiêu đề', 'name' => 'hero_title', 'type' => 'text', 'default_value' => 'Kiến tạo không gian sống'],
+            ['key' => 'f_home_hero_accent', 'label' => 'Từ nhấn (in nghiêng, màu rêu)', 'name' => 'hero_title_accent', 'type' => 'text', 'default_value' => 'đẳng cấp', 'instructions' => 'Để trống nếu không cần phần in nghiêng.'],
+            ['key' => 'f_home_hero_desc', 'label' => 'Mô tả', 'name' => 'hero_desc', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Thiết kế, thi công và lắp đặt rèm cửa cao cấp cùng xưởng thêu vi tính — chăm chút trong từng đường nét.'],
+            ['key' => 'f_home_hero_image', 'label' => 'Ảnh nền hero', 'name' => 'hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'instructions' => 'Để trống sẽ dùng ảnh mặc định.'],
+            ['key' => 'f_home_hero_btn1_text', 'label' => 'Nút 1 — chữ', 'name' => 'hero_btn1_text', 'type' => 'text', 'default_value' => 'Xem bộ sưu tập', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_hero_btn1_url', 'label' => 'Nút 1 — liên kết', 'name' => 'hero_btn1_url', 'type' => 'text', 'instructions' => 'Để trống = trang Sản phẩm.', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_hero_btn2_text', 'label' => 'Nút 2 — chữ', 'name' => 'hero_btn2_text', 'type' => 'text', 'default_value' => 'Nhận báo giá', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_hero_btn2_url', 'label' => 'Nút 2 — liên kết', 'name' => 'hero_btn2_url', 'type' => 'text', 'instructions' => 'Để trống = trang Liên hệ.', 'wrapper' => ['width' => 50]],
+            [
+                'key' => 'f_home_stats', 'label' => 'Số liệu (dải dưới hero)', 'name' => 'stats', 'type' => 'repeater',
+                'layout' => 'table', 'button_label' => 'Thêm số liệu',
+                'sub_fields' => [
+                    ['key' => 'f_home_stat_value', 'label' => 'Số', 'name' => 'value', 'type' => 'text'],
+                    ['key' => 'f_home_stat_label', 'label' => 'Nhãn', 'name' => 'label', 'type' => 'text'],
+                ],
+            ],
+
+            // ===== Tab: Giới thiệu =====
+            ['key' => 'f_home_tab_intro', 'label' => 'Giới thiệu', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_intro_eyebrow', 'label' => 'Eyebrow', 'name' => 'intro_eyebrow', 'type' => 'text', 'default_value' => 'Về NẾP'],
+            ['key' => 'f_home_intro_heading', 'label' => 'Tiêu đề', 'name' => 'intro_heading', 'type' => 'text', 'default_value' => 'Nghề rèm, thêu — chăm chút từng nếp gấp'],
+            ['key' => 'f_home_intro_text', 'label' => 'Đoạn văn', 'name' => 'intro_text', 'type' => 'textarea', 'rows' => 4, 'default_value' => 'Suốt một thập kỷ, NẾP đồng hành cùng hàng nghìn gia đình và doanh nghiệp Việt — mang đến những bộ rèm và sản phẩm thêu bền đẹp, tinh tế và đậm dấu ấn riêng.'],
+            ['key' => 'f_home_intro_image', 'label' => 'Ảnh', 'name' => 'intro_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'instructions' => 'Để trống sẽ dùng ảnh mặc định.'],
+            ['key' => 'f_home_intro_badge_value', 'label' => 'Badge — số', 'name' => 'intro_badge_value', 'type' => 'text', 'default_value' => '4.9/5', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_intro_badge_label', 'label' => 'Badge — nhãn', 'name' => 'intro_badge_label', 'type' => 'text', 'default_value' => '1.200+ đánh giá', 'wrapper' => ['width' => 50]],
+
+            // ===== Tab: Tiêu đề các mục =====
+            ['key' => 'f_home_tab_titles', 'label' => 'Tiêu đề các mục', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_cat_eyebrow', 'label' => 'Danh mục — eyebrow', 'name' => 'cat_eyebrow', 'type' => 'text', 'default_value' => 'Danh mục', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_cat_heading', 'label' => 'Danh mục — tiêu đề', 'name' => 'cat_heading', 'type' => 'text', 'default_value' => 'Bộ sưu tập rèm cửa', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_feat_eyebrow', 'label' => 'Nổi bật — eyebrow', 'name' => 'featured_eyebrow', 'type' => 'text', 'default_value' => 'Nổi bật', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_feat_heading', 'label' => 'Nổi bật — tiêu đề', 'name' => 'featured_heading', 'type' => 'text', 'default_value' => 'Được yêu thích nhất', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_proc_eyebrow', 'label' => 'Quy trình — eyebrow', 'name' => 'process_eyebrow', 'type' => 'text', 'default_value' => 'Quy trình', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_proc_heading', 'label' => 'Quy trình — tiêu đề', 'name' => 'process_heading', 'type' => 'text', 'default_value' => '6 bước, trọn vẹn an tâm', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_proj_eyebrow', 'label' => 'Dự án — eyebrow', 'name' => 'projects_eyebrow', 'type' => 'text', 'default_value' => 'Dự án', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_proj_heading', 'label' => 'Dự án — tiêu đề', 'name' => 'projects_heading', 'type' => 'text', 'default_value' => 'Không gian đã hoàn thiện', 'wrapper' => ['width' => 50]],
+        ],
+        'location'   => [[['param' => 'page_type', 'operator' => '==', 'value' => 'front_page']]],
+        'menu_order' => 0,
+        'position'   => 'normal',
+        'style'      => 'default',
+    ]);
+
+    // ---- Trang "Giới thiệu" (template-gioi-thieu) ----------------------
+    acf_add_local_field_group([
+        'key'    => 'group_page_about',
+        'title'  => 'Nội dung trang Giới thiệu',
+        'fields' => [
+            ['key' => 'f_ab_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
+            ['key' => 'f_ab_eyebrow', 'label' => 'Eyebrow', 'name' => 'about_hero_eyebrow', 'type' => 'text', 'default_value' => 'Về chúng tôi'],
+            ['key' => 'f_ab_title', 'label' => 'Tiêu đề', 'name' => 'about_hero_title', 'type' => 'text', 'default_value' => 'Nghề rèm, thêu —'],
+            ['key' => 'f_ab_accent', 'label' => 'Từ nhấn (in nghiêng)', 'name' => 'about_hero_accent', 'type' => 'text', 'default_value' => 'chăm chút từng nếp gấp'],
+            ['key' => 'f_ab_lead', 'label' => 'Mô tả', 'name' => 'about_lead', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'NẾP ra đời năm 2014 từ một xưởng may rèm nhỏ ở Sài Gòn, với niềm tin rằng một tấm rèm đẹp có thể thay đổi cả cảm xúc của một căn nhà.'],
+            ['key' => 'f_ab_hero_img', 'label' => 'Ảnh nền hero', 'name' => 'about_hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+
+            ['key' => 'f_ab_tab_story', 'label' => 'Câu chuyện', 'type' => 'tab'],
+            ['key' => 'f_ab_story_eyebrow', 'label' => 'Eyebrow', 'name' => 'about_story_eyebrow', 'type' => 'text', 'default_value' => 'Câu chuyện NẾP'],
+            ['key' => 'f_ab_story_heading', 'label' => 'Tiêu đề', 'name' => 'about_story_heading', 'type' => 'text', 'default_value' => 'Từ một xưởng nhỏ đến thương hiệu được tin yêu'],
+            ['key' => 'f_ab_story', 'label' => 'Đoạn văn', 'name' => 'about_story', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Thêm đoạn', 'sub_fields' => [
+                ['key' => 'f_ab_story_text', 'label' => 'Nội dung', 'name' => 'text', 'type' => 'textarea', 'rows' => 3],
+            ]],
+            ['key' => 'f_ab_story_img1', 'label' => 'Ảnh 1', 'name' => 'about_story_img1', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_ab_story_img2', 'label' => 'Ảnh 2', 'name' => 'about_story_img2', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'wrapper' => ['width' => 50]],
+
+            ['key' => 'f_ab_tab_stats', 'label' => 'Số liệu', 'type' => 'tab'],
+            ['key' => 'f_ab_stats', 'label' => 'Số liệu', 'name' => 'about_stats', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Thêm số liệu', 'sub_fields' => [
+                ['key' => 'f_ab_stat_v', 'label' => 'Số', 'name' => 'value', 'type' => 'text'],
+                ['key' => 'f_ab_stat_l', 'label' => 'Nhãn', 'name' => 'label', 'type' => 'text'],
+            ]],
+
+            ['key' => 'f_ab_tab_values', 'label' => 'Giá trị', 'type' => 'tab'],
+            ['key' => 'f_ab_val_eyebrow', 'label' => 'Eyebrow', 'name' => 'about_values_eyebrow', 'type' => 'text', 'default_value' => 'Giá trị cốt lõi'],
+            ['key' => 'f_ab_val_heading', 'label' => 'Tiêu đề', 'name' => 'about_values_heading', 'type' => 'text', 'default_value' => 'Điều chúng tôi luôn giữ'],
+            ['key' => 'f_ab_values', 'label' => 'Giá trị', 'name' => 'about_values', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Thêm giá trị', 'sub_fields' => [
+                ['key' => 'f_ab_val_icon', 'label' => 'Icon (lucide)', 'name' => 'icon', 'type' => 'text'],
+                ['key' => 'f_ab_val_title', 'label' => 'Tiêu đề', 'name' => 'title', 'type' => 'text'],
+                ['key' => 'f_ab_val_desc', 'label' => 'Mô tả', 'name' => 'desc', 'type' => 'textarea', 'rows' => 2],
+            ]],
+
+            ['key' => 'f_ab_tab_time', 'label' => 'Hành trình', 'type' => 'tab'],
+            ['key' => 'f_ab_time_eyebrow', 'label' => 'Eyebrow', 'name' => 'about_timeline_eyebrow', 'type' => 'text', 'default_value' => 'Hành trình'],
+            ['key' => 'f_ab_time_heading', 'label' => 'Tiêu đề', 'name' => 'about_timeline_heading', 'type' => 'text', 'default_value' => 'Những cột mốc đáng nhớ'],
+            ['key' => 'f_ab_milestones', 'label' => 'Cột mốc', 'name' => 'about_milestones', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Thêm cột mốc', 'sub_fields' => [
+                ['key' => 'f_ab_ms_year', 'label' => 'Năm', 'name' => 'year', 'type' => 'text'],
+                ['key' => 'f_ab_ms_text', 'label' => 'Mô tả', 'name' => 'text', 'type' => 'textarea', 'rows' => 2],
+            ]],
+
+            ['key' => 'f_ab_tab_team', 'label' => 'Đội ngũ', 'type' => 'tab'],
+            ['key' => 'f_ab_team_eyebrow', 'label' => 'Eyebrow', 'name' => 'about_team_eyebrow', 'type' => 'text', 'default_value' => 'Đội ngũ'],
+            ['key' => 'f_ab_team_heading', 'label' => 'Tiêu đề', 'name' => 'about_team_heading', 'type' => 'text', 'default_value' => 'Những con người làm nên NẾP'],
+            ['key' => 'f_ab_team', 'label' => 'Thành viên', 'name' => 'about_team', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Thêm thành viên', 'sub_fields' => [
+                ['key' => 'f_ab_team_name', 'label' => 'Tên', 'name' => 'name', 'type' => 'text'],
+                ['key' => 'f_ab_team_role', 'label' => 'Chức danh', 'name' => 'role', 'type' => 'text'],
+                ['key' => 'f_ab_team_img', 'label' => 'Ảnh', 'name' => 'image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'thumbnail'],
+            ]],
+        ],
+        'location'   => [[['param' => 'page_template', 'operator' => '==', 'value' => 'template-gioi-thieu.blade.php']]],
+        'menu_order' => 0,
+    ]);
+
+    // ---- Trang "Xưởng thêu" (template-xuong-theu) ---------------------
+    acf_add_local_field_group([
+        'key'    => 'group_page_emb',
+        'title'  => 'Nội dung trang Xưởng thêu',
+        'fields' => [
+            ['key' => 'f_em_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
+            ['key' => 'f_em_eyebrow', 'label' => 'Eyebrow', 'name' => 'emb_hero_eyebrow', 'type' => 'text', 'default_value' => 'Xưởng thêu vi tính'],
+            ['key' => 'f_em_title', 'label' => 'Tiêu đề', 'name' => 'emb_hero_title', 'type' => 'text', 'default_value' => 'Logo, đồng phục & quà tặng'],
+            ['key' => 'f_em_accent', 'label' => 'Từ nhấn (in nghiêng)', 'name' => 'emb_hero_accent', 'type' => 'text', 'default_value' => 'thêu sắc nét'],
+            ['key' => 'f_em_desc', 'label' => 'Mô tả', 'name' => 'emb_hero_desc', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Hệ thống máy thêu vi tính đa kim hiện đại — nhận gia công số lượng lớn cho doanh nghiệp, trường học và sự kiện.'],
+            ['key' => 'f_em_hero_img', 'label' => 'Ảnh nền hero', 'name' => 'emb_hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+            ['key' => 'f_em_b1t', 'label' => 'Nút 1 — chữ', 'name' => 'emb_btn1_text', 'type' => 'text', 'default_value' => 'Xem máy thêu hoạt động', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_b1u', 'label' => 'Nút 1 — liên kết', 'name' => 'emb_btn1_url', 'type' => 'text', 'instructions' => 'Trống = trang Liên hệ.', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_b2t', 'label' => 'Nút 2 — chữ', 'name' => 'emb_btn2_text', 'type' => 'text', 'default_value' => 'Báo giá gia công', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_b2u', 'label' => 'Nút 2 — liên kết', 'name' => 'emb_btn2_url', 'type' => 'text', 'instructions' => 'Trống = trang Liên hệ.', 'wrapper' => ['width' => 50]],
+
+            ['key' => 'f_em_tab_stats', 'label' => 'Số liệu', 'type' => 'tab'],
+            ['key' => 'f_em_stats', 'label' => 'Số liệu', 'name' => 'emb_stats', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Thêm số liệu', 'sub_fields' => [
+                ['key' => 'f_em_stat_v', 'label' => 'Số', 'name' => 'value', 'type' => 'text'],
+                ['key' => 'f_em_stat_l', 'label' => 'Nhãn', 'name' => 'label', 'type' => 'text'],
+            ]],
+
+            ['key' => 'f_em_tab_cap', 'label' => 'Năng lực', 'type' => 'tab'],
+            ['key' => 'f_em_cap_eyebrow', 'label' => 'Eyebrow', 'name' => 'emb_cap_eyebrow', 'type' => 'text', 'default_value' => 'Năng lực sản xuất'],
+            ['key' => 'f_em_cap_heading', 'label' => 'Tiêu đề', 'name' => 'emb_cap_heading', 'type' => 'text', 'default_value' => 'Máy móc hiện đại, sản lượng lớn'],
+            ['key' => 'f_em_cap_text', 'label' => 'Mô tả', 'name' => 'emb_cap_text', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Hệ thống hơn 20 máy thêu vi tính đa kim cho phép chúng tôi xử lý đơn hàng lớn với chất lượng đồng đều và thời gian giao hàng nhanh.'],
+            ['key' => 'f_em_cap_img1', 'label' => 'Ảnh 1', 'name' => 'emb_cap_img1', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_cap_img2', 'label' => 'Ảnh 2', 'name' => 'emb_cap_img2', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_caps', 'label' => 'Điểm năng lực', 'name' => 'emb_caps', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Thêm điểm', 'sub_fields' => [
+                ['key' => 'f_em_cap_item', 'label' => 'Nội dung', 'name' => 'text', 'type' => 'text'],
+            ]],
+
+            ['key' => 'f_em_tab_svc', 'label' => 'Dịch vụ', 'type' => 'tab'],
+            ['key' => 'f_em_svc_eyebrow', 'label' => 'Eyebrow', 'name' => 'emb_svc_eyebrow', 'type' => 'text', 'default_value' => 'Dịch vụ thêu'],
+            ['key' => 'f_em_svc_heading', 'label' => 'Tiêu đề', 'name' => 'emb_svc_heading', 'type' => 'text', 'default_value' => 'Chúng tôi nhận thêu gì?'],
+            ['key' => 'f_em_services', 'label' => 'Dịch vụ', 'name' => 'emb_services', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Thêm dịch vụ', 'sub_fields' => [
+                ['key' => 'f_em_svc_title', 'label' => 'Tiêu đề', 'name' => 'title', 'type' => 'text'],
+                ['key' => 'f_em_svc_desc', 'label' => 'Mô tả', 'name' => 'desc', 'type' => 'textarea', 'rows' => 2],
+                ['key' => 'f_em_svc_icon', 'label' => 'Icon (lucide)', 'name' => 'icon', 'type' => 'text'],
+                ['key' => 'f_em_svc_img', 'label' => 'Ảnh', 'name' => 'image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'thumbnail'],
+            ]],
+
+            ['key' => 'f_em_tab_cta', 'label' => 'CTA cuối', 'type' => 'tab'],
+            ['key' => 'f_em_cta_heading', 'label' => 'Tiêu đề', 'name' => 'emb_cta_heading', 'type' => 'text', 'default_value' => 'Gửi logo — nhận mẫu thêu trong 24 giờ'],
+            ['key' => 'f_em_cta_text', 'label' => 'Mô tả', 'name' => 'emb_cta_text', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Đội ngũ tư vấn sẽ báo giá và gửi mẫu số hoá miễn phí cho đơn hàng của bạn.'],
+            ['key' => 'f_em_cta_b1t', 'label' => 'Nút 1 — chữ', 'name' => 'emb_cta_btn1_text', 'type' => 'text', 'default_value' => 'Gửi logo báo giá', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_cta_b1u', 'label' => 'Nút 1 — liên kết', 'name' => 'emb_cta_btn1_url', 'type' => 'text', 'instructions' => 'Trống = trang Liên hệ.', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_cta_b2t', 'label' => 'Nút 2 — chữ', 'name' => 'emb_cta_btn2_text', 'type' => 'text', 'default_value' => 'Xem sản phẩm rèm', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_em_cta_b2u', 'label' => 'Nút 2 — liên kết', 'name' => 'emb_cta_btn2_url', 'type' => 'text', 'instructions' => 'Trống = trang Sản phẩm.', 'wrapper' => ['width' => 50]],
+        ],
+        'location'   => [[['param' => 'page_template', 'operator' => '==', 'value' => 'template-xuong-theu.blade.php']]],
+        'menu_order' => 0,
+    ]);
+
+    // ---- Trang "Liên hệ" (template-lien-he) ---------------------------
+    // Địa chỉ/điện thoại/email/giờ lấy từ "Cài đặt NẾP" (Options).
+    acf_add_local_field_group([
+        'key'    => 'group_page_contact',
+        'title'  => 'Nội dung trang Liên hệ',
+        'fields' => [
+            ['key' => 'f_ct_eyebrow', 'label' => 'Banner — eyebrow', 'name' => 'contact_eyebrow', 'type' => 'text', 'default_value' => 'Liên hệ'],
+            ['key' => 'f_ct_heading', 'label' => 'Banner — tiêu đề', 'name' => 'contact_heading', 'type' => 'text', 'default_value' => 'Cùng kiến tạo không gian của bạn'],
+            ['key' => 'f_ct_desc', 'label' => 'Banner — mô tả', 'name' => 'contact_desc', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Để lại thông tin, đội ngũ NẾP sẽ liên hệ tư vấn và đặt lịch khảo sát miễn phí trong vòng 24 giờ.'],
+            ['key' => 'f_ct_form_heading', 'label' => 'Tiêu đề form', 'name' => 'contact_form_heading', 'type' => 'text', 'default_value' => 'Gửi yêu cầu tư vấn'],
+            ['key' => 'f_ct_subjects', 'label' => 'Chủ đề (dropdown)', 'name' => 'contact_subjects', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Thêm chủ đề', 'sub_fields' => [
+                ['key' => 'f_ct_subject', 'label' => 'Chủ đề', 'name' => 'label', 'type' => 'text'],
+            ]],
+            ['key' => 'f_ct_info_eyebrow', 'label' => 'Thông tin — eyebrow', 'name' => 'contact_info_eyebrow', 'type' => 'text', 'default_value' => 'Showroom'],
+            ['key' => 'f_ct_info_heading', 'label' => 'Thông tin — tiêu đề', 'name' => 'contact_info_heading', 'type' => 'text', 'default_value' => 'Ghé thăm chúng tôi'],
+            ['key' => 'f_ct_city', 'label' => 'Tên chi nhánh', 'name' => 'contact_branch_city', 'type' => 'text', 'default_value' => 'Thái Nguyên', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_ct_badge', 'label' => 'Nhãn chi nhánh', 'name' => 'contact_branch_badge', 'type' => 'text', 'default_value' => 'Trụ sở', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_ct_map', 'label' => 'Google Maps — embed src', 'name' => 'contact_map_embed', 'type' => 'textarea', 'rows' => 3, 'instructions' => 'Dán URL trong thuộc tính src của iframe nhúng Google Maps.'],
+        ],
+        'location'   => [[['param' => 'page_template', 'operator' => '==', 'value' => 'template-lien-he.blade.php']]],
+        'menu_order' => 0,
+    ]);
+
+    // ---- Trang "Bộ sưu tập" (template-bo-suu-tap) --------------------
+    acf_add_local_field_group([
+        'key'    => 'group_page_lookbook',
+        'title'  => 'Nội dung trang Bộ sưu tập',
+        'fields' => [
+            ['key' => 'f_lb_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
+            ['key' => 'f_lb_eyebrow', 'label' => 'Eyebrow', 'name' => 'look_hero_eyebrow', 'type' => 'text', 'default_value' => 'Catalogue 2026'],
+            ['key' => 'f_lb_title', 'label' => 'Tiêu đề', 'name' => 'look_hero_title', 'type' => 'text', 'default_value' => 'Bộ sưu tập'],
+            ['key' => 'f_lb_accent', 'label' => 'Từ nhấn (in nghiêng)', 'name' => 'look_hero_accent', 'type' => 'text', 'default_value' => 'rèm cửa'],
+            ['key' => 'f_lb_desc', 'label' => 'Mô tả', 'name' => 'look_hero_desc', 'type' => 'textarea', 'rows' => 3, 'default_value' => 'Từ linen mộc mạc đến nhung sang trọng — khám phá những bộ sưu tập được tuyển chọn cho mọi phong cách không gian.'],
+            ['key' => 'f_lb_hero_img', 'label' => 'Ảnh nền hero', 'name' => 'look_hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+
+            ['key' => 'f_lb_tab_look', 'label' => 'Lookbook', 'type' => 'tab'],
+            ['key' => 'f_lb_look_eyebrow', 'label' => 'Eyebrow', 'name' => 'look_eyebrow', 'type' => 'text', 'default_value' => 'Lookbook'],
+            ['key' => 'f_lb_look_heading', 'label' => 'Tiêu đề', 'name' => 'look_heading', 'type' => 'text', 'default_value' => 'Bộ sưu tập nổi bật'],
+            ['key' => 'f_lb_large_name', 'label' => 'Thẻ lớn — tên', 'name' => 'look_large_name', 'type' => 'text', 'default_value' => 'Bộ sưu tập Linen', 'wrapper' => ['width' => 40]],
+            ['key' => 'f_lb_large_tag', 'label' => 'Thẻ lớn — mô tả', 'name' => 'look_large_tagline', 'type' => 'text', 'default_value' => 'Mộc mạc & tự nhiên', 'wrapper' => ['width' => 40]],
+            ['key' => 'f_lb_large_count', 'label' => 'Thẻ lớn — số mẫu', 'name' => 'look_large_count', 'type' => 'text', 'default_value' => '24', 'wrapper' => ['width' => 20]],
+            ['key' => 'f_lb_large_img', 'label' => 'Thẻ lớn — ảnh', 'name' => 'look_large_img', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+            ['key' => 'f_lb_smalls', 'label' => 'Thẻ nhỏ', 'name' => 'look_smalls', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Thêm thẻ', 'sub_fields' => [
+                ['key' => 'f_lb_sm_name', 'label' => 'Tên', 'name' => 'name', 'type' => 'text'],
+                ['key' => 'f_lb_sm_tag', 'label' => 'Mô tả', 'name' => 'tagline', 'type' => 'text'],
+                ['key' => 'f_lb_sm_count', 'label' => 'Số mẫu', 'name' => 'count', 'type' => 'text'],
+                ['key' => 'f_lb_sm_img', 'label' => 'Ảnh', 'name' => 'image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'thumbnail'],
+            ]],
+
+            ['key' => 'f_lb_tab_titles', 'label' => 'Tiêu đề mục', 'type' => 'tab'],
+            ['key' => 'f_lb_cat_eyebrow', 'label' => 'Danh mục — eyebrow', 'name' => 'look_cat_eyebrow', 'type' => 'text', 'default_value' => 'Danh mục', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_lb_cat_heading', 'label' => 'Danh mục — tiêu đề', 'name' => 'look_cat_heading', 'type' => 'text', 'default_value' => 'Tất cả loại rèm', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_lb_feat_eyebrow', 'label' => 'Tuyển chọn — eyebrow', 'name' => 'look_feat_eyebrow', 'type' => 'text', 'default_value' => 'Tuyển chọn', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_lb_feat_heading', 'label' => 'Tuyển chọn — tiêu đề', 'name' => 'look_feat_heading', 'type' => 'text', 'default_value' => 'Sản phẩm tiêu biểu', 'wrapper' => ['width' => 50]],
+        ],
+        'location'   => [[['param' => 'page_template', 'operator' => '==', 'value' => 'template-bo-suu-tap.blade.php']]],
+        'menu_order' => 0,
+    ]);
+
     // ---- Taxonomy fields (loại rèm = product_cat: ảnh + icon) ----------
     acf_add_local_field_group([
         'key'    => 'group_product_cat',

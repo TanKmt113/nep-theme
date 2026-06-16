@@ -3,8 +3,9 @@
 @php use function App\nep_field; @endphp
 
 @section('content')
-  @while(have_posts()) @php(the_post())
+  @while(have_posts())
     @php
+      the_post();
       $id = get_the_ID();
       $scope = nep_field('scope', $id, []);
       $gallery = nep_field('gallery', $id, []);

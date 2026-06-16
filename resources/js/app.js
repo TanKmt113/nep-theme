@@ -5,6 +5,7 @@
  *   2. Header: solidify on scroll + mobile menu toggle (was Header.jsx state)
  */
 import '../css/app.css'
+import { initAnimations } from './animations'
 
 const onReady = (fn) =>
   document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn)
@@ -14,6 +15,10 @@ onReady(() => {
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
     window.lucide.createIcons()
   }
+
+  // GSAP entrance + scroll animations (https://gsap.com). Runs before the
+  // header early-return below so it works on pages without a header too.
+  initAnimations()
 
   // 2. Header behaviour.
   const header = document.querySelector('.nep-header')

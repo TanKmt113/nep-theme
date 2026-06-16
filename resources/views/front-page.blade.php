@@ -6,26 +6,26 @@
 
   {{-- ===== Hero ===== --}}
   <section style="position:relative;min-height:92vh;display:flex;align-items:flex-end;overflow:hidden">
-    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1800&q=80" alt="Phòng ngủ rèm cao cấp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <img src="{{ $home['hero_image'] }}" alt="{{ $home['hero_title'] }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,.42) 0%,rgba(20,22,14,.12) 40%,rgba(20,22,14,.72) 100%)"></div>
     <x-container :style="'position:relative;padding-bottom:var(--space-11);padding-top:140px'">
       <div style="max-width:760px">
-        <x-eyebrow rule color="var(--moss)">Rèm cửa cao cấp · Từ 2014</x-eyebrow>
+        @if($home['hero_eyebrow'])<x-eyebrow rule color="var(--moss)">{{ $home['hero_eyebrow'] }}</x-eyebrow>@endif
         <h1 style="color:#fff;font-size:var(--text-display-2xl);line-height:var(--leading-tight);margin:20px 0 0;text-wrap:balance">
-          Kiến tạo không gian sống <span style="font-style:italic;color:var(--moss-soft)">đẳng cấp</span>
+          {{ $home['hero_title'] }}@if($home['hero_title_accent']) <span style="font-style:italic;color:var(--moss-soft)">{{ $home['hero_title_accent'] }}</span>@endif
         </h1>
         <p style="color:rgba(255,255,255,.86);font-size:var(--text-lg);line-height:1.6;max-width:52ch;margin-top:22px">
-          Thiết kế, thi công và lắp đặt rèm cửa cao cấp cùng xưởng thêu vi tính — chăm chút trong từng đường nét.
+          {{ $home['hero_desc'] }}
         </p>
         <div style="display:flex;gap:14px;margin-top:34px;flex-wrap:wrap">
-          <x-button href="{{ App\nep_shop_url() }}" size="lg" variant="gold">Xem bộ sưu tập <x-icon name="arrow-right" :size="18" /></x-button>
-          <x-button href="{{ home_url('/lien-he') }}" size="lg" variant="secondary">Nhận báo giá</x-button>
+          @if($home['hero_btn1_text'])<x-button href="{{ $home['hero_btn1_url'] }}" size="lg" variant="gold">{{ $home['hero_btn1_text'] }} <x-icon name="arrow-right" :size="18" /></x-button>@endif
+          @if($home['hero_btn2_text'])<x-button href="{{ $home['hero_btn2_url'] }}" size="lg" variant="secondary">{{ $home['hero_btn2_text'] }}</x-button>@endif
         </div>
         <div style="display:flex;gap:48px;margin-top:56px;color:#fff">
-          @foreach([['10+','Năm kinh nghiệm'],['5000+','Khách hàng'],['100+','Mẫu rèm']] as $s)
+          @foreach($home['stats'] as $s)
             <div>
-              <div style="font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1">{{ $s[0] }}</div>
-              <div style="font-size:var(--text-sm);opacity:.8;margin-top:4px">{{ $s[1] }}</div>
+              <div style="font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1">{{ $s['value'] }}</div>
+              <div style="font-size:var(--text-sm);opacity:.8;margin-top:4px">{{ $s['label'] }}</div>
             </div>
           @endforeach
         </div>
@@ -37,17 +37,19 @@
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container :style="'display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:center'">
       <div style="position:relative">
-        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1100&q=80" alt="Showroom NẾP" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)">
+        <img src="{{ $home['intro_image'] }}" alt="{{ $home['intro_heading'] }}" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)">
+        @if($home['intro_badge_value'] || $home['intro_badge_label'])
         <div style="position:absolute;right:-24px;bottom:-24px;background:var(--olive-500);color:var(--text-on-olive);border-radius:var(--radius-lg);padding:22px 26px;box-shadow:var(--shadow-xl)">
-          <div style="font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1">4.9/5</div>
-          <div style="font-size:var(--text-xs);opacity:.85;margin-top:4px">1.200+ đánh giá</div>
+          <div style="font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1">{{ $home['intro_badge_value'] }}</div>
+          <div style="font-size:var(--text-xs);opacity:.85;margin-top:4px">{{ $home['intro_badge_label'] }}</div>
         </div>
+        @endif
       </div>
       <div>
-        <x-eyebrow rule>Về NẾP</x-eyebrow>
-        <h2 style="font-size:var(--text-display-lg);margin:16px 0 18px;max-width:16ch">Nghề rèm, thêu — chăm chút từng nếp gấp</h2>
+        @if($home['intro_eyebrow'])<x-eyebrow rule>{{ $home['intro_eyebrow'] }}</x-eyebrow>@endif
+        <h2 style="font-size:var(--text-display-lg);margin:16px 0 18px;max-width:16ch">{{ $home['intro_heading'] }}</h2>
         <p style="font-size:var(--text-lg);line-height:1.7;color:var(--text-body);max-width:48ch">
-          Suốt một thập kỷ, NẾP đồng hành cùng hàng nghìn gia đình và doanh nghiệp Việt — mang đến những bộ rèm và sản phẩm thêu bền đẹp, tinh tế và đậm dấu ấn riêng.
+          {!! nl2br(e($home['intro_text'])) !!}
         </p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:32px">
           @foreach($features as $f)
@@ -71,8 +73,8 @@
     <x-container>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--space-8)">
         <div>
-          <x-eyebrow rule>Danh mục</x-eyebrow>
-          <h2 style="font-size:var(--text-display-md);margin-top:12px">Bộ sưu tập rèm cửa</h2>
+          <x-eyebrow rule>{{ $home['cat_eyebrow'] }}</x-eyebrow>
+          <h2 style="font-size:var(--text-display-md);margin-top:12px">{{ $home['cat_heading'] }}</h2>
         </div>
         <x-button href="{{ App\nep_shop_url() }}" variant="ghost">Xem tất cả <x-icon name="arrow-right" :size="16" /></x-button>
       </div>
@@ -88,8 +90,8 @@
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--beige)">
     <x-container>
       <div style="text-align:center;margin-bottom:var(--space-8)">
-        <x-eyebrow rule center>Nổi bật</x-eyebrow>
-        <h2 style="font-size:var(--text-display-md);margin-top:12px">Được yêu thích nhất</h2>
+        <x-eyebrow rule center>{{ $home['featured_eyebrow'] }}</x-eyebrow>
+        <h2 style="font-size:var(--text-display-md);margin-top:12px">{{ $home['featured_heading'] }}</h2>
       </div>
       <div class="nep-grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5)">
         @foreach($featured as $p)
@@ -111,8 +113,8 @@
   <section id="process" style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container>
       <div style="text-align:center;margin-bottom:var(--space-9)">
-        <x-eyebrow rule center>Quy trình</x-eyebrow>
-        <h2 style="font-size:var(--text-display-md);margin-top:12px">6 bước, trọn vẹn an tâm</h2>
+        <x-eyebrow rule center>{{ $home['process_eyebrow'] }}</x-eyebrow>
+        <h2 style="font-size:var(--text-display-md);margin-top:12px">{{ $home['process_heading'] }}</h2>
       </div>
       <div class="nep-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)">
         @foreach($process as $s)
@@ -133,7 +135,7 @@
   <section id="projects" style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--space-8)">
-        <div><x-eyebrow rule>Dự án</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">Không gian đã hoàn thiện</h2></div>
+        <div><x-eyebrow rule>{{ $home['projects_eyebrow'] }}</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">{{ $home['projects_heading'] }}</h2></div>
       </div>
       <div class="nep-proj-grid" style="display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:260px;gap:var(--space-5)">
         @foreach($projects as $p)

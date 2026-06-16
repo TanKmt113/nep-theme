@@ -5,15 +5,21 @@
 
 @php
   use function App\nep;
+  use function App\page_field;
+  use function App\page_rows;
   $sent = isset($_GET['sent']) && $_GET['sent'] === '1';
-  $subjects = ['Tư vấn rèm cửa', 'Báo giá thêu vi tính', 'Đặt lịch khảo sát', 'Hợp tác / OEM', 'Khác'];
+  $subjects = page_rows('contact_subjects',
+    ['Tư vấn rèm cửa', 'Báo giá thêu vi tính', 'Đặt lịch khảo sát', 'Hợp tác / OEM', 'Khác'],
+    fn ($r) => $r['label'] ?? ''
+  );
 
   // Prefill khi tới từ nút "Yêu cầu báo giá" của một sản phẩm (?sp=<id>).
   $sp_id = isset($_GET['sp']) ? (int) $_GET['sp'] : 0;
   $sp_title = $sp_id ? get_the_title($sp_id) : '';
   $prefill_msg = $sp_title ? "Tôi muốn nhận báo giá cho sản phẩm: {$sp_title}.\n(Vui lòng tư vấn theo kích thước không gian của tôi.)" : '';
   $branch = [
-    'city' => 'Thái Nguyên',
+    'city' => page_field('contact_branch_city', 'Thái Nguyên'),
+    'badge' => page_field('contact_branch_badge', 'Trụ sở'),
     'address' => nep('address'),
     'phone' => nep('hotline'),
     'phone2' => nep('hotline_alt'),
@@ -29,9 +35,9 @@
         <x-icon name="chevron-right" :size="14" color="rgba(255,255,255,.5)" />
         <span style="color:#fff">Liên hệ</span>
       </div>
-      <x-eyebrow rule color="var(--moss)">Liên hệ</x-eyebrow>
-      <h1 style="color:#fff;font-size:var(--text-display-lg);margin-top:14px;max-width:20ch;text-wrap:balance">Cùng kiến tạo không gian của bạn</h1>
-      <p style="color:rgba(244,242,236,.78);font-size:var(--text-lg);margin-top:14px;max-width:52ch">Để lại thông tin, đội ngũ NẾP sẽ liên hệ tư vấn và đặt lịch khảo sát miễn phí trong vòng 24 giờ.</p>
+      <x-eyebrow rule color="var(--moss)">{{ page_field('contact_eyebrow', 'Liên hệ') }}</x-eyebrow>
+      <h1 style="color:#fff;font-size:var(--text-display-lg);margin-top:14px;max-width:20ch;text-wrap:balance">{{ page_field('contact_heading', 'Cùng kiến tạo không gian của bạn') }}</h1>
+      <p style="color:rgba(244,242,236,.78);font-size:var(--text-lg);margin-top:14px;max-width:52ch">{{ page_field('contact_desc', 'Để lại thông tin, đội ngũ NẾP sẽ liên hệ tư vấn và đặt lịch khảo sát miễn phí trong vòng 24 giờ.') }}</p>
     </x-container>
   </section>
 
@@ -52,7 +58,7 @@
             <input type="hidden" name="action" value="nep_contact">
             <input type="hidden" name="redirect" value="{{ get_permalink() }}">
             @php(wp_nonce_field('nep_contact', 'nep_contact_nonce'))
-            <h2 style="font-size:var(--text-h1);font-family:var(--font-display);font-weight:600;margin-bottom:6px">Gửi yêu cầu tư vấn</h2>
+            <h2 style="font-size:var(--text-h1);font-family:var(--font-display);font-weight:600;margin-bottom:6px">{{ page_field('contact_form_heading', 'Gửi yêu cầu tư vấn') }}</h2>
             <p style="font-size:var(--text-sm);color:var(--text-muted);margin-bottom:26px">Các trường có dấu * là bắt buộc.</p>
             @if($sp_title)
               <div style="display:flex;align-items:center;gap:10px;background:var(--olive-50);border:1px solid var(--olive-200);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:22px;font-size:var(--text-sm)">
@@ -80,14 +86,14 @@
 
       {{-- Info --}}
       <div>
-        <x-eyebrow rule>Showroom</x-eyebrow>
-        <h2 style="font-size:var(--text-display-md);margin:12px 0 24px">Ghé thăm chúng tôi</h2>
+        <x-eyebrow rule>{{ page_field('contact_info_eyebrow', 'Showroom') }}</x-eyebrow>
+        <h2 style="font-size:var(--text-display-md);margin:12px 0 24px">{{ page_field('contact_info_heading', 'Ghé thăm chúng tôi') }}</h2>
         <div style="display:flex;flex-direction:column;gap:14px">
           <div style="display:flex;gap:14px;padding:18px 20px;background:var(--olive-50);border:1px solid var(--olive-200);border-radius:var(--radius-lg)">
             <span style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:var(--radius-md);background:var(--brand);flex:none"><x-icon name="map-pin" :size="20" color="#fff" /></span>
             <div>
               <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:var(--text-strong)">
-                {{ $branch['city'] }}<span style="font-size:var(--text-2xs);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);background:var(--paper);padding:2px 8px;border-radius:999px">Trụ sở</span>
+                {{ $branch['city'] }}<span style="font-size:var(--text-2xs);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);background:var(--paper);padding:2px 8px;border-radius:999px">{{ $branch['badge'] }}</span>
               </div>
               <div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:3px">{{ $branch['address'] }}</div>
               <div style="display:flex;gap:12px;margin-top:4px;flex-wrap:wrap">
@@ -110,7 +116,7 @@
   <section style="background:var(--cream);padding-top:0;padding-bottom:var(--section-y)">
     <x-container>
       <div style="position:relative;height:420px;border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-soft);box-shadow:var(--shadow-md)">
-        <iframe title="Bản đồ NẾP" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d232.19111362323318!2d105.87063940464353!3d21.387627964750642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31351ff4e328658b%3A0x528ff5d209912cc7!2zUsOobSBNaW5oIEjDoA!5e0!3m2!1svi!2s!4v1781590512909!5m2!1svi!2s" width="100%" height="100%" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe title="Bản đồ NẾP" src="{{ page_field('contact_map_embed', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d232.19111362323318!2d105.87063940464353!3d21.387627964750642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31351ff4e328658b%3A0x528ff5d209912cc7!2zUsOobSBNaW5oIEjDoA!5e0!3m2!1svi!2s!4v1781590512909!5m2!1svi!2s') }}" width="100%" height="100%" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </x-container>
   </section>

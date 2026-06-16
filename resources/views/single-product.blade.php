@@ -3,8 +3,9 @@
 @php use function App\nep_field; use function App\nep_quote_url; @endphp
 
 @section('content')
-  @while(have_posts()) @php(the_post())
+  @while(have_posts())
     @php
+      the_post();
       $id = get_the_ID();
       $product = function_exists('wc_get_product') ? wc_get_product($id) : null;
       $cats = get_the_terms($id, 'product_cat');

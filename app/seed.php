@@ -21,6 +21,22 @@ require_once __DIR__ . '/nep-data.php';
 use function add_action;
 
 /**
+ * Tìm post theo tiêu đề chính xác (để upsert, tránh tạo trùng khi chạy lại).
+ */
+function nep_find_post_by_title(string $type, string $title): int
+{
+    $hit = get_posts([
+        'post_type'   => $type,
+        'title'       => $title,
+        'numberposts' => 1,
+        'post_status' => 'any',
+        'fields'      => 'ids',
+    ]);
+
+    return $hit ? (int) $hit[0] : 0;
+}
+
+/**
  * Tạo loại rèm + sản phẩm + dự án + tuỳ chọn. Dùng chung cho WP-CLI và admin.
  *
  * @param  bool  $fresh  Xoá product/du_an cũ trước khi tạo lại.
@@ -50,17 +66,34 @@ function nep_seed_content(bool $fresh, callable $log): void
     }
 
     // Helper: sideload một URL ảnh → attachment ID (cache theo URL).
+    // Dùng download_url + media_handle_sideload thay vì media_sideload_image()
+    // vì hàm đó từ WP 5.x từ chối URL không có đuôi ảnh (Unsplash kết thúc
+    // bằng "?w=900&q=80" nên bị coi là "Invalid image URL").
     $sideload = function (string $url, int $parent = 0) use ($log) {
         static $cache = [];
         if (isset($cache[$url])) {
             return $cache[$url];
         }
-        $id = media_sideload_image($url, $parent, null, 'id');
-        if (is_wp_error($id)) {
-            $log("⚠ Ảnh lỗi: {$url}");
-            return 0;
+
+        $tmp = download_url($url, 30);
+        if (is_wp_error($tmp)) {
+            $log("⚠ Tải ảnh lỗi ({$tmp->get_error_message()}): {$url}");
+            return $cache[$url] = 0;
         }
-        return $cache[$url] = $id;
+
+        $file_array = [
+            'name'     => 'nep-' . substr(md5($url), 0, 12) . '.jpg',
+            'tmp_name' => $tmp,
+        ];
+
+        $id = media_handle_sideload($file_array, $parent);
+        if (is_wp_error($id)) {
+            @unlink($tmp);
+            $log("⚠ Lưu ảnh lỗi ({$id->get_error_message()}): {$url}");
+            return $cache[$url] = 0;
+        }
+
+        return $cache[$url] = (int) $id;
     };
 
     // ---- Taxonomy terms (loại rèm = product_cat) + ảnh/icon --------
@@ -79,13 +112,15 @@ function nep_seed_content(bool $fresh, callable $log): void
 
     // ---- Products (WooCommerce) ------------------------------------
     foreach ($data['products'] as $p) {
-        $id = wp_insert_post([
+        $id = nep_find_post_by_title('product', $p['name']);
+        $args = [
             'post_type'    => 'product',
             'post_title'   => $p['name'],
             'post_content' => $p['desc'],
             'post_excerpt' => $p['desc'],
             'post_status'  => 'publish',
-        ]);
+        ];
+        $id = $id ? (wp_update_post(['ID' => $id] + $args) ?: $id) : wp_insert_post($args);
         // Loại sản phẩm WooCommerce + danh mục.
         wp_set_object_terms($id, 'simple', 'product_type');
         wp_set_object_terms($id, $p['cat'], 'product_cat');
@@ -100,7 +135,8 @@ function nep_seed_content(bool $fresh, callable $log): void
             update_field('color_hex', $p['color_hex'], $id);
             update_field('badge', $p['badge'], $id);
         }
-        if ($att = $sideload($p['img'], $id)) {
+        // Chỉ tải ảnh khi sản phẩm chưa có ảnh đại diện (an toàn khi chạy lại).
+        if (! get_post_thumbnail_id($id) && ($att = $sideload($p['img'], $id))) {
             set_post_thumbnail($id, $att);
         }
         $log("Sản phẩm: {$p['name']}");
@@ -108,12 +144,14 @@ function nep_seed_content(bool $fresh, callable $log): void
 
     // ---- Projects --------------------------------------------------
     foreach ($data['projects'] as $pr) {
-        $id = wp_insert_post([
+        $id = nep_find_post_by_title('du_an', $pr['name']);
+        $args = [
             'post_type'    => 'du_an',
             'post_title'   => $pr['name'],
             'post_content' => $pr['desc'],
             'post_status'  => 'publish',
-        ]);
+        ];
+        $id = $id ? (wp_update_post(['ID' => $id] + $args) ?: $id) : wp_insert_post($args);
         if (function_exists('update_field')) {
             update_field('place', $pr['place'], $id);
             update_field('year', $pr['year'], $id);

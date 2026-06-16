@@ -34,6 +34,18 @@ add_action('after_setup_theme', function () {
 }, 20);
 
 /**
+ * Trả quyền chọn template cho WordPress/Acorn để các Blade tự thiết kế của theme
+ * (archive-product, single-product, taxonomy-product_cat) được sử dụng — giữ
+ * nguyên header/footer/design NẾP. Nếu không gỡ, WooCommerce sẽ ép nạp template
+ * mặc định của plugin (giao diện "Cửa hàng" trơn) và ghi đè thiết kế của theme.
+ */
+add_action('template_redirect', function () {
+    if (class_exists('WC_Template_Loader')) {
+        remove_filter('template_include', ['WC_Template_Loader', 'template_loader']);
+    }
+}, 5);
+
+/**
  * RFQ: sản phẩm không thể mua → WooCommerce tự ẩn add-to-cart + giá.
  */
 add_filter('woocommerce_is_purchasable', '__return_false');

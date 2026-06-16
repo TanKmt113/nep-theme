@@ -5,12 +5,20 @@
 
 @php
   use function App\nep_field;
-  $hero = 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1800&q=80';
-  $large = ['name' => 'Bộ sưu tập Linen', 'tagline' => 'Mộc mạc & tự nhiên', 'count' => 24, 'img' => 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1100&q=80'];
-  $smalls = [
+  use function App\page_field;
+  use function App\page_rows;
+  $hero = page_field('look_hero_image', 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1800&q=80');
+  $hero_accent = page_field('look_hero_accent', 'rèm cửa');
+  $large = [
+    'name' => page_field('look_large_name', 'Bộ sưu tập Linen'),
+    'tagline' => page_field('look_large_tagline', 'Mộc mạc & tự nhiên'),
+    'count' => page_field('look_large_count', 24),
+    'img' => page_field('look_large_img', 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1100&q=80'),
+  ];
+  $smalls = page_rows('look_smalls', [
     ['name' => 'Velvet Noir', 'tagline' => 'Nhung sang trọng', 'count' => 12, 'img' => 'https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=900&q=80'],
     ['name' => 'Nan gỗ tự nhiên', 'tagline' => 'Ấm áp & bền bỉ', 'count' => 18, 'img' => 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=900&q=80'],
-  ];
+  ], fn ($r) => ['name' => $r['name'] ?? '', 'tagline' => $r['tagline'] ?? '', 'count' => $r['count'] ?? '', 'img' => $r['image'] ?? '']);
   $cats = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => false]);
   $featured = get_posts(['post_type' => 'product', 'numberposts' => 4, 'offset' => 4, 'post_status' => 'publish']);
   $listing = App\nep_shop_url();
@@ -22,12 +30,12 @@
     <img src="{{ $hero }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,.30) 0%,rgba(20,22,14,.12) 45%,rgba(20,22,14,.72) 100%)"></div>
     <x-container :style="'position:relative;padding-bottom:var(--space-9);padding-top:150px'">
-      <x-eyebrow rule color="var(--moss)">Catalogue 2026</x-eyebrow>
+      <x-eyebrow rule color="var(--moss)">{{ page_field('look_hero_eyebrow', 'Catalogue 2026') }}</x-eyebrow>
       <h1 style="color:#fff;font-size:var(--text-display-xl);line-height:1.05;margin:16px 0 0;max-width:16ch;text-wrap:balance">
-        Bộ sưu tập <span style="font-style:italic;color:var(--moss-soft)">rèm cửa</span>
+        {{ page_field('look_hero_title', 'Bộ sưu tập') }}@if($hero_accent) <span style="font-style:italic;color:var(--moss-soft)">{{ $hero_accent }}</span>@endif
       </h1>
       <p style="color:rgba(255,255,255,.88);font-size:var(--text-lg);line-height:1.6;max-width:50ch;margin-top:18px">
-        Từ linen mộc mạc đến nhung sang trọng — khám phá những bộ sưu tập được tuyển chọn cho mọi phong cách không gian.
+        {{ page_field('look_hero_desc', 'Từ linen mộc mạc đến nhung sang trọng — khám phá những bộ sưu tập được tuyển chọn cho mọi phong cách không gian.') }}
       </p>
     </x-container>
   </section>
@@ -36,8 +44,8 @@
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container>
       <div style="margin-bottom:var(--space-8)">
-        <x-eyebrow rule>Lookbook</x-eyebrow>
-        <h2 style="font-size:var(--text-display-md);margin-top:12px">Bộ sưu tập nổi bật</h2>
+        <x-eyebrow rule>{{ page_field('look_eyebrow', 'Lookbook') }}</x-eyebrow>
+        <h2 style="font-size:var(--text-display-md);margin-top:12px">{{ page_field('look_heading', 'Bộ sưu tập nổi bật') }}</h2>
       </div>
       <div class="nep-lookbook" style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-5)">
         {{-- large --}}
@@ -71,7 +79,7 @@
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--space-8)">
-        <div><x-eyebrow rule>Danh mục</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">Tất cả loại rèm</h2></div>
+        <div><x-eyebrow rule>{{ page_field('look_cat_eyebrow', 'Danh mục') }}</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">{{ page_field('look_cat_heading', 'Tất cả loại rèm') }}</h2></div>
         <x-button href="{{ $listing }}" variant="ghost">Xem dạng lưới <x-icon name="arrow-right" :size="16" /></x-button>
       </div>
       <div class="nep-grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5)">
@@ -96,7 +104,7 @@
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--beige)">
     <x-container>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--space-7)">
-        <div><x-eyebrow rule>Tuyển chọn</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">Sản phẩm tiêu biểu</h2></div>
+        <div><x-eyebrow rule>{{ page_field('look_feat_eyebrow', 'Tuyển chọn') }}</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">{{ page_field('look_feat_heading', 'Sản phẩm tiêu biểu') }}</h2></div>
       </div>
       <div class="nep-grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5)">
         @foreach($featured as $p)
