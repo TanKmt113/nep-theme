@@ -4,12 +4,12 @@
     "src": "node_modules/pdfjs-dist/build/pdf.worker.min.mjs"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CIHciDml.css",
+    "file": "assets/app-DwmVc2__.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-wwBtWQYd.js",
+    "file": "assets/app-Bfd18zIT.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -18,7 +18,7 @@
     ],
     "css": [
       "assets/app-BHcSP5WY.css",
-      "assets/app-CIHciDml.css"
+      "assets/app-DwmVc2__.css"
     ]
   },
   "resources/js/flipbook.js": {

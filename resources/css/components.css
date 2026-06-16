@@ -152,8 +152,11 @@
   .nep-mobile-only { display: inline-flex !important; }
   .nep-burger { display: flex; }
   .nep-cat-grid, .nep-grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
-  .nep-grid-3, .nep-proj-grid, .nep-footer__cols, .nep-footer__mid,
+  .nep-grid-3, .nep-proj-grid, .nep-footer__mid,
   .nep-teaser, .nep-lookbook, .nep-contact-grid, .nep-form-row { grid-template-columns: 1fr !important; }
+  /* Footer: logo/giới thiệu trọn hàng, 3 cột link xếp 2-up cho gọn. */
+  .nep-footer__cols { grid-template-columns: 1fr 1fr !important; gap: var(--space-7) var(--space-6) !important; }
+  .nep-footer__cols > :first-child { grid-column: 1 / -1; }
   .nep-proj-grid { grid-auto-rows: 220px !important; }
   .nep-proj-card { grid-column: span 1 !important; }
   .nep-grid-5 { grid-template-columns: repeat(2, 1fr) !important; gap: var(--space-7) !important; }

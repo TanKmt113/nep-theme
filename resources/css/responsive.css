@@ -88,19 +88,7 @@
   [style*="grid-template-columns:repeat(3,1fr)"] {
     grid-template-columns: 1fr !important;
   }
-  /* Footer: logo/giới thiệu chiếm trọn hàng, 3 cột link xếp 2-up cho gọn. */
-  .nep-footer__cols {
-    grid-template-columns: 1fr 1fr !important;
-    gap: var(--space-6) var(--space-7) !important;
-  }
-  .nep-footer__cols > :first-child {
-    grid-column: 1 / -1;
-  }
-  /* Bản tin + thông tin liên hệ xếp dọc (mặc định 1fr 1fr bị chật). */
-  .nep-footer__mid {
-    grid-template-columns: 1fr !important;
-    gap: var(--space-6) !important;
-  }
+  /* Footer cột: layout mobile xử lý ở components.css (@media 860px). */
   /* Footer legal line: stack the two halves */
   footer [style*="justify-content:space-between"][style*="padding-top:var(--space-6)"] {
     flex-direction: column !important;
