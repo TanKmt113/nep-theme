@@ -3,6 +3,7 @@
 @php use function App\nep_field; use function App\nep_quote_url; @endphp
 
 @section('content')
+  <style>.nep-breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color .2s}.nep-breadcrumb a:hover{color:var(--text-brand)}.nep-breadcrumb svg{color:var(--text-muted);opacity:.55;flex:none}</style>
   @while(have_posts())
     @php
       the_post();
@@ -16,7 +17,17 @@
     @endphp
 
     <section style="padding-top:140px;padding-bottom:var(--section-y);background:var(--cream)">
-      <x-container class="nep-contact-grid" :style="'display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:start'">
+      <x-container>
+        {{-- Breadcrumb: Trang chủ › Sản phẩm › Tên sản phẩm --}}
+        <nav class="nep-breadcrumb" aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-7)">
+          <a href="{{ home_url('/') }}">Trang chủ</a>
+          <x-icon name="chevron-right" :size="15" />
+          <a href="{{ wc_get_page_permalink('shop') }}">Sản phẩm</a>
+          <x-icon name="chevron-right" :size="15" />
+          <span aria-current="page" style="color:var(--text-strong);font-weight:600">{{ get_the_title() }}</span>
+        </nav>
+
+        <div class="nep-contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:start">
         {{-- Gallery --}}
         <div>
           <img id="nep-pdp-main" src="{{ $main }}" alt="{{ get_the_title() }}" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)">
@@ -36,7 +47,6 @@
 
         {{-- Summary --}}
         <div>
-          <a href="{{ wc_get_page_permalink('shop') }}" style="display:inline-flex;align-items:center;gap:6px;font-size:var(--text-sm);color:var(--text-brand);font-weight:600;margin-bottom:18px"><x-icon name="arrow-left" :size="16" color="var(--brand)" /> Tất cả sản phẩm</a>
           @if($cat_name)<x-eyebrow rule>{{ $cat_name }}</x-eyebrow>@endif
           <h1 style="font-size:var(--text-display-md);margin:12px 0 14px">{{ get_the_title() }}</h1>
 
@@ -59,6 +69,7 @@
             <x-button href="{{ nep_quote_url($id) }}" size="lg" variant="primary">Yêu cầu báo giá <x-icon name="arrow-right" :size="18" /></x-button>
             <x-button href="{{ App\nep_tel(App\nep('hotline')) }}" size="lg" variant="secondary"><x-icon name="phone" :size="18" /> Gọi tư vấn</x-button>
           </div>
+        </div>
         </div>
       </x-container>
     </section>
