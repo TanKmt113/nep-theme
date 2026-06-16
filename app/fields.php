@@ -62,6 +62,27 @@ add_action('acf/init', function () {
                     ['key' => 'f_feat_icon',  'label' => 'Icon (lucide)', 'name' => 'icon', 'type' => 'text'],
                 ],
             ],
+
+            // ===== Tab: CTA cuối trang (khối "Nâng tầm không gian…") =====
+            ['key' => 'f_cta_tab', 'label' => 'CTA cuối trang', 'type' => 'tab'],
+            ['key' => 'f_cta_heading', 'label' => 'Tiêu đề', 'name' => 'cta_heading', 'type' => 'text', 'default_value' => 'Nâng tầm không gian sống của bạn ngay hôm nay'],
+            ['key' => 'f_cta_image', 'label' => 'Ảnh nền', 'name' => 'cta_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+            ['key' => 'f_cta_b1', 'label' => 'Nút 1 — chữ (gọi hotline)', 'name' => 'cta_btn1_text', 'type' => 'text', 'default_value' => 'Gọi ngay', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_cta_b2t', 'label' => 'Nút 2 — chữ', 'name' => 'cta_btn2_text', 'type' => 'text', 'default_value' => 'Đăng ký tư vấn', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_cta_b2u', 'label' => 'Nút 2 — liên kết', 'name' => 'cta_btn2_url', 'type' => 'text', 'instructions' => 'Trống = trang Liên hệ.'],
+
+            // ===== Tab: Footer =====
+            ['key' => 'f_ft_tab', 'label' => 'Footer', 'type' => 'tab'],
+            ['key' => 'f_ft_about', 'label' => 'Giới thiệu ngắn', 'name' => 'footer_about', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Xưởng thêu vi tính & rèm thiết kế.'],
+            ['key' => 'f_ft_c1', 'label' => 'Tiêu đề cột 1', 'name' => 'footer_products_title', 'type' => 'text', 'default_value' => 'Sản phẩm', 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ft_c2', 'label' => 'Tiêu đề cột 2', 'name' => 'footer_services_title', 'type' => 'text', 'default_value' => 'Dịch vụ', 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ft_c3', 'label' => 'Tiêu đề cột 3', 'name' => 'footer_company_title', 'type' => 'text', 'default_value' => 'Công ty', 'wrapper' => ['width' => 34]],
+            ['key' => 'f_ft_links_note', 'label' => 'Liên kết các cột', 'type' => 'message', 'message' => 'Sửa link 3 cột tại <strong>Giao diện → Menu</strong> (vị trí: Footer — Sản phẩm / Dịch vụ / Công ty).'],
+            ['key' => 'f_ft_fb', 'label' => 'Facebook URL', 'name' => 'footer_facebook', 'type' => 'text', 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ft_ig', 'label' => 'Instagram URL', 'name' => 'footer_instagram', 'type' => 'text', 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ft_yt', 'label' => 'YouTube URL', 'name' => 'footer_youtube', 'type' => 'text', 'wrapper' => ['width' => 34]],
+            ['key' => 'f_ft_news', 'label' => 'Tiêu đề bản tin', 'name' => 'footer_newsletter_title', 'type' => 'text', 'default_value' => 'Nhận bản tin & ưu đãi'],
+            ['key' => 'f_ft_legal', 'label' => 'Dòng pháp lý (góc phải)', 'name' => 'footer_legal', 'type' => 'text', 'default_value' => 'Chính sách bảo mật · Điều khoản'],
         ],
         'location' => [[['param' => 'options_page', 'operator' => '==', 'value' => 'nep-settings']]],
     ]);
