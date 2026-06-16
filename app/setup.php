@@ -115,3 +115,8 @@ add_action('after_setup_theme', function () {
     add_image_size('nep_card', 900, 1125, true);     // 4:5 product card
     add_image_size('nep_wide', 1800, 1000, true);    // hero / wide
 });
+
+/**
+ * Drop the default "Lưu trữ:" / "Archive:" prefix from archive titles.
+ */
+add_filter('get_the_archive_title_prefix', '__return_empty_string');

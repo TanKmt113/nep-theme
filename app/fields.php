@@ -309,6 +309,20 @@ add_action('acf/init', function () {
         'menu_order' => 0,
     ]);
 
+    // ---- Catalog (CPT catalog: file PDF + ảnh bìa) --------------------
+    acf_add_local_field_group([
+        'key'    => 'group_catalog',
+        'title'  => 'Catalog (PDF)',
+        'fields' => [
+            ['key' => 'f_cat_pdf', 'label' => 'File PDF', 'name' => 'catalog_pdf', 'type' => 'file', 'return_format' => 'array', 'mime_types' => 'pdf', 'instructions' => 'Tải lên file PDF để hiển thị bản xem trước trên trang.'],
+            ['key' => 'f_cat_cover', 'label' => 'Ảnh bìa', 'name' => 'catalog_cover', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'instructions' => 'Hiển thị ở trang danh sách Catalog. Trống = dùng Ảnh đại diện.'],
+            ['key' => 'f_cat_excerpt', 'label' => 'Mô tả ngắn', 'name' => 'catalog_excerpt', 'type' => 'textarea', 'rows' => 2],
+        ],
+        'location'   => [[['param' => 'post_type', 'operator' => '==', 'value' => 'catalog']]],
+        'menu_order' => 0,
+        'position'   => 'acf_after_title',
+    ]);
+
     // ---- Taxonomy fields (loại rèm = product_cat: ảnh + icon) ----------
     acf_add_local_field_group([
         'key'    => 'group_product_cat',

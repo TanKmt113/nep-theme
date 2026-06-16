@@ -202,11 +202,18 @@ function nep_seed_menus(array $pages, callable $log): void
         'menu-item-type'  => 'custom',
     ];
 
+    // "Sản phẩm" → liên kết trang Cửa hàng (động, permalink tự đẹp). Fallback
+    // sang link tĩnh nếu chưa có trang shop của WooCommerce.
+    $shop_id = function_exists('wc_get_page_id') ? (int) wc_get_page_id('shop') : 0;
+    $shop_item = $shop_id > 0
+        ? ['menu-item-title' => 'Sản phẩm', 'menu-item-object' => 'page', 'menu-item-object-id' => $shop_id, 'menu-item-type' => 'post_type']
+        : $link('Sản phẩm', nep_shop_url());
+
     // --- Điều hướng chính (khớp fallback trong sections/header.blade.php) ---
     nep_build_menu('NẾP — Điều hướng chính', 'primary_navigation', [
         $page('trang-chu', 'Trang chủ'),
         $page('gioi-thieu', 'Giới thiệu'),
-        $link('Sản phẩm', nep_shop_url()),
+        $shop_item,
         [
             'menu-item-title'  => 'Dự án',
             'menu-item-type'   => 'post_type_archive',

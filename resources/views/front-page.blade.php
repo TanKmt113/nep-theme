@@ -137,19 +137,7 @@
       <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--space-8)">
         <div><x-eyebrow rule>{{ $home['projects_eyebrow'] }}</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">{{ $home['projects_heading'] }}</h2></div>
       </div>
-      <div class="nep-proj-grid" style="display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:260px;gap:var(--space-5)">
-        @foreach($projects as $p)
-          @php $span = (int) (nep_field('span', $p->ID, 1)); @endphp
-          <a href="{{ get_permalink($p) }}" class="nep-proj-card" style="grid-column:span {{ $span === 2 ? 2 : 1 }};position:relative;border-radius:var(--radius-lg);overflow:hidden;display:block">
-            <img src="{{ get_the_post_thumbnail_url($p, 'nep_wide') ?: '' }}" alt="{{ get_the_title($p) }}" style="width:100%;height:100%;object-fit:cover">
-            <div class="nep-proj-card__overlay"></div>
-            <div style="position:absolute;left:22px;bottom:20px;color:#fff">
-              <div style="font-family:var(--font-display);font-size:var(--text-h2);font-weight:600">{{ get_the_title($p) }}</div>
-              <div style="font-size:var(--text-sm);opacity:.85;display:flex;align-items:center;gap:6px;margin-top:4px"><x-icon name="map-pin" :size="14" color="#fff" /> {{ nep_field('place', $p->ID) }}</div>
-            </div>
-          </a>
-        @endforeach
-      </div>
+      @include('sections.project-slider', ['projects' => $projects, 'showType' => false])
     </x-container>
   </section>
 

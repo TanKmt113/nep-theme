@@ -33,12 +33,11 @@ function animateHero(hero) {
   const items = block ? Array.from(block.children) : []
 
   if (items.length) {
-    gsap.timeline({ defaults: { ease: EASE, duration: 0.9 } }).from(items, {
-      y: 30,
-      opacity: 0,
-      stagger: 0.12,
-      delay: 0.1,
-    })
+    gsap.timeline({ defaults: { ease: EASE, duration: 0.9 } }).fromTo(
+      items,
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.12, delay: 0.1 }
+    )
   }
 
   // Parallax nhẹ cho ảnh nền hero (nếu có).
@@ -66,28 +65,36 @@ function animateSection(section) {
     (b) => !grids.some((g) => b === g || b.contains(g))
   )
   if (blocks.length) {
-    gsap.from(blocks, {
-      y: 36,
-      opacity: 0,
-      duration: 0.9,
-      ease: EASE,
-      stagger: 0.12,
-      scrollTrigger: { trigger: section, start: 'top 80%' },
-    })
+    gsap.fromTo(
+      blocks,
+      { y: 36, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: EASE,
+        stagger: 0.12,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true },
+      }
+    )
   }
 
   // Mỗi lưới: stagger từng thẻ con.
   grids.forEach((grid) => {
     const cards = Array.from(grid.children)
     if (!cards.length) return
-    gsap.from(cards, {
-      y: 28,
-      opacity: 0,
-      duration: 0.7,
-      ease: EASE,
-      stagger: 0.08,
-      scrollTrigger: { trigger: grid, start: 'top 85%' },
-    })
+    gsap.fromTo(
+      cards,
+      { y: 28, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        ease: EASE,
+        stagger: 0.08,
+        scrollTrigger: { trigger: grid, start: 'top 85%', once: true },
+      }
+    )
   })
 }
 

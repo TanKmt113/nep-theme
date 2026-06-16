@@ -160,3 +160,40 @@
 @media (max-width: 560px) {
   .nep-cat-grid, .nep-grid-4 { grid-template-columns: 1fr !important; }
 }
+
+/* ============================================================
+   Flipbook PDF (trang Catalog) — StPageFlip + PDF.js
+   ============================================================ */
+.nep-flipbook-wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; min-height: 480px; }
+.nep-flipbook { width: 100%; max-width: 1040px; margin: 0 auto; touch-action: pan-y; outline: none; }
+.nep-flipbook .stf__parent { margin: 0 auto; }
+.nep-flipbook .stf__item { background: var(--paper); box-shadow: 0 10px 30px rgba(20,22,14,.12); }
+.nep-flipbook img { display: block; width: 100%; height: 100%; }
+.nep-flipbook-loading { position: absolute; top: 44%; left: 50%; transform: translate(-50%,-50%); font-size: var(--text-sm); color: var(--text-muted); }
+.nep-flipbook-bar { display: flex; align-items: center; gap: 18px; }
+.nep-flip-btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--border-soft); background: var(--paper); color: var(--text-strong); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: var(--t-colors, .2s); }
+.nep-flip-btn:hover { background: var(--olive-50); color: var(--text-brand); }
+.nep-flipbook-page { font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); min-width: 86px; text-align: center; }
+
+/* ============================================================
+   Project slider (Swiper) — front page + archive Dự án
+   ============================================================ */
+.nep-proj-swiper { --swiper-theme-color: var(--brand); overflow: hidden; }
+.nep-proj-swiper .swiper-slide { height: 460px; }
+.nep-proj-swiper .nep-proj-card { width: 100%; }
+.nep-proj-swiper__controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: var(--space-7); }
+.nep-proj-swiper__btn {
+  width: 48px; height: 48px; border-radius: 999px;
+  border: 1px solid var(--border-soft); background: var(--paper); color: var(--text-strong);
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: var(--t-card);
+}
+.nep-proj-swiper__btn:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+.nep-proj-swiper__btn.swiper-button-disabled { opacity: .35; cursor: default; }
+.nep-proj-swiper__dots { display: inline-flex; align-items: center; gap: 8px; width: auto; }
+.nep-proj-swiper__dots .swiper-pagination-bullet { width: 8px; height: 8px; margin: 0; background: var(--text-muted); opacity: .35; border-radius: 999px; transition: var(--t-card); }
+.nep-proj-swiper__dots .swiper-pagination-bullet-active { width: 22px; opacity: 1; background: var(--brand); }
+
+@media (max-width: 860px) {
+  .nep-proj-swiper .swiper-slide { height: 360px; }
+}

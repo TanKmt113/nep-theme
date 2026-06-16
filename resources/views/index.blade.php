@@ -6,7 +6,7 @@
     <x-container>
       <h1 style="font-size:var(--text-display-md)">
         @if(is_search()) Kết quả tìm kiếm: {{ get_search_query() }}
-        @else {{ get_the_archive_title() ?: 'Bài viết' }} @endif
+        @else {!! get_the_archive_title() ?: 'Bài viết' !!} @endif
       </h1>
     </x-container>
   </section>
