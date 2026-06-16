@@ -129,6 +129,9 @@
 .nep-header.is-open .nep-burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 .nep-menu-panel { display: flex; flex-direction: column; border-top: 1px solid var(--border-soft); background: var(--cream); padding: var(--space-4) var(--gutter) var(--space-5); }
+/* Tôn trọng thuộc tính [hidden] (JS bật/tắt) — nếu không base display:flex sẽ
+   đè display:none mặc định khiến menu mobile luôn mở, bấm không đóng được. */
+.nep-menu-panel[hidden] { display: none; }
 .nep-menu-panel__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .nep-menu-panel__nav a { padding: 13px 4px; font-size: var(--text-base); font-weight: 600; border-bottom: 1px solid var(--border-soft); color: var(--text-body); text-decoration: none; display: block; }
 
@@ -167,8 +170,14 @@
 .nep-flipbook-wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; min-height: 480px; }
 .nep-flipbook { width: 100%; max-width: 1040px; margin: 0 auto; touch-action: pan-y; outline: none; }
 .nep-flipbook .stf__parent { margin: 0 auto; }
+.nep-flipbook .stf__wrapper { transition: transform .5s ease; }
+/* Trang đơn (bìa / trang cuối) khi mở dạng 2 trang → căn vào giữa khung. */
+.nep-flipbook.is-cover .stf__wrapper { transform: translateX(-25%); }
+.nep-flipbook.is-back .stf__wrapper { transform: translateX(25%); }
 .nep-flipbook .stf__item { background: var(--paper); box-shadow: 0 10px 30px rgba(20,22,14,.12); }
-.nep-flipbook img { display: block; width: 100%; height: 100%; }
+.nep-flipbook img { display: block; width: 100%; height: 100%; object-fit: contain; }
+/* Trang trống đang chờ render ảnh (lazy). */
+.nep-page { width: 100%; height: 100%; background: var(--paper); }
 .nep-flipbook-loading { position: absolute; top: 44%; left: 50%; transform: translate(-50%,-50%); font-size: var(--text-sm); color: var(--text-muted); }
 .nep-flipbook-bar { display: flex; align-items: center; gap: 18px; }
 .nep-flip-btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--border-soft); background: var(--paper); color: var(--text-strong); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: var(--t-colors, .2s); }

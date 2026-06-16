@@ -24,8 +24,8 @@
 @section('content')
   <section style="padding-top:140px;padding-bottom:var(--space-8);background:var(--cream)">
     <x-container>
-      <x-eyebrow rule>Sản phẩm</x-eyebrow>
-      <h1 style="font-size:var(--text-display-lg);margin-top:12px">Bộ sưu tập rèm cửa</h1>
+      <x-eyebrow rule>{{ App\nep('arch_product_eyebrow', 'Sản phẩm') }}</x-eyebrow>
+      <h1 style="font-size:var(--text-display-lg);margin-top:12px">{{ App\nep('arch_product_heading', 'Bộ sưu tập rèm cửa') }}</h1>
     </x-container>
   </section>
 

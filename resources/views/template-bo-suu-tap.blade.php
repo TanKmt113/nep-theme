@@ -19,8 +19,18 @@
     ['name' => 'Velvet Noir', 'tagline' => 'Nhung sang trọng', 'count' => 12, 'img' => 'https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=900&q=80'],
     ['name' => 'Nan gỗ tự nhiên', 'tagline' => 'Ấm áp & bền bỉ', 'count' => 18, 'img' => 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=900&q=80'],
   ], fn ($r) => ['name' => $r['name'] ?? '', 'tagline' => $r['tagline'] ?? '', 'count' => $r['count'] ?? '', 'img' => $r['image'] ?? '']);
-  $cats = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => false]);
-  $featured = get_posts(['post_type' => 'product', 'numberposts' => 4, 'offset' => 4, 'post_status' => 'publish']);
+  $pickedCats = page_field('look_categories', []);
+  $catArgs = ['taxonomy' => 'product_cat', 'hide_empty' => false];
+  if (! empty($pickedCats) && is_array($pickedCats)) {
+    $catArgs['include'] = array_map('intval', $pickedCats);
+    $catArgs['orderby'] = 'include';
+  }
+  $cats = get_terms($catArgs);
+  if (is_wp_error($cats)) $cats = [];
+  $featIds = function_exists('wc_get_featured_product_ids') ? wc_get_featured_product_ids() : [];
+  $featured = ! empty($featIds)
+    ? get_posts(['post_type' => 'product', 'post__in' => $featIds, 'orderby' => 'post__in', 'numberposts' => 4, 'post_status' => 'publish'])
+    : get_posts(['post_type' => 'product', 'numberposts' => 4, 'post_status' => 'publish']);
   $listing = App\nep_shop_url();
 @endphp
 

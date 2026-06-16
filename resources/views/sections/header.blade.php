@@ -3,14 +3,16 @@
   use function App\nep_tel;
   $transparent = is_front_page();
   $hotline = nep('hotline');
+  $logo = nep('logo') ?: get_theme_file_uri('public/images/logo.svg');
+  $logoLight = nep('logo_light') ?: get_theme_file_uri('public/images/logo-light.svg');
 @endphp
 
 {{-- NẾP · Header — fixed, glass-on-scroll. State handled in app.js (.is-solid / .is-open). --}}
 <header class="nep-header" data-transparent="{{ $transparent ? 'true' : 'false' }}">
   <x-container :style="'display:flex;align-items:center;justify-content:space-between;height:78px'">
     <a href="{{ home_url('/') }}" class="nep-header__logo">
-      <img src="{{ get_theme_file_uri('public/images/logo.svg') }}" alt="NẾP" class="nep-logo-dark" style="height:38px">
-      <img src="{{ get_theme_file_uri('public/images/logo-light.svg') }}" alt="NẾP" class="nep-logo-light" style="height:38px">
+      <img src="{{ $logo }}" alt="NẾP" class="nep-logo-dark" style="height:38px">
+      <img src="{{ $logoLight }}" alt="NẾP" class="nep-logo-light" style="height:38px">
     </a>
 
     {{-- Desktop nav --}}

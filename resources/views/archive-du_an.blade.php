@@ -6,8 +6,8 @@
 @section('content')
   <section style="padding-top:140px;padding-bottom:var(--space-8);background:var(--cream)">
     <x-container>
-      <x-eyebrow rule>Dự án</x-eyebrow>
-      <h1 style="font-size:var(--text-display-lg);margin-top:12px">Không gian đã hoàn thiện</h1>
+      <x-eyebrow rule>{{ App\nep('arch_project_eyebrow', 'Dự án') }}</x-eyebrow>
+      <h1 style="font-size:var(--text-display-lg);margin-top:12px">{{ App\nep('arch_project_heading', 'Không gian đã hoàn thiện') }}</h1>
     </x-container>
   </section>
 

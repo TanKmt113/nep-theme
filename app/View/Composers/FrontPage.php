@@ -20,10 +20,20 @@ class FrontPage extends Composer
             'featured'   => $this->featured(),
             'categories' => $this->categories(),
             'projects'   => $this->projects(),
-            'process'    => function_exists('get_field') ? (get_field('process', 'option') ?: []) : [],
-            'features'   => function_exists('get_field') ? (get_field('features', 'option') ?: []) : [],
+            'process'    => $this->fieldFromFront('process'),
+            'features'   => $this->fieldFromFront('features'),
             'home'       => $this->home(),
         ];
+    }
+
+    /** Read a repeater/field stored on the front page (ACF "Nội dung Trang chủ"). */
+    protected function fieldFromFront(string $name): array
+    {
+        $id = (int) get_option('page_on_front');
+        if (! $id || ! function_exists('get_field')) {
+            return [];
+        }
+        return get_field($name, $id) ?: [];
     }
 
     /**
@@ -81,9 +91,22 @@ class FrontPage extends Composer
         ];
     }
 
-    /** Up to 4 featured products (WooCommerce). */
+    /** Featured products: WooCommerce "nổi bật" flag, fallback to newest 4. */
     protected function featured(): array
     {
+        if (function_exists('wc_get_featured_product_ids')) {
+            $ids = wc_get_featured_product_ids();
+            if (! empty($ids)) {
+                return get_posts([
+                    'post_type'   => 'product',
+                    'post__in'    => $ids,
+                    'orderby'     => 'post__in',
+                    'numberposts' => 4,
+                    'post_status' => 'publish',
+                ]);
+            }
+        }
+
         return get_posts([
             'post_type'   => 'product',
             'numberposts' => 4,
@@ -91,16 +114,38 @@ class FrontPage extends Composer
         ]);
     }
 
-    /** Curtain categories (product_cat terms) with their thumbnail + count. */
+    /** Product categories chosen on the homepage (in order); else all. */
     protected function categories(): array
     {
-        $terms = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => false]);
+        $id     = (int) get_option('page_on_front');
+        $picked = ($id && function_exists('get_field')) ? get_field('home_categories', $id) : null;
+
+        $args = ['taxonomy' => 'product_cat', 'hide_empty' => false];
+        if (! empty($picked) && is_array($picked)) {
+            $args['include'] = array_map('intval', $picked);
+            $args['orderby'] = 'include';
+        }
+
+        $terms = get_terms($args);
         return is_wp_error($terms) ? [] : $terms;
     }
 
-    /** Latest projects for the home showcase slider (full list lives on the archive). */
+    /** Projects chosen on the homepage (in order); else latest 8. Full list lives on the archive. */
     protected function projects(): array
     {
+        $id     = (int) get_option('page_on_front');
+        $picked = ($id && function_exists('get_field')) ? get_field('home_projects', $id) : null;
+
+        if (! empty($picked) && is_array($picked)) {
+            return get_posts([
+                'post_type'   => 'du_an',
+                'post__in'    => array_map('intval', $picked),
+                'orderby'     => 'post__in',
+                'numberposts' => -1,
+                'post_status' => 'publish',
+            ]);
+        }
+
         return get_posts([
             'post_type'   => 'du_an',
             'numberposts' => 8,

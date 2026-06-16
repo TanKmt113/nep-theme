@@ -4,12 +4,12 @@
     "src": "node_modules/pdfjs-dist/build/pdf.worker.min.mjs"
   },
   "resources/css/app.css": {
-    "file": "assets/app-B7ZIcLCo.css",
+    "file": "assets/app-CIHciDml.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-D4C_CTnw.js",
+    "file": "assets/app-wwBtWQYd.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -18,11 +18,11 @@
     ],
     "css": [
       "assets/app-BHcSP5WY.css",
-      "assets/app-B7ZIcLCo.css"
+      "assets/app-CIHciDml.css"
     ]
   },
   "resources/js/flipbook.js": {
-    "file": "assets/flipbook-CgJEDQ-7.js",
+    "file": "assets/flipbook-DNEPU2Vz.js",
     "name": "flipbook",
     "src": "resources/js/flipbook.js",
     "isDynamicEntry": true,

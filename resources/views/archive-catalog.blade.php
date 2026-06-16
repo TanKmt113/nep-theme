@@ -4,9 +4,9 @@
   {{-- Hero --}}
   <section style="background:var(--olive-900);color:#fff;padding-top:140px;padding-bottom:var(--space-9)">
     <x-container>
-      <x-eyebrow rule color="var(--moss)">Catalog</x-eyebrow>
-      <h1 style="color:#fff;font-size:var(--text-display-lg);margin-top:14px;max-width:20ch;text-wrap:balance">Catalogue &amp; bảng giá</h1>
-      <p style="color:rgba(244,242,236,.78);font-size:var(--text-lg);margin-top:14px;max-width:52ch">Xem trước và tải về các ấn phẩm catalogue, bảng màu, hồ sơ năng lực của NẾP.</p>
+      <x-eyebrow rule color="var(--moss)">{{ App\nep('arch_catalog_eyebrow', 'Catalog') }}</x-eyebrow>
+      <h1 style="color:#fff;font-size:var(--text-display-lg);margin-top:14px;max-width:20ch;text-wrap:balance">{{ App\nep('arch_catalog_heading', 'Catalogue & bảng giá') }}</h1>
+      <p style="color:rgba(244,242,236,.78);font-size:var(--text-lg);margin-top:14px;max-width:52ch">{{ App\nep('arch_catalog_desc', 'Xem trước và tải về các ấn phẩm catalogue, bảng màu, hồ sơ năng lực của NẾP.') }}</p>
     </x-container>
   </section>
 

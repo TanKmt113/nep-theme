@@ -36,43 +36,42 @@ add_action('acf/init', function () {
         'key'    => 'group_nep_settings',
         'title'  => 'Cài đặt NẾP',
         'fields' => [
-            ['key' => 'f_hotline',    'label' => 'Hotline',      'name' => 'hotline',     'type' => 'text', 'default_value' => '083.888.5005'],
-            ['key' => 'f_hotline2',   'label' => 'Hotline phụ',  'name' => 'hotline_alt', 'type' => 'text', 'default_value' => '084.888.5005'],
-            ['key' => 'f_slogan',     'label' => 'Slogan',       'name' => 'slogan',      'type' => 'text', 'default_value' => 'Uy tín tạo nên thương hiệu'],
-            ['key' => 'f_brandline',  'label' => 'Brand line',   'name' => 'brand_line',  'type' => 'text', 'default_value' => 'Xưởng thêu vi tính – Rèm thiết kế'],
-            ['key' => 'f_email',      'label' => 'Email',        'name' => 'email',       'type' => 'email', 'default_value' => 'xinchao@nep.vn'],
+            // ===== Tab: Liên hệ =====
+            ['key' => 'f_tab_contact', 'label' => 'Liên hệ', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_hotline',    'label' => 'Hotline',      'name' => 'hotline',     'type' => 'text', 'default_value' => '083.888.5005', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_hotline2',   'label' => 'Hotline phụ',  'name' => 'hotline_alt', 'type' => 'text', 'default_value' => '084.888.5005', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_email',      'label' => 'Email',        'name' => 'email',       'type' => 'email', 'default_value' => 'xinchao@nep.vn', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_hours',      'label' => 'Giờ làm việc', 'name' => 'hours',       'type' => 'text', 'default_value' => '8:00 – 20:00, Thứ 2 – Chủ nhật', 'wrapper' => ['width' => 50]],
             ['key' => 'f_address',    'label' => 'Địa chỉ',      'name' => 'address',     'type' => 'text', 'default_value' => 'Ngã 3 Tân Hương, Phổ Yên, Thái Nguyên'],
-            ['key' => 'f_hours',      'label' => 'Giờ làm việc', 'name' => 'hours',       'type' => 'text', 'default_value' => '8:00 – 20:00, Thứ 2 – Chủ nhật'],
-            [
-                'key' => 'f_process', 'label' => 'Quy trình (6 bước)', 'name' => 'process', 'type' => 'repeater',
-                'layout' => 'block', 'button_label' => 'Thêm bước',
-                'sub_fields' => [
-                    ['key' => 'f_proc_n',     'label' => 'Số',     'name' => 'n',     'type' => 'text'],
-                    ['key' => 'f_proc_title', 'label' => 'Tiêu đề', 'name' => 'title', 'type' => 'text'],
-                    ['key' => 'f_proc_desc',  'label' => 'Mô tả',  'name' => 'desc',  'type' => 'textarea', 'rows' => 2],
-                    ['key' => 'f_proc_icon',  'label' => 'Icon (lucide)', 'name' => 'icon', 'type' => 'text'],
-                ],
-            ],
-            [
-                'key' => 'f_features', 'label' => 'Lý do chọn NẾP', 'name' => 'features', 'type' => 'repeater',
-                'layout' => 'block', 'button_label' => 'Thêm mục',
-                'sub_fields' => [
-                    ['key' => 'f_feat_title', 'label' => 'Tiêu đề', 'name' => 'title', 'type' => 'text'],
-                    ['key' => 'f_feat_desc',  'label' => 'Mô tả',  'name' => 'desc',  'type' => 'textarea', 'rows' => 2],
-                    ['key' => 'f_feat_icon',  'label' => 'Icon (lucide)', 'name' => 'icon', 'type' => 'text'],
-                ],
-            ],
+
+            // ===== Tab: Thương hiệu =====
+            ['key' => 'f_tab_brand', 'label' => 'Thương hiệu', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_logo',       'label' => 'Logo chính',   'name' => 'logo',       'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'library' => 'all', 'instructions' => 'Hiện ở header (nền sáng) & khi cuộn. Nên dùng PNG/SVG nền trong suốt. Trống = logo mặc định của theme.', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_logo_light', 'label' => 'Logo nền tối', 'name' => 'logo_light', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'library' => 'all', 'instructions' => 'Hiện ở header trong suốt trên ảnh hero & ở footer. Nên là phiên bản logo màu sáng/trắng. Trống = logo mặc định.', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_slogan',     'label' => 'Slogan',       'name' => 'slogan',      'type' => 'text', 'default_value' => 'Uy tín tạo nên thương hiệu', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_brandline',  'label' => 'Brand line',   'name' => 'brand_line',  'type' => 'text', 'default_value' => 'Xưởng thêu vi tính – Rèm thiết kế', 'wrapper' => ['width' => 50]],
 
             // ===== Tab: CTA cuối trang (khối "Nâng tầm không gian…") =====
-            ['key' => 'f_cta_tab', 'label' => 'CTA cuối trang', 'type' => 'tab'],
+            ['key' => 'f_cta_tab', 'label' => 'CTA cuối trang', 'type' => 'tab', 'placement' => 'top'],
             ['key' => 'f_cta_heading', 'label' => 'Tiêu đề', 'name' => 'cta_heading', 'type' => 'text', 'default_value' => 'Nâng tầm không gian sống của bạn ngay hôm nay'],
             ['key' => 'f_cta_image', 'label' => 'Ảnh nền', 'name' => 'cta_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
             ['key' => 'f_cta_b1', 'label' => 'Nút 1 — chữ (gọi hotline)', 'name' => 'cta_btn1_text', 'type' => 'text', 'default_value' => 'Gọi ngay', 'wrapper' => ['width' => 50]],
             ['key' => 'f_cta_b2t', 'label' => 'Nút 2 — chữ', 'name' => 'cta_btn2_text', 'type' => 'text', 'default_value' => 'Đăng ký tư vấn', 'wrapper' => ['width' => 50]],
             ['key' => 'f_cta_b2u', 'label' => 'Nút 2 — liên kết', 'name' => 'cta_btn2_url', 'type' => 'text', 'instructions' => 'Trống = trang Liên hệ.'],
 
+            // ===== Tab: Trang lưu trữ (tiêu đề các trang danh sách) =====
+            ['key' => 'f_arch_tab', 'label' => 'Trang lưu trữ', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_arch_msg', 'label' => '', 'type' => 'message', 'message' => 'Tiêu đề các trang danh sách. Để trống sẽ dùng tiêu đề mặc định.'],
+            ['key' => 'f_arch_prod_eb', 'label' => 'Sản phẩm — eyebrow', 'name' => 'arch_product_eyebrow', 'type' => 'text', 'default_value' => 'Sản phẩm', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_arch_prod_h',  'label' => 'Sản phẩm — tiêu đề', 'name' => 'arch_product_heading', 'type' => 'text', 'default_value' => 'Bộ sưu tập rèm cửa', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_arch_proj_eb', 'label' => 'Dự án — eyebrow', 'name' => 'arch_project_eyebrow', 'type' => 'text', 'default_value' => 'Dự án', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_arch_proj_h',  'label' => 'Dự án — tiêu đề', 'name' => 'arch_project_heading', 'type' => 'text', 'default_value' => 'Không gian đã hoàn thiện', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_arch_cat_eb',  'label' => 'Catalog — eyebrow', 'name' => 'arch_catalog_eyebrow', 'type' => 'text', 'default_value' => 'Catalog', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_arch_cat_h',   'label' => 'Catalog — tiêu đề', 'name' => 'arch_catalog_heading', 'type' => 'text', 'default_value' => 'Catalogue & bảng giá', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_arch_cat_desc','label' => 'Catalog — mô tả', 'name' => 'arch_catalog_desc', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Xem trước và tải về các ấn phẩm catalogue, bảng màu, hồ sơ năng lực của NẾP.'],
+
             // ===== Tab: Footer =====
-            ['key' => 'f_ft_tab', 'label' => 'Footer', 'type' => 'tab'],
+            ['key' => 'f_ft_tab', 'label' => 'Footer', 'type' => 'tab', 'placement' => 'top'],
             ['key' => 'f_ft_about', 'label' => 'Giới thiệu ngắn', 'name' => 'footer_about', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Xưởng thêu vi tính & rèm thiết kế.'],
             ['key' => 'f_ft_c1', 'label' => 'Tiêu đề cột 1', 'name' => 'footer_products_title', 'type' => 'text', 'default_value' => 'Sản phẩm', 'wrapper' => ['width' => 33]],
             ['key' => 'f_ft_c2', 'label' => 'Tiêu đề cột 2', 'name' => 'footer_services_title', 'type' => 'text', 'default_value' => 'Dịch vụ', 'wrapper' => ['width' => 33]],
@@ -122,16 +121,50 @@ add_action('acf/init', function () {
             ['key' => 'f_home_intro_badge_value', 'label' => 'Badge — số', 'name' => 'intro_badge_value', 'type' => 'text', 'default_value' => '4.9/5', 'wrapper' => ['width' => 50]],
             ['key' => 'f_home_intro_badge_label', 'label' => 'Badge — nhãn', 'name' => 'intro_badge_label', 'type' => 'text', 'default_value' => '1.200+ đánh giá', 'wrapper' => ['width' => 50]],
 
-            // ===== Tab: Tiêu đề các mục =====
-            ['key' => 'f_home_tab_titles', 'label' => 'Tiêu đề các mục', 'type' => 'tab', 'placement' => 'top'],
-            ['key' => 'f_home_cat_eyebrow', 'label' => 'Danh mục — eyebrow', 'name' => 'cat_eyebrow', 'type' => 'text', 'default_value' => 'Danh mục', 'wrapper' => ['width' => 50]],
-            ['key' => 'f_home_cat_heading', 'label' => 'Danh mục — tiêu đề', 'name' => 'cat_heading', 'type' => 'text', 'default_value' => 'Bộ sưu tập rèm cửa', 'wrapper' => ['width' => 50]],
-            ['key' => 'f_home_feat_eyebrow', 'label' => 'Nổi bật — eyebrow', 'name' => 'featured_eyebrow', 'type' => 'text', 'default_value' => 'Nổi bật', 'wrapper' => ['width' => 50]],
-            ['key' => 'f_home_feat_heading', 'label' => 'Nổi bật — tiêu đề', 'name' => 'featured_heading', 'type' => 'text', 'default_value' => 'Được yêu thích nhất', 'wrapper' => ['width' => 50]],
-            ['key' => 'f_home_proc_eyebrow', 'label' => 'Quy trình — eyebrow', 'name' => 'process_eyebrow', 'type' => 'text', 'default_value' => 'Quy trình', 'wrapper' => ['width' => 50]],
-            ['key' => 'f_home_proc_heading', 'label' => 'Quy trình — tiêu đề', 'name' => 'process_heading', 'type' => 'text', 'default_value' => '6 bước, trọn vẹn an tâm', 'wrapper' => ['width' => 50]],
-            ['key' => 'f_home_proj_eyebrow', 'label' => 'Dự án — eyebrow', 'name' => 'projects_eyebrow', 'type' => 'text', 'default_value' => 'Dự án', 'wrapper' => ['width' => 50]],
-            ['key' => 'f_home_proj_heading', 'label' => 'Dự án — tiêu đề', 'name' => 'projects_heading', 'type' => 'text', 'default_value' => 'Không gian đã hoàn thiện', 'wrapper' => ['width' => 50]],
+            // ===== Tab: Danh mục =====
+            ['key' => 'f_home_tab_cat', 'label' => 'Danh mục', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_cat_eyebrow', 'label' => 'Eyebrow (dòng nhỏ)', 'name' => 'cat_eyebrow', 'type' => 'text', 'default_value' => 'Danh mục', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_cat_heading', 'label' => 'Tiêu đề', 'name' => 'cat_heading', 'type' => 'text', 'default_value' => 'Bộ sưu tập rèm cửa', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_cat_pick', 'label' => 'Danh mục hiển thị', 'name' => 'home_categories', 'type' => 'taxonomy', 'taxonomy' => 'product_cat', 'field_type' => 'multi_select', 'add_term' => 0, 'save_terms' => 0, 'load_terms' => 0, 'return_format' => 'id', 'instructions' => 'Chọn & sắp xếp danh mục muốn hiện trên trang chủ. Để trống = hiện tất cả. (Ảnh/tên danh mục sửa tại Sản phẩm → Danh mục.)'],
+
+            // ===== Tab: Nổi bật =====
+            ['key' => 'f_home_tab_feat', 'label' => 'Nổi bật', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_feat_eyebrow', 'label' => 'Eyebrow (dòng nhỏ)', 'name' => 'featured_eyebrow', 'type' => 'text', 'default_value' => 'Nổi bật', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_feat_heading', 'label' => 'Tiêu đề', 'name' => 'featured_heading', 'type' => 'text', 'default_value' => 'Được yêu thích nhất', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_feat_note', 'label' => 'Chọn sản phẩm nổi bật', 'type' => 'message', 'message' => 'Sản phẩm hiện ở mục này lấy theo cờ <strong>“Sản phẩm nổi bật”</strong> của WooCommerce. Vào <strong>Sản phẩm</strong> → bật ngôi sao ⭐ ở sản phẩm muốn hiện (hoặc trong trang sửa sản phẩm → Xuất bản → Hiển thị → Sản phẩm nổi bật). Chưa đánh dấu = tự hiện 4 sản phẩm mới nhất.'],
+
+            // ===== Tab: Dự án =====
+            ['key' => 'f_home_tab_proj', 'label' => 'Dự án', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_proj_eyebrow', 'label' => 'Eyebrow (dòng nhỏ)', 'name' => 'projects_eyebrow', 'type' => 'text', 'default_value' => 'Dự án', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_proj_heading', 'label' => 'Tiêu đề', 'name' => 'projects_heading', 'type' => 'text', 'default_value' => 'Không gian đã hoàn thiện', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_proj_pick', 'label' => 'Dự án hiển thị', 'name' => 'home_projects', 'type' => 'relationship', 'post_type' => ['du_an'], 'filters' => ['search'], 'return_format' => 'id', 'instructions' => 'Chọn & sắp xếp dự án hiện trong slider trang chủ. Để trống = 8 dự án mới nhất.'],
+
+            // ===== Tab: Quy trình (khối "6 bước…" trên trang chủ) =====
+            ['key' => 'f_home_tab_process', 'label' => 'Quy trình', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_proc_eyebrow', 'label' => 'Eyebrow (dòng nhỏ)', 'name' => 'process_eyebrow', 'type' => 'text', 'default_value' => 'Quy trình', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_home_proc_heading', 'label' => 'Tiêu đề', 'name' => 'process_heading', 'type' => 'text', 'default_value' => '6 bước, trọn vẹn an tâm', 'wrapper' => ['width' => 50]],
+            [
+                'key' => 'f_process', 'label' => 'Quy trình (6 bước)', 'name' => 'process', 'type' => 'repeater',
+                'layout' => 'block', 'button_label' => 'Thêm bước',
+                'sub_fields' => [
+                    ['key' => 'f_proc_n',     'label' => 'Số',     'name' => 'n',     'type' => 'text', 'wrapper' => ['width' => 20]],
+                    ['key' => 'f_proc_title', 'label' => 'Tiêu đề', 'name' => 'title', 'type' => 'text', 'wrapper' => ['width' => 40]],
+                    ['key' => 'f_proc_icon',  'label' => 'Icon (lucide)', 'name' => 'icon', 'type' => 'text', 'wrapper' => ['width' => 40]],
+                    ['key' => 'f_proc_desc',  'label' => 'Mô tả',  'name' => 'desc',  'type' => 'textarea', 'rows' => 2],
+                ],
+            ],
+
+            // ===== Tab: Lý do chọn NẾP (khối lý do trên trang chủ) =====
+            ['key' => 'f_home_tab_features', 'label' => 'Lý do chọn', 'type' => 'tab', 'placement' => 'top'],
+            [
+                'key' => 'f_features', 'label' => 'Lý do chọn NẾP', 'name' => 'features', 'type' => 'repeater',
+                'layout' => 'block', 'button_label' => 'Thêm mục',
+                'sub_fields' => [
+                    ['key' => 'f_feat_title', 'label' => 'Tiêu đề', 'name' => 'title', 'type' => 'text', 'wrapper' => ['width' => 60]],
+                    ['key' => 'f_feat_icon',  'label' => 'Icon (lucide)', 'name' => 'icon', 'type' => 'text', 'wrapper' => ['width' => 40]],
+                    ['key' => 'f_feat_desc',  'label' => 'Mô tả',  'name' => 'desc',  'type' => 'textarea', 'rows' => 2],
+                ],
+            ],
         ],
         'location'   => [[['param' => 'page_type', 'operator' => '==', 'value' => 'front_page']]],
         'menu_order' => 0,
@@ -302,8 +335,10 @@ add_action('acf/init', function () {
             ['key' => 'f_lb_tab_titles', 'label' => 'Tiêu đề mục', 'type' => 'tab'],
             ['key' => 'f_lb_cat_eyebrow', 'label' => 'Danh mục — eyebrow', 'name' => 'look_cat_eyebrow', 'type' => 'text', 'default_value' => 'Danh mục', 'wrapper' => ['width' => 50]],
             ['key' => 'f_lb_cat_heading', 'label' => 'Danh mục — tiêu đề', 'name' => 'look_cat_heading', 'type' => 'text', 'default_value' => 'Tất cả loại rèm', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_lb_cat_pick', 'label' => 'Danh mục hiển thị', 'name' => 'look_categories', 'type' => 'taxonomy', 'taxonomy' => 'product_cat', 'field_type' => 'multi_select', 'add_term' => 0, 'save_terms' => 0, 'load_terms' => 0, 'return_format' => 'id', 'instructions' => 'Chọn & sắp xếp danh mục muốn hiện. Để trống = hiện tất cả.'],
             ['key' => 'f_lb_feat_eyebrow', 'label' => 'Tuyển chọn — eyebrow', 'name' => 'look_feat_eyebrow', 'type' => 'text', 'default_value' => 'Tuyển chọn', 'wrapper' => ['width' => 50]],
             ['key' => 'f_lb_feat_heading', 'label' => 'Tuyển chọn — tiêu đề', 'name' => 'look_feat_heading', 'type' => 'text', 'default_value' => 'Sản phẩm tiêu biểu', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_lb_feat_note', 'label' => 'Chọn sản phẩm tiêu biểu', 'type' => 'message', 'message' => 'Sản phẩm ở mục này lấy theo cờ <strong>“Sản phẩm nổi bật”</strong> của WooCommerce (bật ngôi sao ⭐ ở Sản phẩm). Chưa đánh dấu = tự hiện 4 sản phẩm mới nhất.'],
         ],
         'location'   => [[['param' => 'page_template', 'operator' => '==', 'value' => 'template-bo-suu-tap.blade.php']]],
         'menu_order' => 0,
@@ -383,4 +418,37 @@ add_action('admin_notices', function () {
         return;
     }
     echo '<div class="notice notice-warning"><p><strong>NẾP:</strong> Theme cần plugin <a href="https://www.advancedcustomfields.com/" target="_blank">Advanced Custom Fields</a> (khuyến nghị bản Pro) để quản lý dữ liệu sản phẩm/dự án.</p></div>';
+});
+
+/**
+ * Polish the "Cài đặt NẾP" options page layout (brand accent + readable widths).
+ * Scoped to that screen only via the body class WordPress adds for it.
+ */
+add_action('admin_head', function () {
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if (! $screen || strpos((string) $screen->id, 'nep-settings') === false) {
+        return;
+    }
+    ?>
+    <style>
+      .acf-admin-page #wpbody-content > .wrap { max-width: 1040px; }
+      .acf-admin-page .postbox { border-color: #E7E0D5; border-radius: 10px; overflow: hidden; }
+      .acf-admin-page .postbox > .postbox-header { background: #F8F6F3; border-bottom: 1px solid #E7E0D5; }
+      .acf-admin-page .postbox > .postbox-header h2 { font-size: 14px; }
+      /* Tab bar */
+      .acf-tab-wrap .acf-tab-group { border-bottom: 1px solid #E7E0D5; }
+      .acf-tab-group li a.acf-tab-button { color: #6b6b66; border-radius: 8px 8px 0 0; }
+      .acf-tab-group li.active a.acf-tab-button,
+      .acf-tab-group li a.acf-tab-button:focus { color: #4C5334; box-shadow: inset 0 -2px 0 #6E764F; }
+      /* Fields: comfortable spacing + readable input width */
+      .acf-fields > .acf-field { padding: 16px 20px; }
+      .acf-field input[type="text"], .acf-field input[type="email"],
+      .acf-field input[type="url"], .acf-field textarea { max-width: 620px; }
+      /* Primary save button in brand olive */
+      .acf-admin-page #publishing-action #publish,
+      .acf-admin-page .button-primary { background: #6E764F !important; border-color: #5D6440 !important; box-shadow: none !important; text-shadow: none !important; }
+      .acf-admin-page #publishing-action #publish:hover,
+      .acf-admin-page .button-primary:hover { background: #5D6440 !important; }
+    </style>
+    <?php
 });
