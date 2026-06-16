@@ -1,0 +1,44 @@
+/* ============================================================
+   NẾP · Motion tokens
+   Calm, refined micro-interactions. Subtle, never bouncy or busy.
+   ============================================================ */
+
+:root {
+  /* ---- Durations ---- */
+  --dur-instant: 90ms;    /* @kind other */
+  --dur-fast:    160ms;   /* @kind other */
+  --dur-base:    240ms;   /* @kind other */
+  --dur-slow:    420ms;   /* @kind other */
+  --dur-reveal:  720ms;   /* @kind other */
+
+  /* ---- Easing — gentle, decelerating; no overshoot ---- */
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);  /* @kind other */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.30, 1);     /* @kind other */
+  --ease-exit:     cubic-bezier(0.55, 0, 0.55, 0.2);   /* @kind other */
+  --ease-inout:    cubic-bezier(0.65, 0, 0.35, 1);     /* @kind other */
+
+  /* ---- Common transitions ---- */
+  --t-color:     color var(--dur-fast) var(--ease-standard),
+                 background-color var(--dur-fast) var(--ease-standard),
+                 border-color var(--dur-fast) var(--ease-standard);  /* @kind other */
+  --t-transform: transform var(--dur-base) var(--ease-standard);     /* @kind other */
+  --t-card:      transform var(--dur-base) var(--ease-entrance),
+                 box-shadow var(--dur-base) var(--ease-entrance);    /* @kind other */
+
+  /* ---- Hover / press deltas ---- */
+  --hover-lift:   -4px;    /* @kind other */
+  --hover-zoom:   1.05;    /* @kind other */
+  --press-scale:  0.97;    /* @kind other */
+}
+
+/* Smooth scroll, brand-wide */
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

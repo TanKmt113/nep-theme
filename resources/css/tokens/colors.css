@@ -1,0 +1,97 @@
+/* ============================================================
+   NẾP · Color tokens
+   Warm, editorial, minimal-luxury palette.
+   Base = paper / cream / beige. Accents = olive, moss,
+   champagne, wood, warm ink. No loud hues, no neon gradients.
+   ============================================================ */
+
+:root {
+  /* ---- Warm neutrals (the foundation: ~90% of every surface) ---- */
+  --paper:        #FFFFFF;  /* pure white surfaces, cards on cream */
+  --cream:        #F8F6F3;  /* default page background */
+  --beige:        #EFE8DF;  /* raised panels, alternating sections */
+  --sand:         #E4DACB;  /* deeper beige, hairlines on cream */
+  --linen:        #EDE7DE;  /* soft fills, hover wells */
+
+  /* ---- Warm ink (text + near-black) ---- */
+  --ink:          #26261F;  /* primary text, almost-black warm */
+  --ink-soft:     #45453C;  /* secondary text */
+  --ink-muted:    #807D72;  /* captions, meta, placeholders */
+  --ink-faint:    #B6B1A4;  /* disabled, faint dividers */
+
+  /* ---- Olive (primary brand accent) ---- */
+  --olive-900:    #2C301E;
+  --olive-800:    #3B4029;
+  --olive-700:    #4C5334;
+  --olive-600:    #5D6440;
+  --olive-500:    #6E764F;  /* core olive */
+  --olive-400:    #899072;
+  --olive-300:    #A9AF90;
+  --olive-200:    #CBCFB7;
+  --olive-100:    #E2E5D6;
+  --olive-50:     #F1F2EA;
+
+  /* ---- Moss (soft, fresh secondary green) ---- */
+  --moss:         #B6BD9B;
+  --moss-soft:    #D2D7BE;
+  --moss-faint:   #E8EBDD;
+
+  /* ---- Champagne (warm metallic highlight, sparing) ---- */
+  --champagne:    #C6A565;
+  --champagne-soft: #E0CDA2;
+  --champagne-faint: #F2E9D6;
+
+  /* ---- Wood (grounding warm brown) ---- */
+  --wood:         #8C6F52;
+  --wood-dark:    #6A5440;
+  --wood-faint:   #EBE1D6;
+
+  /* ---- Functional (quiet, on-brand) ---- */
+  --success:      #5D7A4E;
+  --success-soft: #E4ECDD;
+  --warning:      #C08A3E;
+  --warning-soft: #F4E7D2;
+  --danger:       #A8503F;
+  --danger-soft:  #F2DED9;
+  --info:         #5E7488;
+  --info-soft:    #E2E9EF;
+
+  /* ============================================================
+     Semantic aliases — reference THESE in components
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page:      var(--cream);
+  --surface-card:      var(--paper);
+  --surface-raised:    var(--beige);
+  --surface-sunken:    var(--linen);
+  --surface-inverse:   var(--olive-900);
+  --surface-overlay:   rgba(38, 38, 31, 0.55);
+
+  /* Text */
+  --text-strong:   var(--ink);
+  --text-body:     var(--ink-soft);
+  --text-muted:    var(--ink-muted);
+  --text-faint:    var(--ink-faint);
+  --text-on-dark:  #F4F2EC;
+  --text-on-olive: #F5F4EC;
+  --text-brand:    var(--olive-600);
+
+  /* Borders & hairlines */
+  --border-soft:   #E7E0D5;
+  --border-strong: var(--sand);
+  --border-ink:    rgba(38, 38, 31, 0.14);
+  --border-focus:  var(--olive-500);
+
+  /* Brand / interactive */
+  --brand:         var(--olive-500);
+  --brand-hover:   var(--olive-600);
+  --brand-press:   var(--olive-700);
+  --brand-tint:    var(--olive-50);
+  --accent-gold:   var(--champagne);
+  --accent-wood:   var(--wood);
+
+  /* Glass (light, used sparingly per brief) */
+  --glass-bg:      rgba(255, 255, 255, 0.62);
+  --glass-border:  rgba(255, 255, 255, 0.55);
+}

@@ -1,0 +1,79 @@
+/* ============================================================
+   NẾP · Base layer
+   Minimal reset + brand defaults. Imported after tokens.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+  color: var(--text-body);
+  background-color: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings default to the editorial serif */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-strong);
+}
+
+p { margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--t-color);
+}
+
+img, video, svg { display: block; max-width: 100%; }
+
+button { font-family: inherit; cursor: pointer; }
+
+::selection {
+  background: var(--olive-200);
+  color: var(--ink);
+}
+
+/* ---- Reusable editorial helpers ---- */
+
+.nep-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-brand);
+}
+
+.nep-container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Soft scroll-reveal primitive (toggle .is-visible to reveal) */
+.nep-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity var(--dur-reveal) var(--ease-entrance),
+              transform var(--dur-reveal) var(--ease-entrance);
+}
+.nep-reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nep-reveal { opacity: 1; transform: none; }
+}

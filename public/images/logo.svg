@@ -1,0 +1,13 @@
+<svg width="220" height="64" viewBox="0 0 220 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NẾP — Rèm &amp; Thêu">
+  <rect width="64" height="64" rx="18" fill="#6E764F"></rect>
+  <g stroke="#F2E9D6" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.95">
+    <path d="M19 15 C 14 28, 24 36, 19 49"></path>
+    <path d="M27 15 C 22 28, 32 36, 27 49"></path>
+    <path d="M35 15 C 30 28, 40 36, 35 49"></path>
+    <path d="M43 15 C 38 28, 48 36, 43 49"></path>
+  </g>
+  <circle cx="45.5" cy="20" r="2.3" fill="#C6A565"></circle>
+  
+  <text x="80" y="38" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-size="38" font-weight="600" letter-spacing="2" fill="#26261F">NẾP</text>
+  <text x="81" y="53" font-family="&#39;Manrope&#39;, sans-serif" font-size="9.5" font-weight="600" letter-spacing="3.2" fill="#807D72">RÈM &amp; THÊU</text>
+</svg>

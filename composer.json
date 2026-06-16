@@ -1,0 +1,28 @@
+{
+  "name": "nep/sage-theme",
+  "type": "wordpress-theme",
+  "license": "MIT",
+  "description": "NẾP — Sage theme ported from the Astro design system.",
+  "require": {
+    "php": ">=8.2",
+    "roots/acorn": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "Roots\\Acorn\\ComposerScripts::postAutoloadDump"
+    ]
+  }
+}

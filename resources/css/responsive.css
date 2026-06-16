@@ -1,0 +1,103 @@
+/* ============================================================
+   NẾP · Responsive layer
+   The screens carry their desktop layout in inline styles. React serializes
+   those styles to predictable strings (e.g. `grid-template-columns:repeat(4,1fr)`),
+   so we re-flow them here with attribute-selector overrides at each breakpoint.
+   `!important` is required to win over the inline declarations.
+
+   Breakpoints:  ≤1024px tablet · ≤860px small tablet/large phone · ≤600px phone
+   Brief: product grids 4 (desktop) / 2 (tablet) / 1 (mobile).
+   ============================================================ */
+
+/* ---- Header: desktop chrome vs. mobile menu toggle ---- */
+.nep-mobile-only { display: none !important; }
+
+@media (max-width: 860px) {
+  .nep-desktop-only { display: none !important; }
+  .nep-mobile-only { display: inline-flex !important; }
+}
+
+/* Mobile dropdown panel: only ever shown below the desktop breakpoint. */
+@media (min-width: 861px) {
+  .nep-menu-panel { display: none !important; }
+}
+
+/* ============================================================
+   TABLET — ≤ 1024px
+   ============================================================ */
+@media (max-width: 1024px) {
+  /* Card grids: 4 → 2 (keep the small detail thumbnails at 4) */
+  [style*="grid-template-columns:repeat(4,1fr)"]:not([style*="gap:12px"]) {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* 3-col grids → 2 */
+  [style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Milestone timeline (5-col) → vertical list */
+  [style*="grid-template-columns:repeat(5,1fr)"] {
+    grid-template-columns: 1fr !important;
+    row-gap: var(--space-6) !important;
+  }
+  /* the timeline's horizontal connector line is meaningless once stacked */
+  .nep-timeline-line { display: none !important; }
+
+  /* Masonry project cards: reset column spans so the 2-col grid stays even */
+  [style*="grid-auto-rows:260px"] > * { grid-column: auto !important; }
+
+  /* Asymmetric two-column layouts → single column (stack) */
+  [style*="grid-template-columns:260px 1fr"],
+  [style*="grid-template-columns:1.3fr 1fr"],
+  [style*="grid-template-columns:1fr 1.4fr"],
+  [style*="grid-template-columns:1.1fr 1fr"],
+  [style*="grid-template-columns:1.5fr 1fr"],
+  [style*="grid-template-columns:2fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Sticky sidebars/panels shouldn't stick once stacked */
+  [style*="position:sticky"] {
+    position: static !important;
+    top: auto !important;
+  }
+
+  /* Footer: 4 columns → 2 */
+  [style*="grid-template-columns:1.6fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ============================================================
+   SMALL TABLET / LARGE PHONE — ≤ 860px
+   ============================================================ */
+@media (max-width: 860px) {
+  /* Even two-column splits stack here (kept 2-up on tablet above) */
+  [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Button rows / toolbars that would overflow */
+  .nep-wrap { flex-wrap: wrap !important; }
+}
+
+/* ============================================================
+   PHONE — ≤ 600px
+   ============================================================ */
+@media (max-width: 600px) {
+  /* All card grids collapse to a single column (except detail thumbnails) */
+  [style*="grid-template-columns:repeat(4,1fr)"]:not([style*="gap:12px"]),
+  [style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Footer fully stacks */
+  [style*="grid-template-columns:1.6fr 1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Footer legal line: stack the two halves */
+  footer [style*="justify-content:space-between"][style*="padding-top:var(--space-6)"] {
+    flex-direction: column !important;
+    gap: 8px;
+    text-align: center;
+  }
+  /* Hero credibility stats wrap instead of overflowing */
+  [style*="gap:48px"] { flex-wrap: wrap !important; gap: var(--space-6) !important; }
+}
