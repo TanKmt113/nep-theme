@@ -52,6 +52,7 @@
     </x-container>
   </section>
 
+  @if(App\page_show('about_show_story'))
   {{-- Story --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container :style="'display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:center'">
@@ -62,13 +63,16 @@
           <p style="font-size:var(--text-lg);line-height:1.75;color:var(--text-body);margin-bottom:18px;max-width:50ch">{{ $p }}</p>
         @endforeach
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
         <img src="{{ $story_img1 }}" alt="{{ page_field('about_story_heading', 'Câu chuyện NẾP') }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-md)">
         <img src="{{ $story_img2 }}" alt="{{ page_field('about_story_heading', 'Câu chuyện NẾP') }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);margin-top:36px;box-shadow:var(--shadow-md)">
       </div>
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('about_show_stats'))
   {{-- Stats --}}
   <section style="background:var(--olive-900);padding:var(--space-9) 0">
     <x-container :style="'display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6)'" class="nep-grid-4">
@@ -78,6 +82,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('about_show_values'))
   {{-- Values --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
@@ -97,6 +104,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('about_show_timeline'))
   {{-- Timeline --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--beige)">
     <x-container>
@@ -119,6 +129,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('about_show_team'))
   {{-- Team --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
@@ -140,5 +153,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('about_show_cta'))
   @include('sections.final-cta')
+  @endif
 @endsection

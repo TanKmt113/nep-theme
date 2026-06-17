@@ -28,8 +28,13 @@
 
 @section('content')
   {{-- Banner --}}
-  <section style="background:var(--olive-900);color:#fff;padding-top:140px;padding-bottom:var(--space-9)">
-    <x-container>
+  @php($banner_bg = page_field('contact_banner_image', 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1800&q=80'))
+  <section style="position:relative;background:var(--olive-900);color:#fff;padding-top:140px;padding-bottom:var(--space-9);overflow:hidden">
+    @if($banner_bg)
+      {!! App\nep_image($banner_bg, page_field('contact_heading', 'Liên hệ NẾP'), ['loading' => 'eager', 'fetchpriority' => 'high', 'decoding' => 'async', 'sizes' => '100vw', 'style' => 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32'], 'full') !!}
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,30,20,.86) 0%,rgba(28,30,20,.55) 70%,rgba(28,30,20,.4) 100%)"></div>
+    @endif
+    <x-container :style="'position:relative'">
       <div style="font-size:var(--text-sm);color:rgba(255,255,255,.6);display:flex;gap:8px;align-items:center;margin-bottom:16px">
         <a href="{{ home_url('/') }}" style="color:inherit">Trang chủ</a>
         <x-icon name="chevron-right" :size="14" color="rgba(255,255,255,.5)" />
@@ -112,6 +117,7 @@
     </x-container>
   </section>
 
+  @if(App\page_show('contact_show_map'))
   {{-- Map --}}
   <section style="background:var(--cream);padding-top:0;padding-bottom:var(--section-y)">
     <x-container>
@@ -120,4 +126,5 @@
       </div>
     </x-container>
   </section>
+  @endif
 @endsection

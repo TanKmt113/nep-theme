@@ -226,8 +226,8 @@ select.nep-input::-ms-expand { display: none; }
 /* ============================================================
    Project slider (Swiper) — front page + archive Dự án
    ============================================================ */
-.nep-proj-swiper { --swiper-theme-color: var(--brand); overflow: hidden; }
-.nep-proj-swiper .swiper-slide { height: 460px; }
+.nep-proj-swiper { --swiper-theme-color: var(--brand); overflow: hidden; width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); padding: 0 clamp(16px, 4vw, 64px); }
+.nep-proj-swiper .swiper-slide { height: clamp(360px, 27vw, 540px); }
 /* Giữ ảnh sắc nét khi Swiper trượt bằng translate3d (tránh mờ do GPU layer). */
 .nep-proj-swiper .swiper-slide,
 .nep-proj-swiper .nep-proj-card,

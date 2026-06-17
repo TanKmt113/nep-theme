@@ -48,6 +48,7 @@
     </x-container>
   </section>
 
+  @if(App\page_show('emb_show_stats'))
   {{-- Stats --}}
   <section style="background:var(--champagne-faint);padding:var(--space-8) 0">
     <x-container class="nep-grid-4" :style="'display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6)'">
@@ -57,6 +58,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('emb_show_cap'))
   {{-- Capability --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container :style="'display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:center'">
@@ -82,6 +86,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('emb_show_services'))
   {{-- Services --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
@@ -106,9 +113,17 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('emb_show_cta'))
   {{-- CTA --}}
-  <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--olive-900);color:#fff">
-    <x-container narrow :style="'text-align:center'">
+  @php($cta_bg = page_field('emb_cta_image', 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1800&q=80'))
+  <section style="position:relative;padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--olive-900);color:#fff;overflow:hidden">
+    @if($cta_bg)
+      {!! App\nep_image($cta_bg, page_field('emb_cta_heading', 'Xưởng thêu NẾP'), ['loading' => 'lazy', 'decoding' => 'async', 'sizes' => '100vw', 'style' => 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32'], 'full') !!}
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,30,20,.72),rgba(28,30,20,.86))"></div>
+    @endif
+    <x-container narrow :style="'position:relative;text-align:center'">
       <h2 style="color:#fff;font-size:var(--text-display-lg);line-height:1.1;max-width:18ch;margin:0 auto;text-wrap:balance">{{ page_field('emb_cta_heading', 'Gửi logo — nhận mẫu thêu trong 24 giờ') }}</h2>
       <p style="color:rgba(244,242,236,.78);font-size:var(--text-lg);margin-top:16px;max-width:44ch;margin-inline:auto">{{ page_field('emb_cta_text', 'Đội ngũ tư vấn sẽ báo giá và gửi mẫu số hoá miễn phí cho đơn hàng của bạn.') }}</p>
       <div style="display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap">
@@ -117,4 +132,5 @@
       </div>
     </x-container>
   </section>
+  @endif
 @endsection

@@ -33,11 +33,12 @@
     </x-container>
   </section>
 
+  @if(App\page_show('home_show_intro'))
   {{-- ===== Intro / Về NẾP ===== --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container :style="'display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:center'">
       <div style="position:relative">
-        {!! nep_image($home['intro_image'], $home['intro_heading'], ['loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(max-width: 980px) 100vw, 50vw', 'style' => 'width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)'], 'large') !!}
+        {!! nep_image($home['intro_image'], $home['intro_heading'], ['loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(max-width: 980px) 100vw, 50vw', 'style' => 'width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)'], 'large') !!}
         @if($home['intro_badge_value'] || $home['intro_badge_label'])
         <div style="position:absolute;right:-24px;bottom:-24px;background:var(--olive-500);color:var(--text-on-olive);border-radius:var(--radius-lg);padding:22px 26px;box-shadow:var(--shadow-xl)">
           <div style="font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1">{{ $home['intro_badge_value'] }}</div>
@@ -68,6 +69,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('home_show_cat'))
   {{-- ===== Categories / Danh mục ===== --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
@@ -86,6 +90,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('home_show_featured'))
   {{-- ===== Featured / Nổi bật ===== --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--beige)">
     <x-container>
@@ -109,6 +116,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('home_show_process'))
   {{-- ===== Process / Quy trình ===== --}}
   <section id="process" style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container>
@@ -131,8 +141,11 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('home_show_projects'))
   {{-- ===== Projects / Dự án ===== --}}
-  <section id="projects" style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
+  <section id="projects" style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper);overflow:hidden">
     <x-container>
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-5);margin-bottom:var(--space-8);flex-wrap:wrap">
         <div><x-eyebrow rule>{{ $home['projects_eyebrow'] }}</x-eyebrow><h2 style="font-size:var(--text-display-md);margin-top:12px">{{ $home['projects_heading'] }}</h2></div>
@@ -144,6 +157,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('home_show_emb'))
   {{-- ===== Embroidery teaser ===== --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container>
@@ -165,6 +181,10 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('home_show_cta'))
   @include('sections.final-cta')
+  @endif
 
 @endsection

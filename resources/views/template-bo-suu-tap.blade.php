@@ -50,41 +50,126 @@
     </x-container>
   </section>
 
-  {{-- Lookbook --}}
-  <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
+  @if(App\page_show('look_show_lookbook'))
+  {{-- Lookbook — full-bleed horizontal slider --}}
+  @php
+    $slides = array_merge([$large], $smalls);
+  @endphp
+  <section class="nep-lb" style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream);overflow:hidden">
     <x-container>
-      <div style="margin-bottom:var(--space-8)">
-        <x-eyebrow rule>{{ page_field('look_eyebrow', 'Lookbook') }}</x-eyebrow>
-        <h2 style="font-size:var(--text-display-md);margin-top:12px">{{ page_field('look_heading', 'Bộ sưu tập nổi bật') }}</h2>
-      </div>
-      <div class="nep-lookbook" style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-5)">
-        {{-- large --}}
-        <a href="{{ $listing }}" class="nep-look-card" style="position:relative;border-radius:var(--radius-xl);overflow:hidden;display:block;min-height:520px">
-          <img src="{{ $large['img'] }}" alt="{{ $large['name'] }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
-          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,0) 40%,rgba(20,22,14,.74) 100%)"></div>
-          <div style="position:absolute;left:26px;right:26px;bottom:24px;color:#fff">
-            <div style="font-size:var(--text-2xs);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--moss-soft);margin-bottom:8px">{{ $large['count'] }} mẫu</div>
-            <div style="font-family:var(--font-display);font-size:var(--text-display-md);font-weight:600;line-height:1.05">{{ $large['name'] }}</div>
-            <div style="font-size:var(--text-sm);opacity:.86;margin-top:4px">{{ $large['tagline'] }}</div>
-          </div>
-        </a>
-        <div style="display:grid;grid-template-rows:1fr 1fr;gap:var(--space-5)">
-          @foreach($smalls as $l)
-            <a href="{{ $listing }}" class="nep-look-card" style="position:relative;border-radius:var(--radius-xl);overflow:hidden;display:block;min-height:0;height:100%">
-              <img src="{{ $l['img'] }}" alt="{{ $l['name'] }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
-              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,0) 40%,rgba(20,22,14,.74) 100%)"></div>
-              <div style="position:absolute;left:26px;right:26px;bottom:24px;color:#fff">
-                <div style="font-size:var(--text-2xs);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--moss-soft);margin-bottom:8px">{{ $l['count'] }} mẫu</div>
-                <div style="font-family:var(--font-display);font-size:var(--text-h2);font-weight:600;line-height:1.05">{{ $l['name'] }}</div>
-                <div style="font-size:var(--text-sm);opacity:.86;margin-top:4px">{{ $l['tagline'] }}</div>
-              </div>
-            </a>
-          @endforeach
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:var(--space-7)">
+        <div>
+          <x-eyebrow rule>{{ page_field('look_eyebrow', 'Lookbook') }}</x-eyebrow>
+          <h2 style="font-size:var(--text-display-md);margin-top:12px">{{ page_field('look_heading', 'Bộ sưu tập nổi bật') }}</h2>
         </div>
+        <div class="nep-lb__nav" aria-hidden="true">
+          <button type="button" class="nep-lb__arrow" data-dir="-1" aria-label="Ảnh trước"><x-icon name="arrow-left" :size="20" /></button>
+          <button type="button" class="nep-lb__arrow" data-dir="1" aria-label="Ảnh tiếp theo"><x-icon name="arrow-right" :size="20" /></button>
+        </div>
+      </div>
+    </x-container>
+
+    <div class="nep-lb__viewport" style="--lb-peek:clamp(16px,7vw,140px)">
+      <div class="nep-lb__track" role="list">
+        @foreach($slides as $i => $l)
+          <a href="{{ $listing }}" class="nep-lb__slide" role="listitem" style="--i:{{ $i }}">
+            <img src="{{ $l['img'] }}" alt="{{ $l['name'] }}" loading="{{ $i === 0 ? 'eager' : 'lazy' }}" decoding="async" class="nep-lb__img">
+            <span class="nep-lb__shade"></span>
+            <span class="nep-lb__cap">
+              @if(!empty($l['count']))<span class="nep-lb__count">{{ $l['count'] }} mẫu</span>@endif
+              <span class="nep-lb__name">{{ $l['name'] }}</span>
+              @if(!empty($l['tagline']))<span class="nep-lb__tag">{{ $l['tagline'] }}</span>@endif
+              <span class="nep-lb__cta">Xem bộ sưu tập <x-icon name="arrow-right" :size="16" /></span>
+            </span>
+          </a>
+        @endforeach
+      </div>
+    </div>
+
+    <x-container>
+      <div class="nep-lb__dots" role="tablist" aria-label="Chọn ảnh">
+        @foreach($slides as $i => $l)
+          <button type="button" class="nep-lb__dot{{ $i === 0 ? ' is-active' : '' }}" data-i="{{ $i }}" aria-label="Ảnh {{ $i + 1 }}"></button>
+        @endforeach
       </div>
     </x-container>
   </section>
 
+  <style>
+    .nep-lb__nav{display:flex;gap:12px}
+    .nep-lb__arrow{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:999px;border:1px solid var(--border-soft);background:#fff;color:var(--text-strong);cursor:pointer;transition:background .2s,color .2s,transform .2s,opacity .2s}
+    .nep-lb__arrow:hover{background:var(--olive-900);color:#fff;transform:translateY(-2px)}
+    .nep-lb__arrow:disabled{opacity:.35;cursor:default;transform:none}
+    .nep-lb__viewport{margin-top:8px}
+    .nep-lb__track{display:flex;gap:clamp(14px,1.6vw,26px);overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:6px var(--lb-peek);scroll-padding-left:var(--lb-peek)}
+    .nep-lb__track::-webkit-scrollbar{display:none}
+    .nep-lb__slide{position:relative;flex:0 0 calc(100% - var(--lb-peek)*2);scroll-snap-align:center;display:block;border-radius:var(--radius-2xl);overflow:hidden;aspect-ratio:21/9;text-decoration:none;background:var(--moss-faint);box-shadow:0 30px 60px -30px rgba(20,22,14,.5)}
+    .nep-lb__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+    .nep-lb__slide:hover .nep-lb__img{transform:scale(1.05)}
+    .nep-lb__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,0) 38%,rgba(20,22,14,.30) 64%,rgba(20,22,14,.82) 100%)}
+    .nep-lb__cap{position:absolute;left:clamp(22px,4vw,56px);right:clamp(22px,4vw,56px);bottom:clamp(22px,4vw,48px);display:flex;flex-direction:column;color:#fff}
+    .nep-lb__count{font-size:var(--text-2xs);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--moss-soft);margin-bottom:10px}
+    .nep-lb__name{font-family:var(--font-display);font-size:var(--text-display-md);font-weight:600;line-height:1.04}
+    .nep-lb__tag{font-size:var(--text-base);opacity:.88;margin-top:6px}
+    .nep-lb__cta{display:inline-flex;align-items:center;gap:8px;width:fit-content;margin-top:18px;font-size:var(--text-sm);font-weight:600;color:#fff;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
+    .nep-lb__slide:hover .nep-lb__cta,.nep-lb__slide:focus-visible .nep-lb__cta{opacity:1;transform:none}
+    .nep-lb__dots{display:flex;justify-content:center;gap:10px;margin-top:var(--space-6)}
+    .nep-lb__dot{width:9px;height:9px;padding:0;border:0;border-radius:999px;background:var(--moss);opacity:.4;cursor:pointer;transition:width .3s,opacity .3s,background .3s}
+    .nep-lb__dot.is-active{width:30px;opacity:1;background:var(--olive-700)}
+    @media (max-width:860px){
+      .nep-lb__nav{display:none}
+      .nep-lb__viewport{--lb-peek:16px}
+      .nep-lb__slide{flex:0 0 calc(100% - 28px);aspect-ratio:4/5}
+      .nep-lb__name{font-size:var(--text-h1)}
+    }
+    @media (prefers-reduced-motion:reduce){.nep-lb__img,.nep-lb__cta,.nep-lb__track{transition:none;scroll-behavior:auto}}
+  </style>
+
+  <script>
+  (function(){
+    var root=document.querySelector('.nep-lb');if(!root)return;
+    var track=root.querySelector('.nep-lb__track'),
+        slides=root.querySelectorAll('.nep-lb__slide'),
+        dots=root.querySelectorAll('.nep-lb__dot'),
+        arrows=root.querySelectorAll('.nep-lb__arrow');
+    if(!track||!slides.length)return;
+    var cur=0,
+        reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    function go(i){i=(i+slides.length)%slides.length;var s=slides[i];track.scrollTo({left:s.offsetLeft-(track.clientWidth-s.clientWidth)/2,behavior:reduce?'auto':'smooth'});}
+    function sync(){
+      var c=track.scrollLeft+track.clientWidth/2,best=0,min=Infinity;
+      slides.forEach(function(s,i){var d=Math.abs(s.offsetLeft+s.clientWidth/2-c);if(d<min){min=d;best=i;}});
+      cur=best;
+      dots.forEach(function(d,i){d.classList.toggle('is-active',i===best);});
+    }
+    arrows.forEach(function(a){a.addEventListener('click',function(){stop();go(cur+ +a.dataset.dir);});});
+    dots.forEach(function(d){d.addEventListener('click',function(){stop();go(+d.dataset.i);});});
+    var t;track.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(sync,80);},{passive:true});
+
+    // Auto-trượt (tạm dừng khi hover/chạm hoặc tab ẩn)
+    var timer=null,DELAY=4500;
+    function tick(){go(cur+1);}
+    function start(){if(!timer&&!reduce&&slides.length>1)timer=setInterval(tick,DELAY);}
+    function stop(){if(timer){clearInterval(timer);timer=null;}}
+    root.addEventListener('mouseenter',stop);
+    root.addEventListener('mouseleave',start);
+    track.addEventListener('touchstart',stop,{passive:true});
+    document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+    sync();
+
+    // Khi cuộn tới section lần đầu: trượt 1 phát rồi mới bật auto-trượt
+    var revealed=false;
+    function reveal(){if(revealed)return;revealed=true;if(!reduce)setTimeout(function(){go(cur+1);},520);start();}
+    if('IntersectionObserver'in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){reveal();io.disconnect();}});},{threshold:.35});
+      io.observe(root);
+    }else{reveal();}
+  })();
+  </script>
+
+  @endif
+
+  @if(App\page_show('look_show_cat'))
   {{-- Categories --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
     <x-container>
@@ -110,6 +195,9 @@
     </x-container>
   </section>
 
+  @endif
+
+  @if(App\page_show('look_show_featured'))
   {{-- Featured --}}
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--beige)">
     <x-container>
@@ -134,4 +222,5 @@
       </div>
     </x-container>
   </section>
+  @endif
 @endsection

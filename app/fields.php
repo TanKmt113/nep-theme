@@ -94,6 +94,17 @@ add_action('acf/init', function () {
         'key'    => 'group_home',
         'title'  => 'Nội dung Trang chủ',
         'fields' => [
+            // ===== Tab: Ẩn / Hiện section =====
+            ['key' => 'f_home_tab_show', 'label' => 'Ẩn / Hiện', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_home_show_msg', 'label' => '', 'type' => 'message', 'message' => 'Bật/tắt hiển thị từng section trên Trang chủ. Tắt = ẩn hẳn section đó khỏi trang.'],
+            ['key' => 'f_home_show_intro',    'label' => 'Giới thiệu (Về NẾP)', 'name' => 'home_show_intro',    'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_home_show_cat',      'label' => 'Danh mục',           'name' => 'home_show_cat',      'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_home_show_featured', 'label' => 'Sản phẩm nổi bật',   'name' => 'home_show_featured', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_home_show_process',  'label' => 'Quy trình',          'name' => 'home_show_process',  'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_home_show_projects', 'label' => 'Dự án',              'name' => 'home_show_projects', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_home_show_emb',      'label' => 'Teaser xưởng thêu',  'name' => 'home_show_emb',      'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_home_show_cta',      'label' => 'CTA cuối trang',     'name' => 'home_show_cta',      'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+
             // ===== Tab: Hero =====
             ['key' => 'f_home_tab_hero', 'label' => 'Hero', 'type' => 'tab', 'placement' => 'top'],
             ['key' => 'f_home_hero_eyebrow', 'label' => 'Eyebrow (dòng nhỏ phía trên)', 'name' => 'hero_eyebrow', 'type' => 'text', 'default_value' => 'Rèm cửa cao cấp · Từ 2014'],
@@ -179,6 +190,15 @@ add_action('acf/init', function () {
         'key'    => 'group_page_about',
         'title'  => 'Nội dung trang Giới thiệu',
         'fields' => [
+            ['key' => 'f_ab_tab_show', 'label' => 'Ẩn / Hiện', 'type' => 'tab'],
+            ['key' => 'f_ab_show_msg', 'label' => '', 'type' => 'message', 'message' => 'Bật/tắt hiển thị từng section. Tắt = ẩn hẳn section khỏi trang.'],
+            ['key' => 'f_ab_show_story',    'label' => 'Câu chuyện', 'name' => 'about_show_story',    'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ab_show_stats',    'label' => 'Số liệu',    'name' => 'about_show_stats',    'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ab_show_values',   'label' => 'Giá trị cốt lõi', 'name' => 'about_show_values', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ab_show_timeline', 'label' => 'Hành trình', 'name' => 'about_show_timeline', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ab_show_team',     'label' => 'Đội ngũ',    'name' => 'about_show_team',     'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_ab_show_cta',      'label' => 'CTA cuối trang', 'name' => 'about_show_cta',   'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+
             ['key' => 'f_ab_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
             ['key' => 'f_ab_eyebrow', 'label' => 'Eyebrow', 'name' => 'about_hero_eyebrow', 'type' => 'text', 'default_value' => 'Về chúng tôi'],
             ['key' => 'f_ab_title', 'label' => 'Tiêu đề', 'name' => 'about_hero_title', 'type' => 'text', 'default_value' => 'Nghề rèm, thêu —'],
@@ -236,6 +256,13 @@ add_action('acf/init', function () {
         'key'    => 'group_page_emb',
         'title'  => 'Nội dung trang Xưởng thêu',
         'fields' => [
+            ['key' => 'f_em_tab_show', 'label' => 'Ẩn / Hiện', 'type' => 'tab'],
+            ['key' => 'f_em_show_msg', 'label' => '', 'type' => 'message', 'message' => 'Bật/tắt hiển thị từng section. Tắt = ẩn hẳn section khỏi trang.'],
+            ['key' => 'f_em_show_stats',    'label' => 'Số liệu',   'name' => 'emb_show_stats',    'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 25]],
+            ['key' => 'f_em_show_cap',      'label' => 'Năng lực',  'name' => 'emb_show_cap',      'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 25]],
+            ['key' => 'f_em_show_services', 'label' => 'Dịch vụ thêu', 'name' => 'emb_show_services', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 25]],
+            ['key' => 'f_em_show_cta',      'label' => 'CTA cuối',  'name' => 'emb_show_cta',      'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 25]],
+
             ['key' => 'f_em_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
             ['key' => 'f_em_eyebrow', 'label' => 'Eyebrow', 'name' => 'emb_hero_eyebrow', 'type' => 'text', 'default_value' => 'Xưởng thêu vi tính'],
             ['key' => 'f_em_title', 'label' => 'Tiêu đề', 'name' => 'emb_hero_title', 'type' => 'text', 'default_value' => 'Logo, đồng phục & quà tặng'],
@@ -274,6 +301,7 @@ add_action('acf/init', function () {
             ]],
 
             ['key' => 'f_em_tab_cta', 'label' => 'CTA cuối', 'type' => 'tab'],
+            ['key' => 'f_em_cta_image', 'label' => 'Ảnh nền CTA', 'name' => 'emb_cta_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'instructions' => 'Ảnh nền cho khối CTA cuối trang (sẽ phủ lớp tối lên trên). Trống = dùng ảnh mặc định.'],
             ['key' => 'f_em_cta_heading', 'label' => 'Tiêu đề', 'name' => 'emb_cta_heading', 'type' => 'text', 'default_value' => 'Gửi logo — nhận mẫu thêu trong 24 giờ'],
             ['key' => 'f_em_cta_text', 'label' => 'Mô tả', 'name' => 'emb_cta_text', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Đội ngũ tư vấn sẽ báo giá và gửi mẫu số hoá miễn phí cho đơn hàng của bạn.'],
             ['key' => 'f_em_cta_b1t', 'label' => 'Nút 1 — chữ', 'name' => 'emb_cta_btn1_text', 'type' => 'text', 'default_value' => 'Gửi logo báo giá', 'wrapper' => ['width' => 50]],
@@ -291,6 +319,7 @@ add_action('acf/init', function () {
         'key'    => 'group_page_contact',
         'title'  => 'Nội dung trang Liên hệ',
         'fields' => [
+            ['key' => 'f_ct_banner_img', 'label' => 'Banner — ảnh nền', 'name' => 'contact_banner_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'instructions' => 'Ảnh nền cho banner đầu trang (sẽ phủ lớp tối lên trên cho dễ đọc chữ). Để trống = dùng ảnh mặc định.'],
             ['key' => 'f_ct_eyebrow', 'label' => 'Banner — eyebrow', 'name' => 'contact_eyebrow', 'type' => 'text', 'default_value' => 'Liên hệ'],
             ['key' => 'f_ct_heading', 'label' => 'Banner — tiêu đề', 'name' => 'contact_heading', 'type' => 'text', 'default_value' => 'Cùng kiến tạo không gian của bạn'],
             ['key' => 'f_ct_desc', 'label' => 'Banner — mô tả', 'name' => 'contact_desc', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Để lại thông tin, đội ngũ NẾP sẽ liên hệ tư vấn và đặt lịch khảo sát miễn phí trong vòng 24 giờ.'],
@@ -302,6 +331,7 @@ add_action('acf/init', function () {
             ['key' => 'f_ct_info_heading', 'label' => 'Thông tin — tiêu đề', 'name' => 'contact_info_heading', 'type' => 'text', 'default_value' => 'Ghé thăm chúng tôi'],
             ['key' => 'f_ct_city', 'label' => 'Tên chi nhánh', 'name' => 'contact_branch_city', 'type' => 'text', 'default_value' => 'Thái Nguyên', 'wrapper' => ['width' => 50]],
             ['key' => 'f_ct_badge', 'label' => 'Nhãn chi nhánh', 'name' => 'contact_branch_badge', 'type' => 'text', 'default_value' => 'Trụ sở', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_ct_show_map', 'label' => 'Hiện section bản đồ', 'name' => 'contact_show_map', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'instructions' => 'Tắt = ẩn hẳn khối bản đồ cuối trang.'],
             ['key' => 'f_ct_map', 'label' => 'Google Maps — embed src', 'name' => 'contact_map_embed', 'type' => 'textarea', 'rows' => 3, 'instructions' => 'Dán URL trong thuộc tính src của iframe nhúng Google Maps.'],
         ],
         'location'   => [[['param' => 'page_template', 'operator' => '==', 'value' => 'template-lien-he.blade.php']]],
@@ -313,6 +343,12 @@ add_action('acf/init', function () {
         'key'    => 'group_page_lookbook',
         'title'  => 'Nội dung trang Bộ sưu tập',
         'fields' => [
+            ['key' => 'f_lb_tab_show', 'label' => 'Ẩn / Hiện', 'type' => 'tab'],
+            ['key' => 'f_lb_show_msg', 'label' => '', 'type' => 'message', 'message' => 'Bật/tắt hiển thị từng section. Tắt = ẩn hẳn section khỏi trang.'],
+            ['key' => 'f_lb_show_look',     'label' => 'Lookbook',  'name' => 'look_show_lookbook', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_lb_show_cat',      'label' => 'Danh mục',  'name' => 'look_show_cat',      'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+            ['key' => 'f_lb_show_featured', 'label' => 'Sản phẩm tiêu biểu', 'name' => 'look_show_featured', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1, 'wrapper' => ['width' => 33]],
+
             ['key' => 'f_lb_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
             ['key' => 'f_lb_eyebrow', 'label' => 'Eyebrow', 'name' => 'look_hero_eyebrow', 'type' => 'text', 'default_value' => 'Catalogue 2026'],
             ['key' => 'f_lb_title', 'label' => 'Tiêu đề', 'name' => 'look_hero_title', 'type' => 'text', 'default_value' => 'Bộ sưu tập'],
@@ -378,12 +414,34 @@ add_action('acf/init', function () {
         'key'    => 'group_product_nep',
         'title'  => 'Thông tin rèm (NẾP)',
         'fields' => [
-            ['key' => 'f_sp_material', 'label' => 'Chất liệu', 'name' => 'material',  'type' => 'text'],
-            ['key' => 'f_sp_color',    'label' => 'Màu',       'name' => 'color',     'type' => 'text'],
-            ['key' => 'f_sp_colorhex', 'label' => 'Mã màu',    'name' => 'color_hex', 'type' => 'color_picker'],
+            ['key' => 'f_sp_tab_attr', 'label' => 'Thuộc tính', 'type' => 'tab', 'placement' => 'top'],
+            ['key' => 'f_sp_material', 'label' => 'Chất liệu', 'name' => 'material',  'type' => 'text', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_sp_color',    'label' => 'Màu',       'name' => 'color',     'type' => 'text', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_sp_colorhex', 'label' => 'Mã màu',    'name' => 'color_hex', 'type' => 'color_picker', 'wrapper' => ['width' => 50]],
             [
                 'key' => 'f_sp_badge', 'label' => 'Nhãn', 'name' => 'badge', 'type' => 'select',
                 'choices' => ['' => '— Không —', 'new' => 'Mới', 'hot' => 'Bán chạy'], 'allow_null' => 1,
+                'wrapper' => ['width' => 50],
+            ],
+
+            // ---- Tab "Thông số": bảng thông số kỹ thuật (dùng chung mọi sản phẩm) ----
+            ['key' => 'f_sp_tab_specs', 'label' => 'Thông số', 'type' => 'tab', 'placement' => 'top'],
+            [
+                'key' => 'f_sp_specs', 'label' => 'Bảng thông số', 'name' => 'specs', 'type' => 'repeater',
+                'layout' => 'table', 'button_label' => 'Thêm dòng',
+                'instructions' => 'Mỗi dòng = một thông số (vd: Độ dày · 280gsm). Chất liệu/Màu ở tab Thuộc tính sẽ tự thêm vào đầu bảng.',
+                'sub_fields' => [
+                    ['key' => 'f_sp_specs_k', 'label' => 'Tên thông số', 'name' => 'k', 'type' => 'text', 'wrapper' => ['width' => 40]],
+                    ['key' => 'f_sp_specs_v', 'label' => 'Giá trị',      'name' => 'v', 'type' => 'text', 'wrapper' => ['width' => 60]],
+                ],
+            ],
+
+            // ---- Tab "Hướng dẫn": sử dụng / bảo quản (WYSIWYG) ----
+            ['key' => 'f_sp_tab_guide', 'label' => 'Hướng dẫn', 'type' => 'tab', 'placement' => 'top'],
+            [
+                'key' => 'f_sp_guide', 'label' => 'Hướng dẫn sử dụng & bảo quản', 'name' => 'guide', 'type' => 'wysiwyg',
+                'tabs' => 'all', 'media_upload' => 1, 'toolbar' => 'full',
+                'instructions' => 'Cách lắp đặt, vệ sinh, bảo quản… Hiển thị ở tab "Hướng dẫn" trên trang sản phẩm.',
             ],
         ],
         'location' => [[['param' => 'post_type', 'operator' => '==', 'value' => 'product']]],
@@ -428,7 +486,7 @@ add_action('acf/init', function () {
         'fields' => [
             ['key' => 'f_seo_title', 'label' => 'Tiêu đề SEO', 'name' => 'seo_title', 'type' => 'text', 'maxlength' => 70, 'instructions' => 'Hiện trên Google & khi chia sẻ. Trống = tiêu đề bài + tên site. Nên ≤ 60 ký tự.'],
             ['key' => 'f_seo_desc', 'label' => 'Mô tả SEO', 'name' => 'seo_description', 'type' => 'textarea', 'rows' => 3, 'maxlength' => 165, 'instructions' => 'Đoạn mô tả dưới tiêu đề trên Google. Trống = tự lấy từ tóm tắt/nội dung. Nên 120–160 ký tự.'],
-            ['key' => 'f_seo_kw', 'label' => 'Từ khoá chính', 'name' => 'seo_focus_keyword', 'type' => 'text', 'instructions' => 'Ghi chú nội bộ giúp bạn tập trung 1 từ khoá khi viết tiêu đề/mô tả. Không in ra trang.'],
+            ['key' => 'f_seo_kw', 'label' => 'Từ khoá', 'name' => 'seo_focus_keyword', 'type' => 'text', 'instructions' => 'Ghi chú nội bộ. Nhập 1 hoặc nhiều từ khoá, cách nhau bằng dấu phẩy (vd: thêu tay, xưởng thêu, thêu logo). Không in ra trang.'],
             ['key' => 'f_seo_img', 'label' => 'Ảnh chia sẻ (OG image)', 'name' => 'seo_og_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'instructions' => 'Ảnh hiện khi share Facebook/Zalo. Nên 1200×630px, JPG/PNG (không dùng SVG). Trống = ảnh đại diện bài.'],
             ['key' => 'f_seo_noindex', 'label' => 'Ẩn khỏi công cụ tìm kiếm', 'name' => 'seo_noindex', 'type' => 'true_false', 'ui' => 1, 'instructions' => 'Bật = thêm noindex, Google sẽ không lập chỉ mục trang này.'],
         ],

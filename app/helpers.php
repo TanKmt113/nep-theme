@@ -119,6 +119,23 @@ function page_rows(string $name, array $default, callable $map, $post_id = null)
 }
 
 /**
+ * Cờ ẩn/hiện một section của trang hiện tại. KHÁC page_field(): tôn trọng giá
+ * trị false (admin tắt section) thay vì coi false là "rỗng" rồi trả default.
+ * Trả $default khi field chưa từng lưu hoặc chưa cài ACF (mặc định: hiện).
+ */
+function page_show(string $name, bool $default = true, $post_id = null): bool
+{
+    $post_id = $post_id ?: (function_exists('get_the_ID') ? get_the_ID() : 0);
+    if ($post_id && function_exists('get_field')) {
+        $v = get_field($name, $post_id);
+        if ($v !== null) {
+            return (bool) $v;
+        }
+    }
+    return $default;
+}
+
+/**
  * Ảnh responsive cho hiệu suất (LCP/CLS).
  *
  * Nếu $url là ảnh trong Media Library → dùng wp_get_attachment_image(): tự sinh

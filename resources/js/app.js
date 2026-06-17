@@ -7,6 +7,7 @@
 import '../css/app.css'
 import { initAnimations } from './animations'
 import { initProjectSliders } from './sliders'
+import { initCountUp } from './countup'
 
 const onReady = (fn) =>
   document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn)
@@ -14,6 +15,9 @@ const onReady = (fn) =>
 onReady(() => {
   // 0. Sliders (Swiper).
   initProjectSliders()
+
+  // Count-up cho con số thống kê (x-stat).
+  initCountUp()
 
   // Icons giờ là inline SVG render sẵn từ PHP (app/icons.php) — không cần JS.
 

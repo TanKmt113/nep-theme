@@ -14,7 +14,7 @@
   ];
 @endphp
 
-<style>.nep-footer__menu a{font-size:var(--text-sm);color:rgba(244,242,236,.72);text-decoration:none}.nep-footer__menu a:hover{color:#fff}</style>
+<style>.nep-footer__menu a{font-size:var(--text-sm);color:rgba(244,242,236,.72);text-decoration:none}.nep-footer__menu a:hover{color:#fff}.nep-footer__legal a{color:inherit;text-decoration:none}.nep-footer__legal a:hover{color:#fff}</style>
 
 {{-- NẾP · Footer — dark olive, 4 columns + newsletter + contact. --}}
 <footer id="footer" style="background:var(--olive-900);color:var(--text-on-dark);padding-top:var(--space-11);padding-bottom:var(--space-7)">
@@ -65,10 +65,12 @@
     <div class="nep-footer__mid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);padding:var(--space-7) 0;border-top:1px solid rgba(255,255,255,.10);border-bottom:1px solid rgba(255,255,255,.10)">
       <div>
         <h4 style="font-family:var(--font-display);font-size:var(--text-h3);color:#fff;margin-bottom:8px">{{ nep('footer_newsletter_title', 'Nhận bản tin & ưu đãi') }}</h4>
-        <form style="display:flex;gap:10px;max-width:420px" onsubmit="return false">
-          <input type="email" placeholder="Email của bạn" aria-label="Email của bạn" class="nep-input" style="flex:1">
+        <form id="nep-newsletter-form" style="display:flex;gap:10px;max-width:420px"
+              data-action="{{ admin_url('admin-ajax.php') }}" data-nonce="{{ wp_create_nonce('nep_newsletter') }}">
+          <input type="email" name="email" placeholder="Email của bạn" aria-label="Email của bạn" class="nep-input" style="flex:1" required>
           <x-button variant="gold" type="submit">Đăng ký</x-button>
         </form>
+        <p id="nep-newsletter-msg" role="status" aria-live="polite" style="margin:10px 0 0;font-size:var(--text-sm);min-height:1em;display:none"></p>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <div style="display:flex;align-items:center;gap:10px;font-size:var(--text-sm);color:rgba(244,242,236,.82)"><x-icon name="map-pin" :size="16" color="var(--moss)" /> {{ nep('address') }}</div>
@@ -77,9 +79,46 @@
       </div>
     </div>
 
-    <div style="display:flex;justify-content:space-between;padding-top:var(--space-6);font-size:var(--text-xs);color:rgba(244,242,236,.5)">
+    <div class="nep-footer__legal" style="display:flex;justify-content:space-between;padding-top:var(--space-6);font-size:var(--text-xs);color:rgba(244,242,236,.5)">
       <span>© {{ date('Y') }} NẾP — Rèm &amp; Thêu. Bảo lưu mọi quyền.</span>
-      <span>{{ nep('footer_legal', 'Chính sách bảo mật · Điều khoản') }}</span>
+      <span style="display:flex;gap:10px">
+        <a href="{{ get_permalink(get_page_by_path('chinh-sach-bao-mat')) }}">Chính sách bảo mật</a>
+        <span aria-hidden="true">·</span>
+        <a href="{{ get_permalink(get_page_by_path('dieu-khoan-su-dung')) }}">Điều khoản</a>
+      </span>
     </div>
   </x-container>
+
+  <script>
+  (function () {
+    var form = document.getElementById('nep-newsletter-form');
+    if (!form) return;
+    var msg = document.getElementById('nep-newsletter-msg');
+    var btn = form.querySelector('button, [type="submit"]');
+    function show(text, ok) {
+      msg.textContent = text;
+      msg.style.display = 'block';
+      msg.style.color = ok ? 'var(--moss, #9caa7b)' : '#e9a8a8';
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = (form.email.value || '').trim();
+      if (!email) return;
+      var data = new FormData();
+      data.append('action', 'nep_newsletter');
+      data.append('nonce', form.dataset.nonce);
+      data.append('email', email);
+      data.append('source', 'footer');
+      if (btn) { btn.disabled = true; btn.style.opacity = '.6'; }
+      fetch(form.dataset.action, { method: 'POST', body: data, credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          show((res.data && res.data.message) || (res.success ? 'Đăng ký thành công!' : 'Có lỗi xảy ra.'), !!res.success);
+          if (res.success) form.reset();
+        })
+        .catch(function () { show('Không kết nối được máy chủ, vui lòng thử lại.', false); })
+        .finally(function () { if (btn) { btn.disabled = false; btn.style.opacity = ''; } });
+    });
+  })();
+  </script>
 </footer>
