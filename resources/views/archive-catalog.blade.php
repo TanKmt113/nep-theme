@@ -28,7 +28,7 @@
             <a href="{{ get_permalink() }}" style="display:flex;flex-direction:column;background:var(--paper);border-radius:var(--radius-lg);border:1px solid var(--border-soft);overflow:hidden;text-decoration:none;box-shadow:var(--shadow-sm)">
               <div style="position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--beige)">
                 @if($cover)
-                  <img src="{{ $cover }}" alt="{{ get_the_title() }}" style="width:100%;height:100%;object-fit:cover">
+                  <img src="{{ $cover }}" alt="{{ get_the_title() }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
                 @else
                   <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><x-icon name="file-text" :size="48" color="var(--olive-300)" /></span>
                 @endif

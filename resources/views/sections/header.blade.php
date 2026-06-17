@@ -10,7 +10,7 @@
 {{-- NẾP · Header — fixed, glass-on-scroll. State handled in app.js (.is-solid / .is-open). --}}
 <header class="nep-header" data-transparent="{{ $transparent ? 'true' : 'false' }}">
   <x-container :style="'display:flex;align-items:center;justify-content:space-between;height:78px'">
-    <a href="{{ home_url('/') }}" class="nep-header__logo">
+    <a href="{{ home_url('/') }}" class="nep-header__logo" style="flex:1">
       <img src="{{ $logo }}" alt="NẾP" class="nep-logo-dark" style="height:38px">
       <img src="{{ $logoLight }}" alt="NẾP" class="nep-logo-light" style="height:38px">
     </a>
@@ -30,7 +30,7 @@
     </nav>
 
     {{-- Desktop hotline + CTA --}}
-    <div class="nep-desktop-only" style="display:flex;align-items:center;gap:16px;flex:none">
+    <div class="nep-desktop-only" style="display:flex;align-items:center;justify-content:flex-end;gap:16px;flex:1">
       <a href="{{ nep_tel($hotline) }}" class="nep-header__tel" style="display:flex;align-items:center;gap:8px;font-size:var(--text-sm);font-weight:700;white-space:nowrap">
         <x-icon name="phone" :size="16" color="var(--brand)" /> {{ $hotline }}
       </a>

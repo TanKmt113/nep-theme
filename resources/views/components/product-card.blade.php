@@ -12,7 +12,7 @@
 {{-- NẾP · ProductCard — image with hover zoom + lift (CSS), badge, title, price. --}}
 <a href="{{ $href }}" class="nep-product-card" {{ $attributes }}>
   <div class="nep-product-card__frame">
-    <img src="{{ $image }}" alt="{{ $title }}" class="nep-product-card__img">
+    <img src="{{ $image }}" alt="{{ $title }}" loading="lazy" decoding="async" class="nep-product-card__img">
     @if($badge)
       <div style="position:absolute;top:14px;left:14px">
         <x-badge :variant="$badge">{{ $badge === 'new' ? 'Mới' : 'Bán chạy' }}</x-badge>

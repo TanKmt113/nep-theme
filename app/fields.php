@@ -50,6 +50,8 @@ add_action('acf/init', function () {
             ['key' => 'f_logo_light', 'label' => 'Logo nền tối', 'name' => 'logo_light', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'library' => 'all', 'instructions' => 'Hiện ở header trong suốt trên ảnh hero & ở footer. Nên là phiên bản logo màu sáng/trắng. Trống = logo mặc định.', 'wrapper' => ['width' => 50]],
             ['key' => 'f_slogan',     'label' => 'Slogan',       'name' => 'slogan',      'type' => 'text', 'default_value' => 'Uy tín tạo nên thương hiệu', 'wrapper' => ['width' => 50]],
             ['key' => 'f_brandline',  'label' => 'Brand line',   'name' => 'brand_line',  'type' => 'text', 'default_value' => 'Xưởng thêu vi tính – Rèm thiết kế', 'wrapper' => ['width' => 50]],
+            ['key' => 'f_og_default', 'label' => 'Ảnh chia sẻ mặc định (OG)', 'name' => 'og_default', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'library' => 'all', 'instructions' => 'Ảnh hiện khi chia sẻ link lên Facebook/Zalo cho các trang KHÔNG có ảnh riêng. Nên dùng JPG/PNG 1200×630px (đừng dùng SVG). Trống = logo theme.'],
+            ['key' => 'f_google_verify', 'label' => 'Mã xác minh Google Search Console', 'name' => 'google_verify', 'type' => 'text', 'instructions' => 'Dán phần mã trong thuộc tính content của thẻ google-site-verification mà Search Console cung cấp (chỉ phần mã, không cần cả thẻ). Trống = không in.'],
 
             // ===== Tab: CTA cuối trang (khối "Nâng tầm không gian…") =====
             ['key' => 'f_cta_tab', 'label' => 'CTA cuối trang', 'type' => 'tab', 'placement' => 'top'],
@@ -407,6 +409,43 @@ add_action('acf/init', function () {
             ['key' => 'f_da_gallery', 'label' => 'Thư viện ảnh', 'name' => 'gallery', 'type' => 'gallery'],
         ],
         'location' => [[['param' => 'post_type', 'operator' => '==', 'value' => 'du_an']]],
+    ]);
+});
+
+/**
+ * ---- SEO box (mọi trang / bài / sản phẩm / dự án / catalog) -------------
+ * Cho phép biên tập viên ghi đè tiêu đề, mô tả, ảnh chia sẻ, từ khoá và
+ * noindex cho từng bài. Để trống = theme tự sinh (xem app/seo.php).
+ */
+add_action('acf/init', function () {
+    if (! function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_local_field_group([
+        'key'    => 'group_nep_seo',
+        'title'  => 'SEO',
+        'fields' => [
+            ['key' => 'f_seo_title', 'label' => 'Tiêu đề SEO', 'name' => 'seo_title', 'type' => 'text', 'maxlength' => 70, 'instructions' => 'Hiện trên Google & khi chia sẻ. Trống = tiêu đề bài + tên site. Nên ≤ 60 ký tự.'],
+            ['key' => 'f_seo_desc', 'label' => 'Mô tả SEO', 'name' => 'seo_description', 'type' => 'textarea', 'rows' => 3, 'maxlength' => 165, 'instructions' => 'Đoạn mô tả dưới tiêu đề trên Google. Trống = tự lấy từ tóm tắt/nội dung. Nên 120–160 ký tự.'],
+            ['key' => 'f_seo_kw', 'label' => 'Từ khoá chính', 'name' => 'seo_focus_keyword', 'type' => 'text', 'instructions' => 'Ghi chú nội bộ giúp bạn tập trung 1 từ khoá khi viết tiêu đề/mô tả. Không in ra trang.'],
+            ['key' => 'f_seo_img', 'label' => 'Ảnh chia sẻ (OG image)', 'name' => 'seo_og_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium', 'instructions' => 'Ảnh hiện khi share Facebook/Zalo. Nên 1200×630px, JPG/PNG (không dùng SVG). Trống = ảnh đại diện bài.'],
+            ['key' => 'f_seo_noindex', 'label' => 'Ẩn khỏi công cụ tìm kiếm', 'name' => 'seo_noindex', 'type' => 'true_false', 'ui' => 1, 'instructions' => 'Bật = thêm noindex, Google sẽ không lập chỉ mục trang này.'],
+        ],
+        'location' => [
+            [['param' => 'post_type', 'operator' => '==', 'value' => 'post']],
+            [['param' => 'post_type', 'operator' => '==', 'value' => 'page']],
+            [['param' => 'post_type', 'operator' => '==', 'value' => 'product']],
+            [['param' => 'post_type', 'operator' => '==', 'value' => 'du_an']],
+            [['param' => 'post_type', 'operator' => '==', 'value' => 'catalog']],
+        ],
+        'menu_order'            => 20,
+        'position'              => 'normal',
+        'style'                 => 'default',
+        'label_placement'       => 'top',
+        'hide_on_screen'        => '',
+        'active'                => true,
+        'description'           => 'Ghi đè SEO cho bài này (để trống = tự động).',
     ]);
 });
 

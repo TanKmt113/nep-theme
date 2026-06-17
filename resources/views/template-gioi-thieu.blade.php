@@ -41,7 +41,7 @@
 @section('content')
   {{-- Hero --}}
   <section style="position:relative;min-height:70vh;display:flex;align-items:flex-end;overflow:hidden">
-    <img src="{{ $hero }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <img src="{{ $hero }}" alt="{{ page_field('about_hero_title', 'Về NẾP') }}" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,.36) 0%,rgba(20,22,14,.18) 45%,rgba(20,22,14,.74) 100%)"></div>
     <x-container :style="'position:relative;padding-bottom:var(--space-10);padding-top:150px'">
       <x-eyebrow rule color="var(--moss)">{{ page_field('about_hero_eyebrow', 'Về chúng tôi') }}</x-eyebrow>
@@ -63,8 +63,8 @@
         @endforeach
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <img src="{{ $story_img1 }}" alt="" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-md)">
-        <img src="{{ $story_img2 }}" alt="" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);margin-top:36px;box-shadow:var(--shadow-md)">
+        <img src="{{ $story_img1 }}" alt="{{ page_field('about_story_heading', 'Câu chuyện NẾP') }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-md)">
+        <img src="{{ $story_img2 }}" alt="{{ page_field('about_story_heading', 'Câu chuyện NẾP') }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);margin-top:36px;box-shadow:var(--shadow-md)">
       </div>
     </x-container>
   </section>
@@ -130,7 +130,7 @@
         @foreach($team as $t)
           <div style="text-align:center">
             <div style="aspect-ratio:1/1;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:16px;box-shadow:var(--shadow-sm)">
-              <img src="{{ $t[2] }}" alt="{{ $t[0] }}" style="width:100%;height:100%;object-fit:cover">
+              <img src="{{ $t[2] }}" alt="{{ $t[0] }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
             </div>
             <div style="font-family:var(--font-display);font-size:var(--text-h3);font-weight:600;color:var(--text-strong)">{{ $t[0] }}</div>
             <div style="font-size:var(--text-sm);color:var(--text-muted);margin-top:2px">{{ $t[1] }}</div>

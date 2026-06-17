@@ -6,7 +6,7 @@
 @endphp
 
 <a href="{{ $link }}" class="nep-cat-card" style="position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:1/1;display:block">
-  <img src="{{ $img }}" alt="{{ $term->name }}" style="width:100%;height:100%;object-fit:cover">
+  <img src="{{ $img }}" alt="{{ $term->name }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
   <div class="nep-cat-card__overlay"></div>
   <div style="position:absolute;left:18px;right:18px;bottom:16px;color:#fff;display:flex;align-items:center;justify-content:space-between">
     <div>

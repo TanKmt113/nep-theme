@@ -4,12 +4,132 @@
     "src": "node_modules/pdfjs-dist/build/pdf.worker.min.mjs"
   },
   "resources/css/app.css": {
-    "file": "assets/app-DwmVc2__.css",
+    "file": "assets/app-C5tY_evg.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/fonts/cormorant-garamond-italic-400-latin-ext.woff2": {
+    "file": "assets/cormorant-garamond-italic-400-latin-ext-PWzi_-0y.woff2",
+    "src": "resources/fonts/cormorant-garamond-italic-400-latin-ext.woff2"
+  },
+  "resources/fonts/cormorant-garamond-italic-400-latin.woff2": {
+    "file": "assets/cormorant-garamond-italic-400-latin-C-nL33vl.woff2",
+    "src": "resources/fonts/cormorant-garamond-italic-400-latin.woff2"
+  },
+  "resources/fonts/cormorant-garamond-italic-400-vietnamese.woff2": {
+    "file": "assets/cormorant-garamond-italic-400-vietnamese-1M78L1Br.woff2",
+    "src": "resources/fonts/cormorant-garamond-italic-400-vietnamese.woff2"
+  },
+  "resources/fonts/cormorant-garamond-italic-500-latin-ext.woff2": {
+    "file": "assets/cormorant-garamond-italic-400-latin-ext-PWzi_-0y.woff2",
+    "src": "resources/fonts/cormorant-garamond-italic-400-latin-ext.woff2"
+  },
+  "resources/fonts/cormorant-garamond-italic-500-latin.woff2": {
+    "file": "assets/cormorant-garamond-italic-400-latin-C-nL33vl.woff2",
+    "src": "resources/fonts/cormorant-garamond-italic-400-latin.woff2"
+  },
+  "resources/fonts/cormorant-garamond-italic-500-vietnamese.woff2": {
+    "file": "assets/cormorant-garamond-italic-400-vietnamese-1M78L1Br.woff2",
+    "src": "resources/fonts/cormorant-garamond-italic-400-vietnamese.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-400-latin-ext.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-ext-ltf1AbuM.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-400-latin.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-CUoBjw-S.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-400-vietnamese.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-vietnamese-CDLFB6hb.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-vietnamese.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-500-latin-ext.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-ext-ltf1AbuM.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-500-latin.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-CUoBjw-S.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-500-vietnamese.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-vietnamese-CDLFB6hb.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-vietnamese.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-600-latin-ext.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-ext-ltf1AbuM.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-600-latin.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-CUoBjw-S.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-600-vietnamese.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-vietnamese-CDLFB6hb.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-vietnamese.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-700-latin-ext.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-ext-ltf1AbuM.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-700-latin.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-latin-CUoBjw-S.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-latin.woff2"
+  },
+  "resources/fonts/cormorant-garamond-normal-700-vietnamese.woff2": {
+    "file": "assets/cormorant-garamond-normal-400-vietnamese-CDLFB6hb.woff2",
+    "src": "resources/fonts/cormorant-garamond-normal-400-vietnamese.woff2"
+  },
+  "resources/fonts/manrope-normal-400-latin-ext.woff2": {
+    "file": "assets/manrope-normal-400-latin-ext-Ch3YOpNY.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/manrope-normal-400-latin.woff2": {
+    "file": "assets/manrope-normal-400-latin-DHIcAJRg.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin.woff2"
+  },
+  "resources/fonts/manrope-normal-400-vietnamese.woff2": {
+    "file": "assets/manrope-normal-400-vietnamese-usUDDRr7.woff2",
+    "src": "resources/fonts/manrope-normal-400-vietnamese.woff2"
+  },
+  "resources/fonts/manrope-normal-500-latin-ext.woff2": {
+    "file": "assets/manrope-normal-400-latin-ext-Ch3YOpNY.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/manrope-normal-500-latin.woff2": {
+    "file": "assets/manrope-normal-400-latin-DHIcAJRg.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin.woff2"
+  },
+  "resources/fonts/manrope-normal-500-vietnamese.woff2": {
+    "file": "assets/manrope-normal-400-vietnamese-usUDDRr7.woff2",
+    "src": "resources/fonts/manrope-normal-400-vietnamese.woff2"
+  },
+  "resources/fonts/manrope-normal-600-latin-ext.woff2": {
+    "file": "assets/manrope-normal-400-latin-ext-Ch3YOpNY.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/manrope-normal-600-latin.woff2": {
+    "file": "assets/manrope-normal-400-latin-DHIcAJRg.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin.woff2"
+  },
+  "resources/fonts/manrope-normal-600-vietnamese.woff2": {
+    "file": "assets/manrope-normal-400-vietnamese-usUDDRr7.woff2",
+    "src": "resources/fonts/manrope-normal-400-vietnamese.woff2"
+  },
+  "resources/fonts/manrope-normal-700-latin-ext.woff2": {
+    "file": "assets/manrope-normal-400-latin-ext-Ch3YOpNY.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin-ext.woff2"
+  },
+  "resources/fonts/manrope-normal-700-latin.woff2": {
+    "file": "assets/manrope-normal-400-latin-DHIcAJRg.woff2",
+    "src": "resources/fonts/manrope-normal-400-latin.woff2"
+  },
+  "resources/fonts/manrope-normal-700-vietnamese.woff2": {
+    "file": "assets/manrope-normal-400-vietnamese-usUDDRr7.woff2",
+    "src": "resources/fonts/manrope-normal-400-vietnamese.woff2"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-Bfd18zIT.js",
+    "file": "assets/app-Cmcd_70Z.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -18,7 +138,18 @@
     ],
     "css": [
       "assets/app-BHcSP5WY.css",
-      "assets/app-DwmVc2__.css"
+      "assets/app-C5tY_evg.css"
+    ],
+    "assets": [
+      "assets/cormorant-garamond-italic-400-vietnamese-1M78L1Br.woff2",
+      "assets/cormorant-garamond-italic-400-latin-ext-PWzi_-0y.woff2",
+      "assets/cormorant-garamond-italic-400-latin-C-nL33vl.woff2",
+      "assets/cormorant-garamond-normal-400-vietnamese-CDLFB6hb.woff2",
+      "assets/cormorant-garamond-normal-400-latin-ext-ltf1AbuM.woff2",
+      "assets/cormorant-garamond-normal-400-latin-CUoBjw-S.woff2",
+      "assets/manrope-normal-400-vietnamese-usUDDRr7.woff2",
+      "assets/manrope-normal-400-latin-ext-Ch3YOpNY.woff2",
+      "assets/manrope-normal-400-latin-DHIcAJRg.woff2"
     ]
   },
   "resources/js/flipbook.js": {

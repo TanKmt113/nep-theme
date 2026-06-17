@@ -7,6 +7,22 @@
 namespace App;
 
 /**
+ * Inline SVG (phần bên trong <svg>) cho một Lucide icon đã self-host.
+ * Map nằm ở app/icons.php (sinh từ lucide-static). Rỗng nếu không có icon.
+ */
+function icon_inner(string $name): string
+{
+    static $map = null;
+
+    if ($map === null) {
+        $file = __DIR__ . '/icons.php';
+        $map = is_file($file) ? (array) require $file : [];
+    }
+
+    return $map[$name] ?? '';
+}
+
+/**
  * Read an ACF Options-page setting with a sensible fallback.
  * Usage in Blade: {{ App\nep('hotline') }}
  */

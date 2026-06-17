@@ -12,14 +12,10 @@ const onReady = (fn) =>
   document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn)
 
 onReady(() => {
-  // 0. Sliders (Swiper) — init BEFORE lucide so icons inside loop-cloned slides
-  //    and the prev/next buttons get rendered in the pass below.
+  // 0. Sliders (Swiper).
   initProjectSliders()
 
-  // 1. Render all <i data-lucide="..."> placeholders (lucide loaded from CDN).
-  if (window.lucide && typeof window.lucide.createIcons === 'function') {
-    window.lucide.createIcons()
-  }
+  // Icons giờ là inline SVG render sẵn từ PHP (app/icons.php) — không cần JS.
 
   // GSAP entrance + scroll animations (https://gsap.com). Runs before the
   // header early-return below so it works on pages without a header too.

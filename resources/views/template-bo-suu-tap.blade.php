@@ -37,7 +37,7 @@
 @section('content')
   {{-- Hero --}}
   <section style="position:relative;min-height:64vh;display:flex;align-items:flex-end;overflow:hidden">
-    <img src="{{ $hero }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <img src="{{ $hero }}" alt="{{ page_field('look_hero_title', 'Bộ sưu tập') }}" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,.30) 0%,rgba(20,22,14,.12) 45%,rgba(20,22,14,.72) 100%)"></div>
     <x-container :style="'position:relative;padding-bottom:var(--space-9);padding-top:150px'">
       <x-eyebrow rule color="var(--moss)">{{ page_field('look_hero_eyebrow', 'Catalogue 2026') }}</x-eyebrow>
@@ -60,7 +60,7 @@
       <div class="nep-lookbook" style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-5)">
         {{-- large --}}
         <a href="{{ $listing }}" class="nep-look-card" style="position:relative;border-radius:var(--radius-xl);overflow:hidden;display:block;min-height:520px">
-          <img src="{{ $large['img'] }}" alt="{{ $large['name'] }}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
+          <img src="{{ $large['img'] }}" alt="{{ $large['name'] }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
           <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,0) 40%,rgba(20,22,14,.74) 100%)"></div>
           <div style="position:absolute;left:26px;right:26px;bottom:24px;color:#fff">
             <div style="font-size:var(--text-2xs);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--moss-soft);margin-bottom:8px">{{ $large['count'] }} mẫu</div>
@@ -71,7 +71,7 @@
         <div style="display:grid;grid-template-rows:1fr 1fr;gap:var(--space-5)">
           @foreach($smalls as $l)
             <a href="{{ $listing }}" class="nep-look-card" style="position:relative;border-radius:var(--radius-xl);overflow:hidden;display:block;min-height:0;height:100%">
-              <img src="{{ $l['img'] }}" alt="{{ $l['name'] }}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
+              <img src="{{ $l['img'] }}" alt="{{ $l['name'] }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
               <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,0) 40%,rgba(20,22,14,.74) 100%)"></div>
               <div style="position:absolute;left:26px;right:26px;bottom:24px;color:#fff">
                 <div style="font-size:var(--text-2xs);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--moss-soft);margin-bottom:8px">{{ $l['count'] }} mẫu</div>
@@ -96,7 +96,7 @@
         @foreach($cats as $c)
           @php $img = function_exists('get_field') ? get_field('img', $c) : ''; $icon = function_exists('get_field') ? (get_field('icon', $c) ?: 'blinds') : 'blinds'; @endphp
           <a href="{{ get_term_link($c) }}" style="display:block;background:var(--cream);border-radius:var(--radius-lg);border:1px solid var(--border-soft);overflow:hidden;text-decoration:none">
-            <div style="aspect-ratio:16/11;overflow:hidden"><img src="{{ $img }}" alt="{{ $c->name }}" style="width:100%;height:100%;object-fit:cover"></div>
+            <div style="aspect-ratio:16/11;overflow:hidden"><img src="{{ $img }}" alt="{{ $c->name }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover"></div>
             <div style="padding:16px 18px;display:flex;align-items:center;justify-content:space-between">
               <div style="display:flex;align-items:center;gap:10px">
                 <x-icon :name="$icon" :size="20" color="var(--brand)" />

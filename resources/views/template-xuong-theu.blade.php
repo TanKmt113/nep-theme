@@ -29,7 +29,7 @@
 @section('content')
   {{-- Hero --}}
   <section style="position:relative;min-height:82vh;display:flex;align-items:center;overflow:hidden;background:var(--olive-900)">
-    <img src="{{ $hero }}" alt="Xưởng thêu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
+    <img src="{{ $hero }}" alt="Xưởng thêu" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5">
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,30,20,.86) 0%,rgba(28,30,20,.5) 60%,rgba(28,30,20,.3) 100%)"></div>
     <x-container :style="'position:relative;padding-top:100px'">
       <div style="max-width:640px">
@@ -61,8 +61,8 @@
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container :style="'display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:center'">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <img src="{{ $cap_img1 }}" alt="" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-md)">
-        <img src="{{ $cap_img2 }}" alt="" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);margin-top:32px;box-shadow:var(--shadow-md)">
+        <img src="{{ $cap_img1 }}" alt="{{ page_field('emb_cap_heading', 'Năng lực sản xuất') }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-md)">
+        <img src="{{ $cap_img2 }}" alt="{{ page_field('emb_cap_heading', 'Năng lực sản xuất') }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius-lg);margin-top:32px;box-shadow:var(--shadow-md)">
       </div>
       <div>
         <x-eyebrow rule>{{ page_field('emb_cap_eyebrow', 'Năng lực sản xuất') }}</x-eyebrow>
@@ -93,7 +93,7 @@
         @foreach($services as $s)
           <div class="nep-emb-card" style="border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);border:1px solid var(--border-soft);box-shadow:var(--shadow-sm)">
             <div style="position:relative;aspect-ratio:16/11;overflow:hidden;background:var(--beige)">
-              <img src="{{ $s[3] }}" alt="{{ $s[0] }}" style="width:100%;height:100%;object-fit:cover">
+              <img src="{{ $s[3] }}" alt="{{ $s[0] }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
               <span style="position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:var(--radius-md);background:var(--glass-bg);backdrop-filter:blur(10px)"><x-icon :name="$s[2]" :size="20" color="var(--olive-700)" /></span>
             </div>
             <div style="padding:var(--space-5)">

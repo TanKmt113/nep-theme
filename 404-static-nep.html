@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <title>404 — Không tìm thấy trang | NẾP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --cream:#F8F6F3; --paper:#FFFFFF; --olive-900:#2C301E; --olive-500:#6E764F;
+      --olive-200:#CBCFB7; --olive-50:#F1F2EA; --ink:#26261F; --ink-soft:#45453C;
+      --ink-muted:#807D72; --border-soft:#E7E0D5;
+      --font-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+      --font-sans:"Manrope",-apple-system,"Segoe UI",system-ui,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      font-family:var(--font-sans); background:var(--cream); color:var(--ink-soft);
+      display:flex; align-items:center; justify-content:center; min-height:100vh;
+      padding:40px 20px; text-align:center; -webkit-font-smoothing:antialiased;
+    }
+    .wrap{max-width:560px; width:100%}
+    .logo{height:46px; width:auto; margin-bottom:34px}
+    .code{
+      font-family:var(--font-display); font-weight:600; line-height:1;
+      font-size:clamp(96px,22vw,180px); color:var(--olive-200); letter-spacing:.02em;
+    }
+    h1{
+      font-family:var(--font-display); font-weight:600; color:var(--ink);
+      font-size:clamp(28px,6vw,40px); margin:6px 0 14px;
+    }
+    p{font-size:17px; line-height:1.7; color:var(--ink-soft); margin:0 auto 30px; max-width:42ch}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+      background:var(--olive-500); color:#fff; font-weight:700; font-size:15px;
+      padding:14px 28px; border-radius:999px; transition:background .2s,transform .2s;
+    }
+    .btn:hover{background:var(--olive-900); transform:translateY(-1px)}
+    .links{margin-top:26px; display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:center}
+    .links a{color:var(--ink-muted); text-decoration:none; font-size:14px; font-weight:600}
+    .links a:hover{color:var(--olive-500)}
+    .sep{margin:34px auto 0; width:48px; height:2px; background:var(--olive-200); border:0}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <img class="logo" src="/wp-content/themes/nep-theme/public/images/logo.svg" alt="NẾP — Rèm &amp; Thêu">
+    <div class="code">404</div>
+    <h1>Không tìm thấy trang</h1>
+    <p>Trang bạn tìm có thể đã được di chuyển hoặc không tồn tại. Mời bạn quay lại trang chủ hoặc khám phá các mục dưới đây.</p>
+    <a class="btn" href="/">← Về trang chủ</a>
+    <nav class="links" aria-label="Liên kết nhanh">
+      <a href="/cua-hang/">Sản phẩm</a>
+      <a href="/du-an/">Dự án</a>
+      <a href="/bo-suu-tap/">Bộ sưu tập</a>
+      <a href="/lien-he/">Liên hệ</a>
+    </nav>
+    <hr class="sep">
+  </main>
+</body>
+</html>

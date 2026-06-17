@@ -30,14 +30,14 @@
         <div class="nep-contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:start">
         {{-- Gallery --}}
         <div>
-          <img id="nep-pdp-main" src="{{ $main }}" alt="{{ get_the_title() }}" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)">
+          <img id="nep-pdp-main" src="{{ $main }}" alt="{{ get_the_title() }}" fetchpriority="high" decoding="async" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)">
           @if($gallery_ids)
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px">
               @foreach(array_merge([get_post_thumbnail_id($id)], $gallery_ids) as $gid)
                 @php $thumb = wp_get_attachment_image_url($gid, 'nep_card'); @endphp
                 @if($thumb)
                   <button type="button" class="nep-pdp-thumb" data-full="{{ wp_get_attachment_image_url($gid, 'large') }}" style="border:1px solid var(--border-soft);border-radius:var(--radius-md);overflow:hidden;padding:0;cursor:pointer;aspect-ratio:1/1;background:none">
-                    <img src="{{ $thumb }}" alt="" style="width:100%;height:100%;object-fit:cover">
+                    <img src="{{ $thumb }}" alt="{{ get_the_title() }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">
                   </button>
                 @endif
               @endforeach

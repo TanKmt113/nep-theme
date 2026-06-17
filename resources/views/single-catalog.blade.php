@@ -48,7 +48,7 @@
           </p>
         @elseif(has_post_thumbnail())
           <div style="max-width:var(--container-text);margin:0 auto">
-            <img src="{{ get_the_post_thumbnail_url(get_the_ID(), 'full') }}" alt="{{ get_the_title() }}" style="width:100%;border-radius:var(--radius-xl);box-shadow:var(--shadow-md)">
+            <img src="{{ get_the_post_thumbnail_url(get_the_ID(), 'full') }}" alt="{{ get_the_title() }}" fetchpriority="high" decoding="async" style="width:100%;border-radius:var(--radius-xl);box-shadow:var(--shadow-md)">
           </div>
         @endif
 

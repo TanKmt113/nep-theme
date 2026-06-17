@@ -21,7 +21,7 @@
   <x-container>
     <div class="nep-footer__cols" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:var(--space-8);padding-bottom:var(--space-9)">
       <div>
-        <img src="{{ nep('logo_light') ?: get_theme_file_uri('public/images/logo-light.svg') }}" alt="NẾP" style="height:42px;margin-bottom:18px">
+        <img src="{{ nep('logo_light') ?: get_theme_file_uri('public/images/logo-light.svg') }}" alt="NẾP" loading="lazy" decoding="async" style="height:42px;margin-bottom:18px">
         <p style="font-size:var(--text-sm);line-height:1.7;color:rgba(244,242,236,.66);max-width:34ch;margin:0">
           {{ nep('footer_about', 'Xưởng thêu vi tính & rèm thiết kế.') }} {{ nep('slogan') }}.
         </p>

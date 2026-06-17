@@ -13,7 +13,7 @@
 
     {{-- Hero --}}
     <section style="position:relative;min-height:62vh;display:flex;align-items:flex-end;overflow:hidden">
-      <img src="{{ get_the_post_thumbnail_url($id, 'full') ?: '' }}" alt="{{ get_the_title() }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <img src="{{ get_the_post_thumbnail_url($id, 'full') ?: '' }}" alt="{{ get_the_title() }}" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,.1) 0%,rgba(20,22,14,.72) 100%)"></div>
       <x-container :style="'position:relative;padding-bottom:var(--space-10);padding-top:140px'">
         <x-eyebrow rule color="var(--moss)">{{ nep_field('type', $id) }}</x-eyebrow>
@@ -24,6 +24,9 @@
 
     {{-- Body --}}
     <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--paper)">
+      <x-container :style="'margin-bottom:var(--space-6)'">
+        <x-breadcrumb :items="\App\Seo\breadcrumb_items()" />
+      </x-container>
       <x-container :style="'display:grid;grid-template-columns:1.6fr 1fr;gap:var(--space-10);align-items:start'">
         <div style="font-size:var(--text-lg);line-height:1.8;color:var(--text-body)">{!! get_the_content() !!}</div>
         <aside style="background:var(--cream);border-radius:var(--radius-lg);padding:var(--space-7);border:1px solid var(--border-soft)">
@@ -50,7 +53,7 @@
           <div class="nep-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)">
             @foreach($gallery as $img)
               @php $src = is_array($img) ? ($img['sizes']['large'] ?? $img['url'] ?? '') : wp_get_attachment_image_url($img, 'large'); @endphp
-              <img src="{{ $src }}" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-lg)">
+              <img src="{{ $src }}" alt="{{ get_the_title() }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-lg)">
             @endforeach
           </div>
         </x-container>

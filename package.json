@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "postbuild": "curl -fsS \"${NEP_PURGE_URL:-http://nep.test/?nep_purge=nep-build-purge}\" && echo \" (nginx cache purged)\" || echo \"postbuild: cache purge skipped (set NEP_PURGE_URL)\""
   },
   "devDependencies": {
     "laravel-vite-plugin": "^1.0.0",
