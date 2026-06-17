@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@php use function App\nep_field; @endphp
+@php use function App\nep_field; use function App\nep_image; @endphp
 
 @section('content')
 
   {{-- ===== Hero ===== --}}
   <section style="position:relative;min-height:92vh;display:flex;align-items:flex-end;overflow:hidden">
-    <img src="{{ $home['hero_image'] }}" alt="{{ $home['hero_title'] }}" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    {!! nep_image($home['hero_image'], $home['hero_title'], ['fetchpriority' => 'high', 'decoding' => 'async', 'sizes' => '100vw', 'style' => 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover'], 'full') !!}
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,22,14,.42) 0%,rgba(20,22,14,.12) 40%,rgba(20,22,14,.72) 100%)"></div>
     <x-container :style="'position:relative;padding-bottom:var(--space-11);padding-top:140px'">
       <div style="max-width:760px">
@@ -37,7 +37,7 @@
   <section style="padding-top:var(--section-y);padding-bottom:var(--section-y);background:var(--cream)">
     <x-container :style="'display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:center'">
       <div style="position:relative">
-        <img src="{{ $home['intro_image'] }}" alt="{{ $home['intro_heading'] }}" loading="lazy" decoding="async" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)">
+        {!! nep_image($home['intro_image'], $home['intro_heading'], ['loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(max-width: 980px) 100vw, 50vw', 'style' => 'width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg)'], 'large') !!}
         @if($home['intro_badge_value'] || $home['intro_badge_label'])
         <div style="position:absolute;right:-24px;bottom:-24px;background:var(--olive-500);color:var(--text-on-olive);border-radius:var(--radius-lg);padding:22px 26px;box-shadow:var(--shadow-xl)">
           <div style="font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1">{{ $home['intro_badge_value'] }}</div>

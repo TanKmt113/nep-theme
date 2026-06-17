@@ -100,3 +100,50 @@ function nep_quote_url($product_id = 0): string
  * Số sản phẩm mỗi trang ở archive.
  */
 add_filter('loop_shop_per_page', fn () => 24);
+
+/**
+ * HIỆU SUẤT: WooCommerce nạp CSS/JS của nó trên MỌI trang (woocommerce.css ~87KB,
+ * wc-blocks.css, jQuery, sourcebuster, order-attribution…) → chặn hiển thị và
+ * kéo LCP trên các trang không dùng giỏ hàng (trang chủ, giới thiệu, liên hệ…).
+ *
+ * Gỡ các asset đó khi KHÔNG ở trang WooCommerce (shop/sản phẩm/danh mục/giỏ/checkout
+ * /tài khoản). Vì NẾP chạy chế độ "yêu cầu báo giá" (không giỏ hàng thật) nên các
+ * script cart/attribution là dư thừa ở mặt tiền.
+ */
+function nep_woo_needs_assets(): bool
+{
+    return (function_exists('is_woocommerce') && is_woocommerce())
+        || (function_exists('is_cart') && is_cart())
+        || (function_exists('is_checkout') && is_checkout())
+        || (function_exists('is_account_page') && is_account_page());
+}
+
+function nep_dequeue_woo_assets(): void
+{
+    if (! class_exists('WooCommerce') || is_admin() || nep_woo_needs_assets()) {
+        return;
+    }
+
+    foreach ([
+        'woocommerce-general', 'woocommerce-layout', 'woocommerce-smallscreen',
+        'wc-blocks-style', 'wc-blocks-vendors-style', 'wc-blocks-packages-style',
+        'brands-styles',
+    ] as $style) {
+        wp_dequeue_style($style);
+    }
+
+    foreach ([
+        'woocommerce', 'wc-cart-fragments', 'wc-add-to-cart', 'wc-blocks',
+        'sourcebuster-js', 'wc-order-attribution', 'wc-order-attribution-js',
+    ] as $script) {
+        wp_dequeue_script($script);
+    }
+}
+
+// Chạy ở wp_enqueue_scripts (gỡ asset thường) và lặp lại ở wp_print_styles
+// (bắt các style block của WooCommerce vốn enqueue muộn qua enqueue_block_assets).
+add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\nep_dequeue_woo_assets', 99);
+add_action('wp_print_styles', __NAMESPACE__ . '\\nep_dequeue_woo_assets', 100);
+// WooCommerce force-enqueue 'wc-blocks-style' ở wp_head (prio 10) cho "notices" —
+// gỡ lại ngay sau đó (prio 11) trên trang không dùng WooCommerce.
+add_action('wp_head', __NAMESPACE__ . '\\nep_dequeue_woo_assets', 11);

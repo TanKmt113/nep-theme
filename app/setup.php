@@ -226,3 +226,11 @@ add_action('init', function () {
     header('Content-Type: text/plain');
     exit('purged: ' . ($done ? implode(',', array_unique($done)) : 'NONE'));
 });
+
+/**
+ * HIỆU SUẤT: chỉ nạp CSS của một block khi block đó THỰC SỰ xuất hiện trên trang
+ * (thay vì mặc định nạp CSS mọi block ở mọi trang). Nhờ vậy `wc-blocks.css` và CSS
+ * các block lõi không còn tải ở trang chủ / trang không dùng block đó → giảm CSS
+ * chặn hiển thị.
+ */
+add_filter('should_load_separate_core_block_assets', '__return_true');

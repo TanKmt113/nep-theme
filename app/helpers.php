@@ -117,3 +117,33 @@ function page_rows(string $name, array $default, callable $map, $post_id = null)
     }
     return array_map($map, $rows);
 }
+
+/**
+ * Ảnh responsive cho hiệu suất (LCP/CLS).
+ *
+ * Nếu $url là ảnh trong Media Library → dùng wp_get_attachment_image(): tự sinh
+ * `srcset` + `sizes` (trình duyệt mobile tải bản nhỏ thay vì ảnh full) và kèm
+ * `width`/`height` (hết layout shift / forced reflow). Nếu không phải attachment
+ * (vd ảnh ngoài / Unsplash fallback) → trả <img> thường với thuộc tính truyền vào.
+ *
+ * @param  string  $url    URL ảnh (ACF return_format = URL)
+ * @param  string  $alt
+ * @param  array<string,string>  $attrs  class, style, sizes, loading, fetchpriority, decoding…
+ * @param  string  $size   kích thước ưu tiên khi là attachment
+ */
+function nep_image(string $url, string $alt = '', array $attrs = [], string $size = 'full'): string
+{
+    $attrs['alt'] = $alt;
+
+    $id = $url && function_exists('attachment_url_to_postid') ? attachment_url_to_postid($url) : 0;
+    if ($id) {
+        return wp_get_attachment_image($id, $size, false, $attrs);
+    }
+
+    // Ảnh ngoài Media Library: <img> thường (không có srcset/width/height).
+    $html = '<img src="' . esc_url($url) . '"';
+    foreach ($attrs as $k => $v) {
+        $html .= ' ' . $k . '="' . esc_attr((string) $v) . '"';
+    }
+    return $html . '>';
+}
