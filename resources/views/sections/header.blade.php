@@ -31,6 +31,9 @@
 
     {{-- Desktop hotline + CTA --}}
     <div class="nep-desktop-only" style="display:flex;align-items:center;justify-content:flex-end;gap:16px;flex:1">
+      <button class="nep-search-toggle" aria-label="Tìm kiếm" aria-expanded="false" type="button">
+        <x-icon name="search" :size="20" />
+      </button>
       <a href="{{ nep_tel($hotline) }}" class="nep-header__tel" style="display:flex;align-items:center;gap:8px;font-size:var(--text-sm);font-weight:700;white-space:nowrap">
         <x-icon name="phone" :size="16" color="var(--brand)" /> {{ $hotline }}
       </a>
@@ -43,8 +46,16 @@
     </button>
   </x-container>
 
+  {{-- Desktop search overlay (slide-down) --}}
+  <div class="nep-search-panel" hidden>
+    <x-container>
+      <x-search-form :autofocus="true" />
+    </x-container>
+  </div>
+
   {{-- Mobile dropdown panel --}}
   <div class="nep-menu-panel" hidden>
+    <x-search-form class="nep-menu-panel__search" />
     <nav class="nep-menu-panel__nav">
       @if(has_nav_menu('primary_navigation'))
         {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'echo' => false, 'container' => false, 'menu_class' => 'nep-menu-panel__list', 'fallback_cb' => false]) !!}

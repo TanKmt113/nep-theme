@@ -51,6 +51,7 @@
   [style*="grid-template-columns:1fr 1.4fr"],
   [style*="grid-template-columns:1.1fr 1fr"],
   [style*="grid-template-columns:1.5fr 1fr"],
+  [style*="grid-template-columns:1.6fr 1fr"],
   [style*="grid-template-columns:2fr 1fr"] {
     grid-template-columns: 1fr !important;
   }
@@ -77,6 +78,12 @@
   }
   /* Button rows / toolbars that would overflow */
   .nep-wrap { flex-wrap: wrap !important; }
+
+  /* Teaser (Xưởng thêu): giảm padding nội dung kẻo nút nowrap tràn khỏi thẻ */
+  .nep-teaser > div:first-child { padding: var(--space-8) var(--space-5) !important; }
+
+  /* Badge "4.9/5" của khối giới thiệu thò -24px ra ngoài → kéo tràn ngang trên mobile */
+  [style*="right:-24px;bottom:-24px"] { right: 16px !important; bottom: 16px !important; }
 }
 
 /* ============================================================
@@ -92,9 +99,12 @@
   /* Footer legal line: stack the two halves */
   footer [style*="justify-content:space-between"][style*="padding-top:var(--space-6)"] {
     flex-direction: column !important;
+    align-items: center;
     gap: 8px;
     text-align: center;
   }
+  /* Cụm link Chính sách · Điều khoản là flex con → căn giữa nội dung của nó */
+  footer [style*="justify-content:space-between"][style*="padding-top:var(--space-6)"] > span { justify-content: center; }
   /* Hero credibility stats wrap instead of overflowing */
   [style*="gap:48px"] { flex-wrap: wrap !important; gap: var(--space-6) !important; }
 }

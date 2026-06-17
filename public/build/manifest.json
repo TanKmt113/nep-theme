@@ -4,7 +4,7 @@
     "src": "node_modules/pdfjs-dist/build/pdf.worker.min.mjs"
   },
   "resources/css/app.css": {
-    "file": "assets/app-B9DkYN4v.css",
+    "file": "assets/app-DYnF3R9w.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -129,16 +129,17 @@
     "src": "resources/fonts/manrope-normal-400-vietnamese.woff2"
   },
   "resources/js/app.js": {
-    "file": "assets/app-BdCo8n79.js",
+    "file": "assets/app-DRWe5tw4.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
+      "resources/js/lightbox.js",
       "resources/js/flipbook.js"
     ],
     "css": [
       "assets/app-BHcSP5WY.css",
-      "assets/app-B9DkYN4v.css"
+      "assets/app-DYnF3R9w.css"
     ],
     "assets": [
       "assets/cormorant-garamond-italic-400-vietnamese-1M78L1Br.woff2",
@@ -160,5 +161,11 @@
     "assets": [
       "assets/pdf.worker.min-CrMmvqMo.mjs"
     ]
+  },
+  "resources/js/lightbox.js": {
+    "file": "assets/lightbox-eJwkInoU.js",
+    "name": "lightbox",
+    "src": "resources/js/lightbox.js",
+    "isDynamicEntry": true
   }
 }

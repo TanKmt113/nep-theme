@@ -8,6 +8,7 @@ import '../css/app.css'
 import { initAnimations } from './animations'
 import { initProjectSliders } from './sliders'
 import { initCountUp } from './countup'
+import { initSearchSuggest } from './search-suggest'
 
 const onReady = (fn) =>
   document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn)
@@ -19,7 +20,17 @@ onReady(() => {
   // Count-up cho con số thống kê (x-stat).
   initCountUp()
 
+  // Gợi ý tìm kiếm realtime (mọi ô .nep-search-box).
+  initSearchSuggest()
+
   // Icons giờ là inline SVG render sẵn từ PHP (app/icons.php) — không cần JS.
+
+  // Lightbox thư viện ảnh — nạp lazy, chỉ khi trang có [data-lightbox].
+  if (document.querySelector('[data-lightbox]')) {
+    import('./lightbox')
+      .then((m) => m.initLightbox())
+      .catch((e) => console.error('[NẾP] lightbox load failed:', e))
+  }
 
   // GSAP entrance + scroll animations (https://gsap.com). Runs before the
   // header early-return below so it works on pages without a header too.
@@ -49,6 +60,22 @@ onReady(() => {
       burger.setAttribute('aria-expanded', String(open))
       burger.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu')
     })
+    // Submenu con: chèn nút caret để mở/đóng từng nhánh trên mobile.
+    panel.querySelectorAll('.menu-item-has-children').forEach((li) => {
+      const toggle = document.createElement('button')
+      toggle.type = 'button'
+      toggle.className = 'nep-submenu-toggle'
+      toggle.setAttribute('aria-label', 'Mở menu con')
+      toggle.setAttribute('aria-expanded', 'false')
+      li.appendChild(toggle)
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const open = li.classList.toggle('is-expanded')
+        toggle.setAttribute('aria-expanded', String(open))
+        toggle.setAttribute('aria-label', open ? 'Đóng menu con' : 'Mở menu con')
+      })
+    })
     // Close panel when a link is tapped.
     panel.querySelectorAll('a').forEach((a) =>
       a.addEventListener('click', () => {
@@ -56,5 +83,25 @@ onReady(() => {
         panel.hidden = true
       })
     )
+  }
+
+  // 3. Search overlay (desktop) — bật/tắt + focus ô nhập.
+  const searchToggle = header.querySelector('.nep-search-toggle')
+  const searchPanel = header.querySelector('.nep-search-panel')
+  if (searchToggle && searchPanel) {
+    const setSearch = (open) => {
+      searchPanel.hidden = !open
+      searchToggle.setAttribute('aria-expanded', String(open))
+      if (open) searchPanel.querySelector('[data-search-autofocus]')?.focus()
+    }
+    searchToggle.addEventListener('click', () => setSearch(searchPanel.hidden))
+    // Đóng khi nhấn Esc hoặc click ra ngoài.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !searchPanel.hidden) setSearch(false)
+    })
+    document.addEventListener('click', (e) => {
+      if (!searchPanel.hidden && !searchPanel.contains(e.target) && !searchToggle.contains(e.target))
+        setSearch(false)
+    })
   }
 })
